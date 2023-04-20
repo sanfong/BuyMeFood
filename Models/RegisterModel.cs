@@ -10,7 +10,7 @@ namespace BuyMeFood.Models
         [MinLength(6)]
         public string? Password { get; set; }
         [Required]
-        [Compare("Password")]
+        [Compare(nameof(Password))]
         public string? ConfirmPassword { get; set; }
         [Required]
         public string? Name { get; set; }

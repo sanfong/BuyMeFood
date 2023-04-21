@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace BuyMeFood.Models
 {
     public class RegisterModel
     {
         [Required]
+        [UniqueUsername]
         public string? Username { get; set; }
         [Required]
         [MinLength(6)]

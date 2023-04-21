@@ -8,8 +8,7 @@
         public string? Name { get; set; }
         public string? FullName { get; set; }
         public string? PhoneNumber { get; set; }
-        public int BuyerCredit { get; set; } = 0;
-        public int CustomerCredit { get; set; } = 0;
+        public string? Image { get; set; }
 
         public UserDTO(User user)
         {
@@ -18,8 +17,11 @@
             Name = user.Name;
             FullName = user.FullName;
             PhoneNumber = user.PhoneNumber;
-            BuyerCredit = user.BuyerCredit;
-            CustomerCredit = user.CustomerCredit;
+            Image = user.Image;
+        }
+
+        public UserDTO()
+        {
         }
 
         public static explicit operator UserDTO(User user)

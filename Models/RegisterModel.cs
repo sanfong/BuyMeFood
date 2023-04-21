@@ -21,5 +21,7 @@ namespace BuyMeFood.Models
         [Required]
         [Phone]
         public string? PhoneNumber { get; set; }
+
+        public string? Image { get; set; }
     }
 }

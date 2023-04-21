@@ -18,8 +18,8 @@ namespace BuyMeFood.Models
         [Required]
         [Phone]
         public string? PhoneNumber { get; set; }
-        public int BuyerCredit { get; set; } = 0;
-        public int CustomerCredit { get; set; } = 0;
+
+        public string? Image { get; set; }
 
         public User() { }
 
@@ -30,6 +30,7 @@ namespace BuyMeFood.Models
             Name = register.Name;
             FullName = register.FullName;
             PhoneNumber = register.PhoneNumber;
+            Image = register.Image;
         }
     }
 }

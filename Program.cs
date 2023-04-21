@@ -1,8 +1,6 @@
 using BuyMeFood.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);  
 
@@ -13,19 +11,13 @@ builder.Services.AddDbContext<AppDBContext>(
     // options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
     options => options.UseInMemoryDatabase("UserDB")
 );
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
-{
-    opt.TokenValidationParameters = new TokenValidationParameters
+// The server sends the cookie along with the response, the browser stores it and sends it along with any request to the domain of this cookie.
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(opt =>
     {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? ""))
-    };
-});
+        opt.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+        opt.SlidingExpiration = true;
+    });
 builder.Services.AddAuthorization();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

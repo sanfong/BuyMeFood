@@ -22,7 +22,7 @@ namespace BuyMeFood.Controllers
         }
 
         [Authorize]
-        [HttpGet]
+        [HttpGet] // "/account"
         public UserDTO Get()
         {
             var user = new UserDTO()
@@ -38,14 +38,14 @@ namespace BuyMeFood.Controllers
         }
 
         [HttpGet]
-        [Route("select")]
+        [Route("select")] // "/account/select?id=1&id=2"
         public IEnumerable<UserDTO> Get([FromQuery] int[] id)
         {
             return _context.Users.Where(u => id.Contains(u.Id)).Cast<UserDTO>();
         }
 
         [HttpPost]
-        [Route("register")]
+        [Route("register")] // "/account/register"
         public IActionResult Register(RegisterModel model)
         {
             var newUser = new User(model);
@@ -65,6 +65,47 @@ namespace BuyMeFood.Controllers
                 return BadRequest(ModelState);
             }
 
+            CookieSignInAsync(user);
+
+            _logger.LogInformation("{User} logged in at {Time}.", user.Username, DateTimeOffset.Now);
+
+            return Ok((UserDTO)user);
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("logout")] // "/account/logout"
+        public async Task<IActionResult> LogoutAsync()
+        {
+            // Clear the existing external cookie
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            string username = HttpContext.User.Claims.First(c => c.Type == "Username").Value;
+            _logger.LogInformation("{User} logged out at {Time}.", username, DateTimeOffset.Now);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("edit")]
+        public IActionResult EditProfile(User editUser)
+        {
+            int userId = int.Parse(HttpContext.User.Claims.First(c => c.Type == "Id").Value);
+            if (userId != editUser.Id)
+            {
+                return BadRequest();
+            }
+            _context.Users.Update(editUser);
+            _context.SaveChanges();
+
+            CookieSignInAsync(editUser);
+
+            _logger.LogInformation("{User} edited info at {Time}.", editUser.Username, DateTimeOffset.Now);
+
+            return Ok(editUser);
+        }
+
+        private async void CookieSignInAsync(User user)
+        {
             var claims = new List<Claim> {
                 new Claim("Id", user.Id.ToString()),
                 new Claim("Username", user.Username!),
@@ -85,20 +126,6 @@ namespace BuyMeFood.Controllers
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity), authProperties);
-
-            _logger.LogInformation("{User} logged in at {Time}.", user.Username, DateTimeOffset.Now);
-
-            return Ok((UserDTO)user);
-        }
-
-        [HttpGet]
-        [Authorize]
-        [Route("logout")]
-        public async Task<IActionResult> LogoutAsync()
-        {
-            // Clear the existing external cookie
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return Ok();
         }
     }
 }

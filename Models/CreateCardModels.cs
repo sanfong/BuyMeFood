@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace BuyMeFood.Models
 {
-    public class CardPropertiesModel
+    public class CreateCardModels
     {
-        [Key]
-        public int CardID { get; set; }
         [Required]
         public int OwnerID { get; set; }
         [Required]
@@ -22,11 +21,5 @@ namespace BuyMeFood.Models
 
         public string? description { get; set; }
 
-        public bool isExpired { get; set; }
-
-        public CardPropertiesModel(CreateCardModels CreateModel) 
-        {
-
-        }
     }
 }

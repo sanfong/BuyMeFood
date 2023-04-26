@@ -6,9 +6,7 @@ namespace BuyMeFood.Models
     public class CreateCardModels
     {
         [Required]
-        public int OwnerID { get; set; }
-        [Required]
-        public string? loactionName { get; set; }
+        public string? LoactionName { get; set; }
         [Required]
         public string? StoreName { get; set; }
 
@@ -17,9 +15,9 @@ namespace BuyMeFood.Models
 
         public string? Image { get; set; }
 
-        public string? MaxOrder { get; set; } // default = 3
+        public int MaxOrder { get; set; } // default = 3
 
-        public string? description { get; set; }
+        public string? Description { get; set; }
 
     }
 }

@@ -8,6 +8,7 @@ const context = [
   "/Account",
   "/swagger",
   "/weatherforecast",
+  "/Card",
 ];
 
 const onError = (err, req, resp, target) => {

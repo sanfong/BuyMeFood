@@ -30,23 +30,31 @@ namespace BuyMeFood.Controllers
         }
         [HttpGet]
         [Route("select")]
-        public IEnumerable<CardPropertiesModel> Get([FromQuery] int[] id)
+        public IEnumerable<CardPropertiesModel> Get([FromQuery] int id)
         {
-            return _context.CardProperties.Where(card => id.Contains(card.CardID));
+            return _context.CardProperties.Where(card => card.CardID == id);
         }
 
         [HttpGet]
         [Route("selectFromUser")]
-        public IEnumerable<CardPropertiesModel> GetFormUser([FromQuery] int[] id)
+        public IEnumerable<CardPropertiesModel> GetFormUser([FromQuery] int id)
         {
-            return _context.CardProperties.Where(card => id.Contains(card.OwnerID));
+            return _context.CardProperties.Where(card => card.OwnerID == id);
+        }
+        [HttpGet]
+        [Route("GetOwnerCard")]
+        public IEnumerable<CardPropertiesModel> GetOwnerCard()
+        {
+            return _context.CardProperties.Where(card => card.OwnerID == int.Parse(HttpContext.User.Claims.First(c => c.Type == "Id").Value));
         }
 
         [HttpGet]
         [Route("GetNotExpired")]
-        public IEnumerable<CardPropertiesModel> GetNotExpired([FromQuery] int[] id)
+        public IEnumerable<CardPropertiesModel> GetNotExpired()
         {
             return _context.CardProperties.Where(card => card.IsExpired == false);
         }
+
+
     }
 }

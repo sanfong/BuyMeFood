@@ -11,6 +11,8 @@ namespace BuyMeFood.Models
 
         public DbSet<User> Users { get; set; }
         public DbSet<CardPropertiesModel> CardProperties { get; set; }
+
+        public DbSet<OrderProperties> OrderProp { get; set; }
     }
 }
 

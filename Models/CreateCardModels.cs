@@ -19,5 +19,7 @@ namespace BuyMeFood.Models
 
         public string? Description { get; set; }
 
+        public DateTime ExpiredTime { get; set; }
+
     }
 }

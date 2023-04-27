@@ -19,7 +19,7 @@ namespace BuyMeFood.Controllers
         }
         [Authorize]
         [HttpPost]
-        [Route("create")]
+        [Route("createCard")]
         public IActionResult Create(CreateCardModels model)
         {
             CardPropertiesModel newCard = new CardPropertiesModel(model, int.Parse(HttpContext.User.Claims.First(c => c.Type == "Id").Value));
@@ -55,6 +55,29 @@ namespace BuyMeFood.Controllers
             return _context.CardProperties.Where(card => card.IsExpired == false);
         }
 
+        [Authorize]
+        [HttpPost]
+        [Route("createOrder")]
+        public IActionResult CreateOrder(string storeName,string description,int cardID)
+        {
+            if(_context.CardProperties.FirstOrDefault(card => card.CardID == cardID) == null ) { return BadRequest(); }
+            _context.OrderProp.Add(new OrderProperties(cardID, int.Parse(HttpContext.User.Claims.First(c => c.Type == "Id").Value), storeName, description));
+            _context.SaveChanges();
+            return Ok();
+            //OrderModel order = new OrderModel(int.Parse(HttpContext.User.Claims.First(c => c.Type == "Id").Value), storeName, description);
+            //CardPropertiesModel.Order orderTemp = new CardPropertiesModel.Order(int.Parse(HttpContext.User.Claims.First(c => c.Type == "Id").Value), storeName, description);
+            //CardPropertiesModel cardProperties = _context.CardProperties.FirstOrDefault(card => card.CardID == cardID);
+            //cardProperties.OrderList.Add(orderTemp);
+            //_context.CardProperties.Update(cardProperties);
+            //_context.SaveChanges();
+        }
+
+        [HttpGet]
+        [Route("GetOrder")]
+        public IEnumerable<OrderProperties> GetOrder(int cardID)
+        {
+            return _context.OrderProp.Where(order => order.CardID == cardID);
+        }
 
     }
 }

@@ -18,6 +18,8 @@ namespace BuyMeFood.Models
 
         public int MaxOrder { get; set; } // default = 3
 
+        public int OrderCount { get; set; }
+
         public string? Description { get; set; }
 
         public bool IsExpired { get; set; }
@@ -61,6 +63,7 @@ namespace BuyMeFood.Models
             DateTime now = DateTime.Now;
             ExpiredTime = new DateTime(now.Year, now.Month, now.Day, CreateModel.ExprTimeHour, CreateModel.ExprTimeMinute, 0);
             Timestamp = DateTime.Now;
+            OrderCount = 0;
         }
 
         public void testfunction() 

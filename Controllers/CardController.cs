@@ -22,6 +22,7 @@ namespace BuyMeFood.Controllers
         [Route("createCard")]
         public IActionResult Create(CreateCardModels model)
         {
+            if(model.ExprTimeHour < 0 || model.ExprTimeHour >= 24 || model.ExprTimeMinute < 0 || model.ExprTimeHour >= 60) { return BadRequest(); }
             CardPropertiesModel newCard = new CardPropertiesModel(model, int.Parse(HttpContext.User.Claims.First(c => c.Type == "Id").Value));
             //_context.CardProperties.Where(card=>card.isExpired == false).ToList();
             _context.CardProperties.Add(newCard);
@@ -52,6 +53,17 @@ namespace BuyMeFood.Controllers
         [Route("GetNotExpired")]
         public IEnumerable<CardPropertiesModel> GetNotExpired()
         {
+            List<CardPropertiesModel> cardList = _context.CardProperties.Where(card => card.IsExpired == false).ToList<CardPropertiesModel>();
+            for (int i = 0; i < cardList.Count(); i++) 
+            {
+                if (DateTime.Compare(cardList[i].ExpiredTime,DateTime.Now) < 0) 
+                {
+                    cardList[i].IsExpired = true;
+                    _context.CardProperties.Update(cardList[i]);
+                    _context.SaveChanges();
+                }
+            }
+            //_context.CardProperties.Where(card => card.IsExpired == false).ToList().Count();
             return _context.CardProperties.Where(card => card.IsExpired == false);
         }
 

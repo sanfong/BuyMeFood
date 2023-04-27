@@ -14,10 +14,6 @@ namespace BuyMeFood.Models
         public string? LoactionName { get; set; }
         [Required]
         public string? StoreName { get; set; }
-
-        [Required]
-        public string? ExprTime { get; set; }
-
         public string? Image { get; set; }
 
         public int MaxOrder { get; set; } // default = 3
@@ -58,11 +54,12 @@ namespace BuyMeFood.Models
             OwnerID = Owner;
             LoactionName = CreateModel.LoactionName;
             StoreName = CreateModel.StoreName;
-            ExprTime = CreateModel.ExprTime;
             Image = CreateModel.Image;
             MaxOrder = (CreateModel.MaxOrder <= 0) ? 3 : CreateModel.MaxOrder;
             Description = CreateModel.Description ?? "None";
             IsExpired = false;
+            DateTime now = DateTime.Now;
+            ExpiredTime = new DateTime(now.Year, now.Month, now.Day, CreateModel.ExprTimeHour, CreateModel.ExprTimeMinute, 0);
             Timestamp = DateTime.Now;
         }
 

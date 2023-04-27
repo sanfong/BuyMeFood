@@ -2,6 +2,7 @@
 using BuyMeFood.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using System;
 
 namespace BuyMeFood.Controllers
 {
@@ -72,9 +73,16 @@ namespace BuyMeFood.Controllers
         [Route("createOrder")]
         public IActionResult CreateOrder(string storeName,string description,int cardID)
         {
-            if(_context.CardProperties.FirstOrDefault(card => card.CardID == cardID) == null) { return BadRequest(); }
             CardPropertiesModel cardProperties = _context.CardProperties.FirstOrDefault(card => card.CardID == cardID);
-            if (cardProperties.OrderCount >= cardProperties.MaxOrder) { return BadRequest(); };
+            if (cardProperties == null) { return BadRequest(); }
+            if (cardProperties.OrderCount >= cardProperties.MaxOrder || cardProperties.IsExpired) { return BadRequest(); };
+            if (DateTime.Compare(cardProperties.ExpiredTime, DateTime.Now) < 0)
+            {
+                cardProperties.IsExpired = true;
+                _context.CardProperties.Update(cardProperties);
+                _context.SaveChanges();
+                return BadRequest();
+            }
             _context.OrderProp.Add(new OrderProperties(cardID, int.Parse(HttpContext.User.Claims.First(c => c.Type == "Id").Value), storeName, description));
             cardProperties.OrderCount++;
             _context.CardProperties.Update(cardProperties);

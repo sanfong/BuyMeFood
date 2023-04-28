@@ -39,7 +39,7 @@ namespace BuyMeFood.Controllers
             CardPropertiesModel card = _context.CardProperties.FirstOrDefault(card => card.CardID == cardID);
             if (card == null) { return BadRequest(); }
             if (card.OwnerID != ownerid) { return BadRequest(); }
-            card.IsComplete = true;
+            card.IsExpired = true;
             _context.CardProperties.Update(card);
             _context.SaveChanges();
             //_context.CardProperties.Remove(card);

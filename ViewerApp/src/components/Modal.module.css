@@ -27,6 +27,14 @@
     }
 }
 
+@media (max-width: 480px) {
+    .modal {
+        width: 100%;
+        left: 0px;
+        top: calc(50% - 26.15rem);
+    }
+}
+
 @keyframes slide-down {
     from {
         opacity: 0;

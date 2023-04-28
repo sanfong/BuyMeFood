@@ -30,6 +30,21 @@ namespace BuyMeFood.Controllers
             _context.SaveChanges();
             return CreatedAtAction(null,null);
         }
+        [Authorize]
+        [HttpPost]
+        [Route("closeCard")]
+        public IActionResult CloseCard(int cardID)
+        {
+            int ownerid = int.Parse(HttpContext.User.Claims.First(c => c.Type == "Id").Value);
+            CardPropertiesModel card = _context.CardProperties.FirstOrDefault(card => card.CardID == cardID);
+            if (card == null) { return BadRequest(); }
+            if (card.OwnerID != ownerid) { return BadRequest(); }
+            card.IsComplete = true;
+            _context.CardProperties.Update(card);
+            _context.SaveChanges();
+            //_context.CardProperties.Remove(card);
+            return Ok();
+        }
         [HttpGet]
         [Route("select")]
         public IEnumerable<CardPropertiesModel> Get([FromQuery] int id)
@@ -43,18 +58,37 @@ namespace BuyMeFood.Controllers
         {
             return _context.CardProperties.Where(card => card.OwnerID == id);
         }
+        [Authorize]
         [HttpGet]
         [Route("GetOwnerCard")]
         public IEnumerable<CardPropertiesModel> GetOwnerCard()
         {
-            return _context.CardProperties.Where(card => card.OwnerID == int.Parse(HttpContext.User.Claims.First(c => c.Type == "Id").Value));
+            int ownerid = int.Parse(HttpContext.User.Claims.First(c => c.Type == "Id").Value);
+            List<CardPropertiesModel> cardList = _context.CardProperties.Where(card => card.OwnerID == ownerid).ToList<CardPropertiesModel>();
+            for (int i=0;i < cardList.Count(); i++) 
+            {
+                if (DateTime.Compare(cardList[i].ExpiredTime, DateTime.Now) < 0)
+                {
+                    cardList[i].IsExpired = true;
+                    _context.CardProperties.Update(cardList[i]);
+                    _context.SaveChanges();
+                }
+                cardList[i].CompleteOrder = CheckCompleteOrder(cardList[i].CardID);
+                if ((cardList[i].IsExpired && cardList[i].OrderCount <= cardList[i].CompleteOrder) || cardList[i].MaxOrder <= cardList[i].CompleteOrder) 
+                {
+                    cardList[i].IsComplete = true;
+                    _context.CardProperties.Update(cardList[i]);
+                    _context.SaveChanges();
+                }
+            }
+            return _context.CardProperties.Where(card => card.OwnerID == ownerid && !card.IsComplete);
         }
 
         [HttpGet]
         [Route("GetNotExpired")]
         public IEnumerable<CardPropertiesModel> GetNotExpired()
         {
-            List<CardPropertiesModel> cardList = _context.CardProperties.Where(card => card.IsExpired == false).ToList<CardPropertiesModel>();
+            List<CardPropertiesModel> cardList = _context.CardProperties.Where(card => (card.IsExpired == false && card.IsComplete == false)).ToList<CardPropertiesModel>();
             for (int i = 0; i < cardList.Count(); i++) 
             {
                 if (DateTime.Compare(cardList[i].ExpiredTime,DateTime.Now) < 0) 
@@ -63,9 +97,16 @@ namespace BuyMeFood.Controllers
                     _context.CardProperties.Update(cardList[i]);
                     _context.SaveChanges();
                 }
+                cardList[i].CompleteOrder = CheckCompleteOrder(cardList[i].CardID);
+                if ((cardList[i].IsExpired && cardList[i].OrderCount <= cardList[i].CompleteOrder) || cardList[i].MaxOrder <= cardList[i].CompleteOrder)
+                {
+                    cardList[i].IsComplete = true;
+                    _context.CardProperties.Update(cardList[i]);
+                    _context.SaveChanges();
+                }
             }
             //_context.CardProperties.Where(card => card.IsExpired == false).ToList().Count();
-            return _context.CardProperties.Where(card => card.IsExpired == false);
+            return _context.CardProperties.Where(card => card.IsExpired == false && card.IsComplete == false);
         }
 
         [Authorize]
@@ -96,11 +137,47 @@ namespace BuyMeFood.Controllers
             //_context.SaveChanges();
         }
 
+        [Authorize]
+        [HttpPost]
+        [Route("submitOrder")]
+        public IActionResult submitOrder(int orderID)
+        {
+
+            OrderProperties order = _context.OrderProp.FirstOrDefault(order => order.OrderID == orderID);
+            int ownerid = int.Parse(HttpContext.User.Claims.First(c => c.Type == "Id").Value);
+            if (order.OwnerID != ownerid) { return BadRequest(); }
+            order.IsComplete = true;
+            _context.OrderProp.Update(order);
+            _context.SaveChanges();
+            return Ok();
+        }
+
         [HttpGet]
-        [Route("GetOrder")]
-        public IEnumerable<OrderProperties> GetOrder(int cardID)
+        [Route("GetCardOrder")]
+        public IEnumerable<OrderProperties> GetCardOrder(int cardID)
         {
             return _context.OrderProp.Where(order => order.CardID == cardID);
+        }
+
+        [HttpGet]
+        [Route("GetOwnerOrder")]
+        public IEnumerable<OrderProperties> GetOwnerOrder()
+        {
+            int ownerid = int.Parse(HttpContext.User.Claims.First(c => c.Type == "Id").Value);
+            return _context.OrderProp.Where(order => order.OwnerID == ownerid);
+        }
+
+        private int CheckCompleteOrder(int cardID) 
+        {
+            CardPropertiesModel cardProperties = _context.CardProperties.FirstOrDefault(card => card.CardID == cardID);
+            if (cardProperties == null) { return -1; }
+            List<OrderProperties> OrderList = _context.OrderProp.Where(order => order.CardID == cardID).ToList<OrderProperties>();
+            int NiceNum = 0;
+            for(int i = 0; i < OrderList.Count(); i++) 
+            {
+                if (OrderList[i].IsComplete) { NiceNum++; }
+            }
+            return NiceNum;
         }
 
     }

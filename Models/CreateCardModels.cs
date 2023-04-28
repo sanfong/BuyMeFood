@@ -6,9 +6,9 @@ namespace BuyMeFood.Models
     public class CreateCardModels
     {
         [Required]
-        public string? LoactionName { get; set; }
+        public string? LoactionStoreName { get; set; }
         [Required]
-        public string? StoreName { get; set; }
+        public string? LocationPickupName { get; set; }
         [Required]
         public int ExprTimeHour { get; set; }
         public int ExprTimeMinute { get; set; }

@@ -17,12 +17,15 @@ namespace BuyMeFood.Models
 
         public string? Description { get; set; }
 
+        public bool IsComplete { get; set; }
+
         public OrderProperties(int cardID,int userID, string storeID, string description)
         {
             this.CardID = cardID;
             this.OwnerID = userID;
             this.StoreName = storeID;
             this.Description = description;
+            this.IsComplete = false;
         }
         public OrderProperties(){}
     }

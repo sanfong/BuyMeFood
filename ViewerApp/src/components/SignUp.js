@@ -3,6 +3,7 @@ import './Login.css'
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
+// npm install axios
 const SignUp = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');

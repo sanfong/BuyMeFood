@@ -1,22 +1,30 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useRef, useState } from 'react';
 import './Login.css'
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import axios from 'axios'
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
 
-        // check if username and password are valid
-        if (username === 'myusername' && password === 'mypassword') {
-            // successful login, redirect to dashboard or home page
-            console.log('Successful login');
-        } else {
-            setError('Invalid username or password');
+    const handleSubmit = async (event) => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        event.preventDefault();
+        const data = {
+            username: username,
+            password: password
         }
+        const formdata = JSON.stringify(data)
+
+        const response = await axios.post('/Account/login', formdata,config)
+        console.log(response)  
+        
     };
 
     return (

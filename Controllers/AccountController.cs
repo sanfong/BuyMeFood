@@ -31,8 +31,7 @@ namespace BuyMeFood.Controllers
                 Username = HttpContext.User.Claims.First(c => c.Type == "Username").Value,
                 Name = HttpContext.User.Claims.First(c => c.Type == "Name").Value,
                 FullName = HttpContext.User.Claims.First(c => c.Type == "FullName").Value,
-                PhoneNumber = HttpContext.User.Claims.First(c => c.Type == "PhoneNumber").Value,
-                Image = HttpContext.User.Claims.First(c => c.Type == "Image").Value
+                PhoneNumber = HttpContext.User.Claims.First(c => c.Type == "PhoneNumber").Value
             };
             return user;
         }
@@ -111,8 +110,7 @@ namespace BuyMeFood.Controllers
                 new Claim("Username", user.Username!),
                 new Claim("Name", user.Name!),
                 new Claim("FullName", user.FullName!),
-                new Claim("PhoneNumber", user.PhoneNumber!),
-                new Claim("Image", user.Image ?? "")
+                new Claim("PhoneNumber", user.PhoneNumber!)
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

@@ -7,6 +7,7 @@ const PopUp = (props) => {
     const [displayStatus, setDisplayStatus] = useState(false)
     const nameRef = useRef()
     const descRef = useRef()
+    const closeOrder = () => { }
     const SubmitForm = () => {
         if (displayForm) {
             if (nameRef.current.value.trim() !== '' && descRef.current.value.trim() !== '') {
@@ -34,6 +35,7 @@ const PopUp = (props) => {
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}  >
                     <h1 className="card-title"> <strong>{props.item.place}</strong></h1>
                     <h1 style={{ color: props.isFull && 'red' }}>จำนวนที่รับ: {props.item.current_amount}/{props.item.order_amount}</h1>
+                    
 
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}  >
@@ -42,8 +44,11 @@ const PopUp = (props) => {
                         <p style={{ fontSize: '16px', marginBottom: '0'}}>{props.isFull ? 'close' : 'open'}</p>
                     </div>
                 </div>
-
-                <h4 >เวลาปิดรับออเดอร์ : {props.item.period}</h4>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <h4 >เวลาปิดรับออเดอร์ : {props.item.period}</h4>
+                    <button className="btn btn-success col-2 col-md-2 col-lg-2" onClick={closeOrder}>ปิดรับ</button>
+                </div>
+                
                 <h4 >สถานที่รับอาหาร : {props.item.takeplace}</h4>
                 <h4>Note : {!existNote && '-' }</h4>
                 {existNote && <div style={{ border: '1px solid gray', height: '100px', padding: '10px', borderRadius: '7px' }} >

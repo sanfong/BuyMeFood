@@ -6,46 +6,42 @@ import axios from 'axios'
 const SignUp = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [name, setName] = useState('')
+    const [fullName, setfullName] = useState('')
+    const [phone, setPhone] = useState('')
     const [error, setError] = useState('');
     const [image, setImage] = useState(null);
-    const UserNameRef = useRef()
-    const PasswordRef = useRef()
-    const ConfirmPasswordRef = useRef()
-    const NameRef = useRef()
-    const FullNameRef = useRef()
-    const PhoneRef = useRef()
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = {
-            username: UserNameRef.current.value,
-            password: PasswordRef.current.value,
-            confirmPassword: PasswordRef.current.value,
-            name: NameRef.current.value,
-            fullName: FullNameRef.current.value,
-            phoneNumber: PhoneRef.current.value,
-            image: image
+            username: username,
+            password: password,
+            confirmPassword: confirmPassword,
+            name: name,
+            fullName: fullName,
+            phoneNumber: phone,
+            image:image
 
-        }
-        const datademo = {
-            "username": "strsdsdfgsdfgfgisdfgng",
-            "password": "string",
-            "confirmPassword": "string",
-            "name": "string",
-            "fullName": "string",
-            "phoneNumber": "1234345",
-            "image": "string"
         }
         console.log(data)
-        const response = await fetch('/Account/select?id=0')
-
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        const formdata = JSON.stringify(data)
+        const response = await axios.post('/Account/register', formdata,config)
         console.log(response)
-        
+        if (response.status === 201) {
+     
+
+        }
     };
     const handleFileInputChange = (e) => {
         convertImageToBase64(e.target.files[0], (base) => { setImage(base) })
-
-        
     };
     function convertImageToBase64(file, callback) {
         var reader = new FileReader();
@@ -82,7 +78,8 @@ const SignUp = () => {
                         <input className="input"
                             type="text"
                             placeholder=""
-                            ref={UserNameRef}
+                            value={username}
+                            onChange={(e) => { setUsername(e.target.value) }}
                         />
 
                     </div>
@@ -93,7 +90,8 @@ const SignUp = () => {
                             type="password"
                             className="input"
                             placeholder=""
-                            ref={PasswordRef}
+                            value={password}
+                            onChange={(e) => { setPassword(e.target.value) }}
                         />
                     </div>
                     <div>
@@ -102,7 +100,8 @@ const SignUp = () => {
                             type="password"
                             className="input"
                             placeholder=""
-                            ref={ConfirmPasswordRef}
+                            value={confirmPassword}
+                            onChange={(e) => { setConfirmPassword(e.target.value) }}
                         />
                     </div>
                     <div>
@@ -111,7 +110,8 @@ const SignUp = () => {
                             type="text"
                             className="input"
                             placeholder=""
-                            ref={NameRef}
+                            value={name}
+                            onChange={(e) => { setName(e.target.value) }}
                         />
                     </div>
                     <div>
@@ -120,7 +120,8 @@ const SignUp = () => {
                             type="text"
                             className="input"
                             placeholder=""
-                            ref={FullNameRef}
+                            value={fullName}
+                            onChange={(e) => { setfullName(e.target.value) }}
                         />
                     </div>
                     <div>
@@ -128,12 +129,13 @@ const SignUp = () => {
                         <input
                             type="tel"
                             className="input"
-                            ref={PhoneRef}
+                            value={phone}
+                            onChange={(e) => { setPhone(e.target.value) }}
                         />
                     </div>
                     <div>
                         <div>Image</div>
-                        <input type="file" accept="image/*" onChange={handleFileInputChange} />
+                        <input type="file" accept="image/*"  onChange={handleFileInputChange} />
                     </div>
 
 

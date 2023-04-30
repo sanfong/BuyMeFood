@@ -4,7 +4,6 @@ import  Home  from "./components/Home";
 import Profile from "./components/Profile";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
-import NewLogin from "./components/NewLogin";
 
 const AppRoutes = [
     {

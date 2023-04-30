@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 
 namespace BuyMeFood.Controllers
@@ -23,17 +24,14 @@ namespace BuyMeFood.Controllers
 
         [Authorize]
         [HttpGet] // "/account"
-        public UserDTO Get()
+        public IActionResult Get()
         {
-            var user = new UserDTO()
+            var user = _context.Users.Find(int.Parse(HttpContext.User.Claims.First(c => c.Type == "Id").Value));
+            if (user == null)
             {
-                Id = int.Parse(HttpContext.User.Claims.First(c => c.Type == "Id").Value),
-                Username = HttpContext.User.Claims.First(c => c.Type == "Username").Value,
-                Name = HttpContext.User.Claims.First(c => c.Type == "Name").Value,
-                FullName = HttpContext.User.Claims.First(c => c.Type == "FullName").Value,
-                PhoneNumber = HttpContext.User.Claims.First(c => c.Type == "PhoneNumber").Value
-            };
-            return user;
+                return Unauthorized("Authorized user not found.");
+            }
+            return Ok((UserDTO)user);
         }
 
         [HttpGet]
@@ -83,34 +81,51 @@ namespace BuyMeFood.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpPut]
         [Authorize]
-        [Route("edit")]
-        public IActionResult EditProfile(User editUser)
+        [Route("edit")] // Edit everything except password
+        public IActionResult EditProfile(EditModel editUser)
         {
             int userId = int.Parse(HttpContext.User.Claims.First(c => c.Type == "Id").Value);
-            if (userId != editUser.Id)
+            var user = _context.Users.Find(userId);
+            if (user == null)
             {
-                return BadRequest();
+                return Unauthorized();
             }
-            _context.Users.Update(editUser);
+            user.Update(editUser);
+            _context.Users.Update(user);
             _context.SaveChanges();
-
-            CookieSignInAsync(editUser);
-
+            CookieSignInAsync(user);
             _logger.LogInformation("{User} edited info at {Time}.", editUser.Username, DateTimeOffset.Now);
+            return Ok(user);
+        }
 
-            return Ok(editUser);
+        [HttpPut]
+        [Authorize]
+        [Route("edit/password")]
+        public IActionResult EditPassword(EditPasswordModel model)
+        {
+            int userId = int.Parse(HttpContext.User.Claims.First(c => c.Type == "Id").Value);
+            var user = _context.Users.Find(userId);
+            if (user == null)
+            {
+                return Unauthorized("Authorized user not found.");
+            }
+            if (user.Password != model.OldPassword)
+            {
+                return BadRequest("Incorrect password.");
+            }
+            user.Password = model.NewPassword;
+            _context.Users.Update(user);
+            _context.SaveChanges();
+            return Ok();
         }
 
         private async void CookieSignInAsync(User user)
         {
             var claims = new List<Claim> {
                 new Claim("Id", user.Id.ToString()),
-                new Claim("Username", user.Username!),
-                new Claim("Name", user.Name!),
-                new Claim("FullName", user.FullName!),
-                new Claim("PhoneNumber", user.PhoneNumber!)
+                new Claim("Username", user.Username!)
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

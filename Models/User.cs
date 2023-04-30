@@ -32,5 +32,14 @@ namespace BuyMeFood.Models
             PhoneNumber = register.PhoneNumber;
             Image = register.Image;
         }
+
+        public void Update(EditModel edit)
+        {
+            Username = edit.Username;
+            Name = edit.Name;
+            FullName = edit.FullName;
+            PhoneNumber = edit.PhoneNumber;
+            Image = edit.Image;
+        }
     }
 }

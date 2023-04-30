@@ -6,7 +6,7 @@ namespace BuyMeFood.Models
     public class CreateOrderModel
     {
         [Required]
-        public int cardID;
+        public int cardID { get; set; }
         [Required]
         public string? storeName { get; set; }
         [Required]

@@ -67,7 +67,7 @@ namespace BuyMeFood.Controllers
             List<CardPropertiesModel> cardList = _context.CardProperties.Where(card => card.OwnerID == ownerid).ToList<CardPropertiesModel>();
             for (int i=0;i < cardList.Count(); i++) 
             {
-                if (DateTime.Compare(cardList[i].ExpiredTime, DateTime.Now) < 0)
+                if (DateTime.Compare(cardList[i].ExpiredTime, DateTime.Now) < 0 || cardList[i].MaxOrder <= cardList[i].OrderCount)
                 {
                     cardList[i].IsExpired = true;
                     _context.CardProperties.Update(cardList[i]);
@@ -91,7 +91,7 @@ namespace BuyMeFood.Controllers
             List<CardPropertiesModel> cardList = _context.CardProperties.Where(card => (card.IsExpired == false && card.IsComplete == false)).ToList<CardPropertiesModel>();
             for (int i = 0; i < cardList.Count(); i++) 
             {
-                if (DateTime.Compare(cardList[i].ExpiredTime,DateTime.Now) < 0) 
+                if (DateTime.Compare(cardList[i].ExpiredTime,DateTime.Now) < 0 || cardList[i].MaxOrder <= cardList[i].OrderCount) 
                 {
                     cardList[i].IsExpired = true;
                     _context.CardProperties.Update(cardList[i]);
@@ -148,7 +148,7 @@ namespace BuyMeFood.Controllers
                 _context.SaveChanges();
                 return BadRequest("card is expired");
             }
-            _context.OrderProp.Add(new OrderProperties(order.cardID, int.Parse(HttpContext.User.Claims.First(c => c.Type == "Id").Value), order.storeName, order.description));
+            _context.OrderProp.Add(new OrderProperties(order.cardID, int.Parse(HttpContext.User.Claims.First(c => c.Type == "Id").Value), order.storeName, order.description, HttpContext.User.Claims.First(c => c.Type == "Username").Value));
             cardProperties.OrderCount++;
             _context.CardProperties.Update(cardProperties);
             _context.SaveChanges();

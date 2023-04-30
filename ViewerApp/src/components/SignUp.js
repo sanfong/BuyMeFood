@@ -4,6 +4,7 @@ import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from '
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 // npm install axios
+
 const SignUp = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -11,7 +12,6 @@ const SignUp = () => {
     const [name, setName] = useState('')
     const [fullName, setfullName] = useState('')
     const [phone, setPhone] = useState('')
-    const [success, setSuccess] = useState(false);
     const [error, setError] = useState({
         username: '',
         password: '',
@@ -28,28 +28,92 @@ const SignUp = () => {
     const [nameError, setnameError] = useState('');
     const [fullNameError, setfullNameError] = useState('');
     const [phoneError, setphoneError] = useState('');
+    const [imageError, setimageError] = useState('');
+
+    const validateUsername = (value) => {
+        const regex = /^[a-zA-Z0-9_]+$/;
+        if (!value) {
+            setUsernameError("Username is required");
+        }
+        else if (value.length < 4) {
+            setUsernameError("The username must be 4–16 characters long.");
+        }
+        else if (value.length > 16) {
+            setUsernameError("The username must be 4–16 characters long.");
+        }
+        else if (!regex.test(value)) {
+            setUsernameError("Username can only contain letters, numbers, and underscores");
+        }
+        else {
+            setUsernameError("");
+        }
+        setUsername(value);
+    };
+
+    const validateName = (value) => {
+        const regex = /^[a-zA-Z]+$/;
+        if (!regex.test(value)) {
+            setnameError('Name must contain only letters');
+        } else {
+            setnameError('');
+        }
+        setName(value);
+    }
+
+
+    const validateFullName = (value) => {
+        const regex = /^[a-zA-Z\s]*$/; // เช็คว่าเป็นตัวอักษรเท่านั้น
+        if (!value || value === '') {
+            setfullNameError('Please enter your full name');
+        }
+        else if (!regex.test(value)) {
+            setfullNameError('Full name must contain only letters and spaces');
+        }
+        else {
+            setfullNameError('');
+        }
+        setfullName(value);
+    };
 
     const validatePassword = (value) => {
-        if (value.length < 6) {
+        if (!value) {
+            setPasswordError('Password is required');
+        }
+        else if (value.length < 6) {
             setPasswordError('Password must be at least 6 characters long');
-        } else {
+        }
+        else {
             setPasswordError('');
         }
         setPassword(value);
     }
 
-    
-    const validatePhone = (value) => {
-        const isPhoneNumeric = /^\d+$/.test(value);
-        if (!isPhoneNumeric) {
-            setphoneError('Password must be a number');
-        } else {
+    const validateConfirmPassword = (value) => {
+        if (value !== password) {
+            setConfirmPasswordError('Passwords do not match');
+        }
+        else {
+            setConfirmPasswordError('');
+        }
+        setConfirmPassword(value);
+    }
+
+    const validatePhoneNumber = (value) => {
+        if (!value) {
+            setphoneError('Phone number is required');
+        }
+        else if (!/^[0-9]+$/.test(value)) {
+            setphoneError('Phone number must be a number');
+        }
+        else if (value.length < 9 || value.length > 10) {
+            setphoneError('Phone number must be between 9 and 10 digits long');
+        }
+        else {
             setphoneError('');
         }
         setPhone(value);
     }
-    
-   
+
 
 
     const handleSubmit = async (event) => {
@@ -61,7 +125,7 @@ const SignUp = () => {
             name: name,
             fullName: fullName,
             phoneNumber: phone,
-            image:image
+            image: image
 
         }
         console.log(data)
@@ -70,18 +134,13 @@ const SignUp = () => {
                 'Content-Type': 'application/json'
             }
         };
-        if (password !== confirmPassword) {
-            setConfirmPasswordError('Passwords do not match');
-            return;
-        }
         const formdata = JSON.stringify(data)
         try {
             const response = await axios.post('/Account/register', formdata, config)
             console.log(response)
+            //console.log(response.data.errors)
             if (response.status === 201) {
-                setSuccess(true);
 
-                
 
             }
         } catch (error) {
@@ -91,12 +150,13 @@ const SignUp = () => {
                 console.log(error.response.data.errors);
                 if (errorResponse.errors) {
                     //const errorMessages = Object.values(errorResponse.errors).flatMap((val) => val);
-                    setUsernameError(errorResponse.errors.Username)
-                    setPasswordError(errorResponse.errors.Password[0])
+                    setUsernameError(errorResponse.errors.username)
+                    setPasswordError(errorResponse.errors.Password)
                     setConfirmPasswordError(errorResponse.errors.ConfirmPassword)
-                    setnameError(errorResponse.errors.Name)
-                    setfullNameError(errorResponse.errors.FullName)
-                    setphoneError(errorResponse.errors.PhoneNumber[0])
+                    setnameError(errorResponse.errors.name)
+                    setfullNameError(errorResponse.errors.fullName)
+                    setphoneError(errorResponse.errors.phone)
+                    //setError(errorMessages);
                     console.log(errorResponse.errors.Name);
                 } else {
                     setError([errorResponse.message]);
@@ -105,8 +165,8 @@ const SignUp = () => {
                 setError(['An unexpected error occurred.']);
             }
         }
-       
-        
+
+
     };
     const handleFileInputChange = (e) => {
         convertImageToBase64(e.target.files[0], (base) => { setImage(base) })
@@ -136,14 +196,7 @@ const SignUp = () => {
         };
         img.src = base64img;
     }
-    if (success) {
-        
-        return (
-            window.location.replace('/login')
-        )
-
-    }else {
-        return (
+    return (
         <div className="login-container">
             <div className="login-card">
                 <h1 className="title">Sign Up</h1>
@@ -154,11 +207,9 @@ const SignUp = () => {
                             type="text"
                             placeholder=""
                             value={username}
-                            onChange={(e) => { setUsername(e.target.value) }}
+                            onChange={(e) => { validateUsername(e.target.value) }}
                         />
                         {usernameError && <p className="error">{usernameError}</p>}
-                       
-
                     </div>
 
                     <div>
@@ -179,7 +230,7 @@ const SignUp = () => {
                             className="input"
                             placeholder=""
                             value={confirmPassword}
-                            onChange={(e) => { setConfirmPassword(e.target.value) }}
+                            onChange={(e) => { validateConfirmPassword(e.target.value) }}
                         />
                         {confirmPasswordError && <p className="error">{confirmPasswordError}</p>}
                     </div>
@@ -188,9 +239,8 @@ const SignUp = () => {
                         <input
                             type="text"
                             className="input"
-                            placeholder=""
                             value={name}
-                            onChange={(e) => { setName(e.target.value) }}
+                            onChange={(e) => { validateName(e.target.value) }}
                         />
                         {nameError && <p className="error">{nameError}</p>}
                     </div>
@@ -201,17 +251,17 @@ const SignUp = () => {
                             className="input"
                             placeholder=""
                             value={fullName}
-                            onChange={(e) => { setfullName(e.target.value) }}
+                            onChange={(e) => { validateFullName(e.target.value) }}
                         />
                         {fullNameError && <p className="error">{fullNameError}</p>}
                     </div>
                     <div>
-                        <div>PhoneNumber</div>
+                        <div>Phone Number</div>
                         <input
                             type="tel"
                             className="input"
                             value={phone}
-                            onChange={(e) => { validatePhone(e.target.value) }}
+                            onChange={(e) => { validatePhoneNumber(e.target.value) }}
                         />
                         {phoneError && <p className="error">{phoneError}</p>}
                     </div>
@@ -223,8 +273,8 @@ const SignUp = () => {
                         <NavLink tag={Link} className="text-dark" to="/login">Log In</NavLink>
 
                     </div>
-                    
-                    
+
+
                     <div className="btn-container">
                         <button className="button" type="submit">Sign Up</button>
                     </div>
@@ -233,9 +283,5 @@ const SignUp = () => {
             </div>
         </div>
     );
-
-
-    }
-    
 };
 export default SignUp;

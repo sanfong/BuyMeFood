@@ -20,10 +20,12 @@ const MyOrder = () => {
         try {
             const response = await axios.post(`/Card/submitOrder?orderID=${id}`)
             console.log(response.data)
+            window.location.reload()
 
         } catch (error) {
             console.error(error)
         }
+
     }
 
     const orderElement = myOrder.map(order => {
@@ -52,7 +54,10 @@ const MyOrder = () => {
                     <div class="card-body">
                         <h5 class="card-title">{order.storeName}</h5>
                         <p class="card-text">{order.description}</p>
-                        {order.isComplete ? <h4 className="text-success">ได้รับสินค้าแล้ว</h4> : <button onClick={() => { submitOrder(order.orderID) }} class="btn btn-success">ยืนยัน</button>}
+                        {order.isComplete ? <h4 className="text-success">ได้รับสินค้าแล้ว</h4> : <button onClick={() => {
+                            submitOrder(order.orderID)
+                          
+                        }} class="btn btn-success">ยืนยัน</button>}
 
                     </div>
                 </div>

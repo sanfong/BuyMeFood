@@ -53,7 +53,11 @@ const PopUp = (props) => {
     }
     useEffect(() => {
         if (displayStatus === true) {
-            setTimeout(() => { setDisplayStatus(false) }, 3000)
+            setTimeout(() => {
+                setDisplayStatus(false)
+
+            }, 3000)
+
         }}
 
         , [displayStatus])

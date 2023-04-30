@@ -1,10 +1,13 @@
 ﻿import { useEffect, useState } from "react";
 import axios from 'axios'
+import UserProfile from "./UserProfile";
 const CardOwner = (props) => {
     const date = new Date(props.order.expiredTime)
     const timeString = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const [displayDetail, setDisplayDetail] = useState(false)
     const [detail, setDetail] = useState([])
+    const [displayProfile, setdisplayProfile] = useState(false)
+    const [userProps, setUserProps] = useState({})
     const closeOrder = async (id) => {
         const response = await axios.post(`/Card/closeCard?cardID=${id}`)
 
@@ -21,9 +24,30 @@ const CardOwner = (props) => {
         }
         fetchData()
     }, [])
+    const ownerProfile = async (id) => {
+        console.log(id)
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
 
+
+        const response = await axios.get('/Account/select?id=1', config)
+        console.log(response.data[0])
+        const data=response.data[0]
+        setUserProps({
+            image:data.image,
+            fullName: data.fullName,
+            name: data.name,
+            tel: data.phoneNumber,
+        })
+        setdisplayProfile(true)
+
+    }
     return (
         <div>
+            {displayProfile && <UserProfile user={userProps} onClose={() => { setdisplayProfile(false) }} />}
             <div class="card mb-3">
                 <img class="card-img-top" src={ props.order.image} alt="Card image cap"/>
                     <div class="card-body">
@@ -45,9 +69,9 @@ const CardOwner = (props) => {
                                 <tbody>
                                     {detail.map((order) => {
                                         return (
-                                            <tr>
+                                            <tr onClick={ownerProfile}>
                                                 <th scope="row">{order.orderID}</th>
-                                                <td>{order.ownerID}</td>
+                                                <td>{order.ownerName}</td>
                                                 <td>{order.storeName}</td>
                                                 <td>{order.description}</td>
                                                 <td>{order.isComplete ? <span className="text-success">ส่งแล้ว</span> : <span className="text-danger">ยังไม่ส่ง</span>}</td>

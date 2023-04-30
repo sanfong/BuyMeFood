@@ -157,7 +157,7 @@ const Home = (props) => {
         }
         const fetchData = async () => {
             try {
-                const response = await axios.get('/Card/GetAllcard')
+                const response = await axios.get('/Card/GetNotExpired')
                 setInitData(response.data)
                 console.log(response.data)
             } catch (error) {

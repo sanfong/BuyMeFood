@@ -20,7 +20,7 @@ const Profile = () => {
         fetchData()
     }, [])
     const PROFLIE = {
-        img:'https://s359.thaibuffer.com/pagebuilder/cc3ec7c1-b967-4f5c-841b-af853ccb093f.jpg',
+        img: profile.image,
         name: profile.name,
         fullname: profile.fullName, 
         tel: profile.phoneNumber,

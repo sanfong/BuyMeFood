@@ -1,11 +1,14 @@
 ﻿import { useEffect, useRef, useState } from "react"
 import Modal from "./Modal"
 import axios from 'axios'
+import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import { Link,useHistory } from 'react-router-dom';
 const PopUp = (props) => {
     const [displayForm, setDisplayForm] = useState(false)
     const [isOwner, setIsOwner] = useState(false)
     const [displayOrder, setDisplayOrder] = useState(false)
     const [orderDetail, setOrderDetail] = useState({})
+
     const [isExpired, setIsExpired] = useState(props.item.isExpired)
     const [detailState, setDetailState] = useState(
         {
@@ -20,6 +23,19 @@ const PopUp = (props) => {
     const descRef = useRef()
     const closeOrder = async(id) => {
         const response = await axios.post( `/Card/closeCard?cardID=${id}`        )
+
+    }
+    const ownerProfile = async(id) => {
+        console.log(id)
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+  
+        const response = await axios.get('/Account/select?id=1', config)
+        console.log(response)
 
     }
     const SubmitForm = async() => {
@@ -137,6 +153,7 @@ const PopUp = (props) => {
                 <div>
                         <table class="table table-hover">
                             <thead>
+                                
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">ผู้ฝาก</th>
@@ -147,10 +164,11 @@ const PopUp = (props) => {
                             </thead>
                             <tbody>
                                 {orderDetail.map((order) => {
-                                    return(
-                                    <tr>
-                                        <th scope="row">{ order.orderID}</th>
-                                            <td>{order.ownerID}</td>
+                                    return (
+                                     
+                                        <tr onClick={() => { ownerProfile(order.ownerID) }}>
+                                            <th scope="row">{order.orderID}</th>
+                                            <td>{order.ownerName}</td>
                                             <td>{order.storeName}</td>
                                             <td>{order.description}</td>
                                             <td>{order.isComplete ? <span className="text-success">ส่งแล้ว</span> : <span className="text-danger">ยังไม่ส่ง</span> }</td>
@@ -162,7 +180,7 @@ const PopUp = (props) => {
                 </div>}
                     
                 <div className='d-flex justify-content-around container my-3 '>
-                    {!isOwner ? <button onClick={SubmitForm} disabled={props.isFull} className="btn btn-success col-6 col-md-3 col-lg-2">{displayForm ? 'ยืนยัน' : 'ฝากสั่ง'}</button> : <buttton onClick={() => {
+                    {!isOwner ? <button onClick={SubmitForm} disabled={isExpired} className="btn btn-success col-6 col-md-3 col-lg-2">{displayForm ? 'ยืนยัน' : 'ฝากสั่ง'}</button> : <buttton onClick={() => {
                         console.log(orderDetail)
                         setDisplayOrder(true)
                     }} className="btn btn-warning">ดูรายการฝาก</buttton>} 

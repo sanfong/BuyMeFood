@@ -12,13 +12,11 @@ const EditProfile = (props) => {
     const [error, setError] = useState('');
     const [image, setImage] = useState(props.img);
     const [editImage, setEditImage] = useState(false)
-    const [imageBase64, setImageBase64] = useState('')
+    const [imageBase64, setImageBase64] = useState(props.img)
     const handleSubmit = async() => {
         const data = {
             username: username,
             name: name,
-            password: '111111',
-            ConfirmPassword: '111111',
             fullName: fullName,
             phoneNumber: phone,
             image: imageBase64
@@ -30,7 +28,8 @@ const EditProfile = (props) => {
             }
         };
         const formdata = JSON.stringify(data)
-        const response = await axios.post('/Account/edit', formdata, config)
+        const response = await axios.put('/Account/edit', formdata, config)
+        window.location.reload()
         console.log(response)
 
     }
@@ -148,6 +147,7 @@ const EditProfile = (props) => {
                     </form>
                     <div className="btn-container">
                         <button onClick={handleSubmit} className="button" type="submit">Save</button>
+                        <button onClick={props.onClose } className='btn btn-danger mx-4' >Close</button>
                     </div>
                 </div>
             </div>

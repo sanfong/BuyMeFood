@@ -70,6 +70,10 @@ const SignUp = () => {
                 'Content-Type': 'application/json'
             }
         };
+        if (password !== confirmPassword) {
+            setConfirmPasswordError('Passwords do not match');
+            return;
+        }
         const formdata = JSON.stringify(data)
         try {
             const response = await axios.post('/Account/register', formdata, config)
@@ -130,7 +134,7 @@ const SignUp = () => {
         };
         img.src = base64img;
     }
-    if (success) {
+    if (!success) {
         return (
             <div className="success-message">
                 <h2>Success!</h2>

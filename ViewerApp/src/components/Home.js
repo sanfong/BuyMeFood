@@ -1,6 +1,7 @@
-﻿import React, { Component, useState } from 'react';
+﻿import React, { Component, useState,useEffect } from 'react';
 import Card from './Card'
 import AddCard from './AddCard';
+import axios from 'axios'
 const DUMMY_DATA = [
     {
         id: 1,
@@ -139,9 +140,36 @@ const DUMMY_DATA = [
 
 const Home = (props) => {
     const [displayAdd, setDisplayAdd] = useState(false)
+    const [isLogin, setIsLogin] = useState(false)
+    const [initData,setInitData]=useState([])
+    useEffect(() => {
+        const fetchDatauser = async () => {
+            try {
+                const response = await axios.get('/Account')
+                if (response.status === 200) {
+                    setIsLogin(true)
+                }
+            } catch (error) {
+                console.error(error)
+            }
+        }
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('/Card/GetNotExpired')
+                setInitData(response.data)
+                console.log(response.data)
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+
+        fetchDatauser()
+        fetchData()
+    }, [])
     return (
         <div>
-            {displayAdd && <AddCard onClose={() => { setDisplayAdd(false) }} />}
+            {displayAdd && <AddCard isLogin={false} onClose={() => { setDisplayAdd(false) }} />}
             <div style={{ padding: '3rem', borderBottom:'2px solid green', backgroundImage: 'url("https://img.freepik.com/free-vector/hand-drawn-delicious-food-background_52683-16136.jpg?size=626&ext=jpg&ga=GA1.2.284292450.1670951791&semt=sph")', margin: '0' }} className="row">
                 <div class="col-md-6 mx-auto">
                     <div className="input-group mb-6" >
@@ -156,14 +184,14 @@ const Home = (props) => {
             
             <h1>There's something for everyone!</h1>
                 <div className="row justify-content-center" style={{ margin: '0', width: '100%' }}>
-                    {DUMMY_DATA.map(order => {
-                    return (
-                        <Card item={order} />
+                    {initData.map(order => {
+                        return (
+                            <Card isLogin={isLogin} item={order} />
                     )
                 })}
             </div>
             </div>
-            <button onClick={() => { setDisplayAdd(true) }} className='btn btn-success' style={{ position: 'fixed', bottom: '5rem', right: '3rem' }} >+ เพิ่มรายการฝาก</button>
+            {isLogin && < button onClick={() => { setDisplayAdd(true) }} className='btn btn-success' style={{ position: 'fixed', bottom: '5rem', right: '3rem' }} >+ เพิ่มรายการฝาก</button>}
             </div>
 
         

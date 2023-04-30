@@ -36,7 +36,7 @@ const SignUp = () => {
         const response = await axios.post('/Account/register', formdata,config)
         console.log(response)
         if (response.status === 201) {
-     
+         
 
         }
     };
@@ -132,10 +132,6 @@ const SignUp = () => {
                             value={phone}
                             onChange={(e) => { setPhone(e.target.value) }}
                         />
-                    </div>
-                    <div>
-                        <div>Image</div>
-                        <input type="file" accept="image/*"  onChange={handleFileInputChange} />
                     </div>
 
 

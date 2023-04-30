@@ -135,6 +135,7 @@ const SignUp = () => {
             <div className="success-message">
                 <h2>Success!</h2>
                 <p>Your account has been created. Please <Link to="/login">log in</Link> to continue.</p>
+
             </div>
         )
 

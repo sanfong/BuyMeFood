@@ -35,11 +35,16 @@ const Login = () => {
         }
         const formdata = JSON.stringify(data)
 
-        const response = await axios.post('/Account/login', formdata,config)
-        console.log(response)
-        if (response.status === 200) {
-            window.location.replace('/')
+        try {
+            const response = await axios.post('/Account/login', formdata, config)
+            console.log(response)
+            if (response.status === 200) {
+                window.location.replace('/')
+            }
+        } catch (error) {
+            setError("Invalid username or password")
         }
+        
         
     };
 
@@ -67,7 +72,8 @@ const Login = () => {
                         placeholder=""
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
-                    />
+                        />
+                        {error && <p className="error">{error}</p>}
                     </div>
 
                     <div className="linker">
@@ -76,9 +82,10 @@ const Login = () => {
                         <NavLink tag={Link} className="text-dark" to="/signup">Sign Up</NavLink>
                         
                     </div>
-                    {error && <p className="error">{error}</p>}
+                
                     <div className="btn-container">
                         <button className="button" type="submit">Login</button>
+
                     </div>
                     
                 </form>

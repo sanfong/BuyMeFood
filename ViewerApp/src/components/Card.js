@@ -13,11 +13,14 @@ const Card = (props) => {
 
 
         <div className="card col-md-3" style={{ width: '18rem', margin: '1vh', cursor: 'pointer', border: 'transparent' }}>
-            {displayPopUp && <PopUp isLogin={props.isLogin} onClose={onClose} item={props.item} isFull={isFull} />}
+            {displayPopUp && <PopUp cardOwnerId={props.item.ownerID} cardId={props.item.cardID} ownerId={props.ownerId} cardID={props.item.cardID} isLogin={props.isLogin} onClose={() => {
+                onClose()
+                window.location.reload()
+            }} item={props.item} isFull={isFull} />}
             <div className="card-body " onClick={() => {
                 setDisplayPopUp(true)
                 console.log(props.isLogin)
-                console.log(props.isLogin)
+                console.log(props.item)
             }}>
                 <img src={props.item.image} style={{ width: '14rem', borderRadius:'10px' }} />
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}  >
@@ -35,8 +38,8 @@ const Card = (props) => {
 
 
                 </div>
-                <div class={isFull ? "bg-danger text-white " : "bg-success text-white "}  style={{ width: '50px', borderRadius: '7px', textAlign: 'center' }}>
-                    <p style={{ fontSize: '16px' }}>{isFull ? 'close' : 'open'}</p>                    
+                <div class={props.item.isExpired ? "bg-danger text-white " : "bg-success text-white "}  style={{ width: '50px', borderRadius: '7px', textAlign: 'center' }}>
+                    <p style={{ fontSize: '16px' }}>{props.item.isExpired ? 'close' : 'open'}</p>                    
                 </div>
                 </div>
             </div>

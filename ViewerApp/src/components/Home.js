@@ -141,6 +141,7 @@ const DUMMY_DATA = [
 const Home = (props) => {
     const [displayAdd, setDisplayAdd] = useState(false)
     const [isLogin, setIsLogin] = useState(false)
+    const [ownerId,setOwnerId]=useState(0)
     const [initData,setInitData]=useState([])
     useEffect(() => {
         const fetchDatauser = async () => {
@@ -148,6 +149,7 @@ const Home = (props) => {
                 const response = await axios.get('/Account')
                 if (response.status === 200) {
                     setIsLogin(true)
+                    setOwnerId(response.data.id)
                 }
             } catch (error) {
                 console.error(error)
@@ -155,7 +157,7 @@ const Home = (props) => {
         }
         const fetchData = async () => {
             try {
-                const response = await axios.get('/Card/GetNotExpired')
+                const response = await axios.get('/Card/GetAllcard')
                 setInitData(response.data)
                 console.log(response.data)
             } catch (error) {
@@ -186,7 +188,7 @@ const Home = (props) => {
                 <div className="row justify-content-center" style={{ margin: '0', width: '100%' }}>
                     {initData.map(order => {
                         return (
-                            <Card isLogin={isLogin} item={order} />
+                            <Card ownerId={ownerId} isLogin={isLogin} item={order} />
                     )
                 })}
             </div>

@@ -1,6 +1,7 @@
 ﻿import { useState } from "react"
 import Modal from "./Modal"
 import axios from 'axios'
+
 const AddCard = (props) => {
     const [detailState, setDetailState] = useState(
     {
@@ -39,8 +40,9 @@ const AddCard = (props) => {
             }
         };
         const formdata = JSON.stringify(detailState)
-        const response = await axios.post('/Card/createCard', formdata, config).then(window.location.reload())
+        const response = await axios.post('/Card/createCard', formdata, config)
         console.log(response)
+        window.location.reload()
 
     }
     return (

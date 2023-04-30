@@ -36,18 +36,27 @@ const NavMenu = (props) => {
                         <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
                     </NavItem>
                     {isLogin ?
-                        <div className="d-flex">                    <NavItem>
-                            <NavLink tag={Link} className="text-dark" to="/profile">Profile</NavLink>
-                        </NavItem>
+                        <div className="d-flex">                 
+        
+                            <NavItem>
+                                <div ><NavLink tag={Link} className="text-dark" to="/myorder"  >My Order</NavLink></div>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink tag={Link} className="text-dark" to="/mycard">MyCard</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink tag={Link} className="text-dark" to="/profile">Profile</NavLink>
+                            </NavItem>
                             <NavItem>
                                 <div onClick={logout}><NavLink tag={Link} className="text-dark" to="/"  >Logout</NavLink></div>
-                            </NavItem></div>: <NavLink tag={Link} className="text-dark" to="/login">Log In</NavLink>
+                            </NavItem>
+                        </div>
+                        : <NavLink tag={Link} className="text-dark" to="/login">Log In</NavLink>
+                            
                             
 
                     }
-                    <NavItem>
-                        
-                    </NavItem>
+
 
                 </ul>
        </Navbar>

@@ -108,6 +108,30 @@ namespace BuyMeFood.Controllers
             //_context.CardProperties.Where(card => card.IsExpired == false).ToList().Count();
             return _context.CardProperties.Where(card => card.IsExpired == false && card.IsComplete == false);
         }
+        [HttpGet]
+        [Route("GetAllcard")]
+        public IEnumerable<CardPropertiesModel> GetAllcard()
+        {
+            List<CardPropertiesModel> cardList = _context.CardProperties.Where(card => (card.IsExpired == false && card.IsComplete == false)).ToList<CardPropertiesModel>();
+            for (int i = 0; i < cardList.Count(); i++)
+            {
+                if (DateTime.Compare(cardList[i].ExpiredTime, DateTime.Now) < 0)
+                {
+                    cardList[i].IsExpired = true;
+                    _context.CardProperties.Update(cardList[i]);
+                    _context.SaveChanges();
+                }
+                cardList[i].CompleteOrder = CheckCompleteOrder(cardList[i].CardID);
+                if ((cardList[i].IsExpired && cardList[i].OrderCount <= cardList[i].CompleteOrder) || cardList[i].MaxOrder <= cardList[i].CompleteOrder)
+                {
+                    cardList[i].IsComplete = true;
+                    _context.CardProperties.Update(cardList[i]);
+                    _context.SaveChanges();
+                }
+            }
+            //_context.CardProperties.Where(card => card.IsExpired == false).ToList().Count();
+            return _context.CardProperties.Where(card => card.IsComplete == false);
+        }
 
         [Authorize]
         [HttpPost]

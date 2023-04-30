@@ -3,6 +3,7 @@ import './Login.css'
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
+// npm install axios
 const SignUp = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -10,8 +11,32 @@ const SignUp = () => {
     const [name, setName] = useState('')
     const [fullName, setfullName] = useState('')
     const [phone, setPhone] = useState('')
-    const [error, setError] = useState('');
+    const [error, setError] = useState({
+        username: '',
+        password: '',
+        confirmPassword: '',
+        name: '',
+        fullName: '',
+        phone: '',
+        image: null
+    });
     const [image, setImage] = useState(null);
+    const [usernameError, setUsernameError] = useState('');
+    const [PasswordError, setPasswordError] = useState('');
+    const [confirmPasswordError, setConfirmPasswordError] = useState('');
+    const [nameError, setnameError] = useState('');
+    const [fullNameError, setfullNameError] = useState('');
+    const [phoneError, setphoneError] = useState('');
+    const [imageError, setimageError] = useState('');
+
+    const validatePassword = (value) => {
+        if (value.length < 6) {
+            setPasswordError('Password must be at least 6 characters long');
+        } else {
+            setPasswordError('');
+        }
+        setPassword(value);
+    }
 
 
     const handleSubmit = async (event) => {
@@ -33,12 +58,38 @@ const SignUp = () => {
             }
         };
         const formdata = JSON.stringify(data)
-        const response = await axios.post('/Account/register', formdata,config)
-        console.log(response)
-        if (response.status === 201) {
-         
+        try {
+            const response = await axios.post('/Account/register', formdata, config)
+            console.log(response)
+            //console.log(response.data.errors)
+            if (response.status === 201) {
 
+
+            }
+        } catch (error) {
+            if (error.response) {
+
+                const errorResponse = error.response.data;
+                console.log(error.response.data.errors);
+                if (errorResponse.errors) {
+                    //const errorMessages = Object.values(errorResponse.errors).flatMap((val) => val);
+                    setUsernameError(errorResponse.errors.username)
+                    setPasswordError(errorResponse.errors.Password)
+                    setConfirmPasswordError(errorResponse.errors.ConfirmPassword)
+                    setnameError(errorResponse.errors.name)
+                    setfullNameError(errorResponse.errors.fullName)
+                    setphoneError(errorResponse.errors.phone)
+                    //setError(errorMessages);
+                    console.log(errorResponse.errors.Name);
+                } else {
+                    setError([errorResponse.message]);
+                }
+            } else {
+                setError(['An unexpected error occurred.']);
+            }
         }
+       
+        
     };
     const handleFileInputChange = (e) => {
         convertImageToBase64(e.target.files[0], (base) => { setImage(base) })
@@ -81,6 +132,8 @@ const SignUp = () => {
                             value={username}
                             onChange={(e) => { setUsername(e.target.value) }}
                         />
+                        {usernameError && <p className="error">{usernameError}</p>}
+                        {/*{error.username && <p className="error">{error.username}</p>}*/}
 
                     </div>
 
@@ -91,8 +144,9 @@ const SignUp = () => {
                             className="input"
                             placeholder=""
                             value={password}
-                            onChange={(e) => { setPassword(e.target.value) }}
+                            onChange={(e) => { validatePassword(e.target.value) }}
                         />
+                        {PasswordError && <p className="error">{PasswordError}</p>}
                     </div>
                     <div>
                         <div>Confirm Password</div>
@@ -103,6 +157,7 @@ const SignUp = () => {
                             value={confirmPassword}
                             onChange={(e) => { setConfirmPassword(e.target.value) }}
                         />
+                        {confirmPasswordError && <p className="error">{confirmPasswordError}</p>}
                     </div>
                     <div>
                         <div>Name</div>
@@ -113,6 +168,7 @@ const SignUp = () => {
                             value={name}
                             onChange={(e) => { setName(e.target.value) }}
                         />
+                        {nameError && <p className="error">{nameError}</p>}
                     </div>
                     <div>
                         <div>Full Name</div>
@@ -132,6 +188,7 @@ const SignUp = () => {
                             value={phone}
                             onChange={(e) => { setPhone(e.target.value) }}
                         />
+                        {phoneError && <p className="error">{phoneError}</p>}
                     </div>
 
 
@@ -141,7 +198,8 @@ const SignUp = () => {
                         <NavLink tag={Link} className="text-dark" to="/login">Log In</NavLink>
 
                     </div>
-                    {error && <p className="error">{error}</p>}
+                    
+                    
                     <div className="btn-container">
                         <button className="button" type="submit">Sign Up</button>
                     </div>
@@ -151,5 +209,4 @@ const SignUp = () => {
         </div>
     );
 };
-
 export default SignUp;

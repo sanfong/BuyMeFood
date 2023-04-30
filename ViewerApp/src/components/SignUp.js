@@ -81,6 +81,8 @@ const SignUp = () => {
             if (response.status === 201) {
                 setSuccess(true);
 
+                
+
             }
         } catch (error) {
             if (error.response) {
@@ -134,13 +136,10 @@ const SignUp = () => {
         };
         img.src = base64img;
     }
-    if (!success) {
+    if (success) {
+        
         return (
-            <div className="success-message">
-                <h2>Success!</h2>
-                <p>Your account has been created. Please <Link to="/login">log in</Link> to continue.</p>
-
-            </div>
+            window.location.replace('/login')
         )
 
     }else {

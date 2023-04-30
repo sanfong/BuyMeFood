@@ -49,7 +49,12 @@ const Login = () => {
     };
 
     return (
+
         <div className="login-container">
+            <div class="alert alert-success col-6" role="alert">
+                <h3>Success!</h3>
+                Your account has been created.
+            </div>
             <div className="login-card">
                 <h1 className="title">Login</h1>
                 <form onSubmit={handleSubmit} >

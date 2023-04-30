@@ -11,6 +11,7 @@ const SignUp = () => {
     const [name, setName] = useState('')
     const [fullName, setfullName] = useState('')
     const [phone, setPhone] = useState('')
+    const [success, setSuccess] = useState(false);
     const [error, setError] = useState({
         username: '',
         password: '',
@@ -27,7 +28,6 @@ const SignUp = () => {
     const [nameError, setnameError] = useState('');
     const [fullNameError, setfullNameError] = useState('');
     const [phoneError, setphoneError] = useState('');
-    const [imageError, setimageError] = useState('');
 
     const validatePassword = (value) => {
         if (value.length < 6) {
@@ -37,6 +37,19 @@ const SignUp = () => {
         }
         setPassword(value);
     }
+
+    
+    const validatePhone = (value) => {
+        const isPhoneNumeric = /^\d+$/.test(value);
+        if (!isPhoneNumeric) {
+            setphoneError('Password must be a number');
+        } else {
+            setphoneError('');
+        }
+        setPhone(value);
+    }
+    
+   
 
 
     const handleSubmit = async (event) => {
@@ -61,9 +74,8 @@ const SignUp = () => {
         try {
             const response = await axios.post('/Account/register', formdata, config)
             console.log(response)
-            //console.log(response.data.errors)
             if (response.status === 201) {
-
+                setSuccess(true);
 
             }
         } catch (error) {
@@ -73,13 +85,12 @@ const SignUp = () => {
                 console.log(error.response.data.errors);
                 if (errorResponse.errors) {
                     //const errorMessages = Object.values(errorResponse.errors).flatMap((val) => val);
-                    setUsernameError(errorResponse.errors.username)
-                    setPasswordError(errorResponse.errors.Password)
+                    setUsernameError(errorResponse.errors.Username)
+                    setPasswordError(errorResponse.errors.Password[0])
                     setConfirmPasswordError(errorResponse.errors.ConfirmPassword)
-                    setnameError(errorResponse.errors.name)
-                    setfullNameError(errorResponse.errors.fullName)
-                    setphoneError(errorResponse.errors.phone)
-                    //setError(errorMessages);
+                    setnameError(errorResponse.errors.Name)
+                    setfullNameError(errorResponse.errors.FullName)
+                    setphoneError(errorResponse.errors.PhoneNumber[0])
                     console.log(errorResponse.errors.Name);
                 } else {
                     setError([errorResponse.message]);
@@ -119,7 +130,16 @@ const SignUp = () => {
         };
         img.src = base64img;
     }
-    return (
+    if (success) {
+        return (
+            <div className="success-message">
+                <h2>Success!</h2>
+                <p>Your account has been created. Please <Link to="/login">log in</Link> to continue.</p>
+            </div>
+        )
+
+    }else {
+        return (
         <div className="login-container">
             <div className="login-card">
                 <h1 className="title">Sign Up</h1>
@@ -133,7 +153,7 @@ const SignUp = () => {
                             onChange={(e) => { setUsername(e.target.value) }}
                         />
                         {usernameError && <p className="error">{usernameError}</p>}
-                        {/*{error.username && <p className="error">{error.username}</p>}*/}
+                       
 
                     </div>
 
@@ -179,6 +199,7 @@ const SignUp = () => {
                             value={fullName}
                             onChange={(e) => { setfullName(e.target.value) }}
                         />
+                        {fullNameError && <p className="error">{fullNameError}</p>}
                     </div>
                     <div>
                         <div>PhoneNumber</div>
@@ -186,7 +207,7 @@ const SignUp = () => {
                             type="tel"
                             className="input"
                             value={phone}
-                            onChange={(e) => { setPhone(e.target.value) }}
+                            onChange={(e) => { validatePhone(e.target.value) }}
                         />
                         {phoneError && <p className="error">{phoneError}</p>}
                     </div>
@@ -208,5 +229,9 @@ const SignUp = () => {
             </div>
         </div>
     );
+
+
+    }
+    
 };
 export default SignUp;

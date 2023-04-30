@@ -1,12 +1,30 @@
 ﻿import React, { Component,useEffect,useState } from 'react';
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios'
 import './NavMenu.css';
 
 const NavMenu = (props) => {
     const [isLogin, setIsLogin] = useState(false)
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('/Account')
+                if (response.status === 200) {
+                    setIsLogin(true)
+                }
+            } catch (error) {
+                console.error(error)
+            }
+        }
 
+        fetchData()
+    }, [])
+    const logout = async () => {
+        const response = await axios.get('/Account/logout')
+        console.log(response)
+        window.location.reload()
+    }
     return (
         <header >
             <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-0" container light>
@@ -14,15 +32,17 @@ const NavMenu = (props) => {
                 </NavbarBrand> 
 
                 <ul className="navbar-nav flex-grow">
-
+                    <NavItem>
+                        <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
+                    </NavItem>
                     {isLogin ?
                         <div className="d-flex">                    <NavItem>
                             <NavLink tag={Link} className="text-dark" to="/profile">Profile</NavLink>
                         </NavItem>
                             <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/">Logout</NavLink>
+                                <div onClick={logout}><NavLink tag={Link} className="text-dark" to="/"  >Logout</NavLink></div>
                             </NavItem></div>: <NavLink tag={Link} className="text-dark" to="/login">Log In</NavLink>
-
+                            
 
                     }
                     <NavItem>

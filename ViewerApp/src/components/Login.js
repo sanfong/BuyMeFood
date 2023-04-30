@@ -1,4 +1,4 @@
-﻿import React, { useRef, useState } from 'react';
+﻿import React, { useRef, useState,useEffect } from 'react';
 import './Login.css'
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -7,7 +7,20 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('/Account')
+                if (response.status === 200) {
+                    window.location.replace('/')
+                }
+            } catch (error) {
+                console.error(error)
+            }
+        }
 
+        fetchData()
+    }, [])
 
     const handleSubmit = async (event) => {
         const config = {
@@ -23,7 +36,10 @@ const Login = () => {
         const formdata = JSON.stringify(data)
 
         const response = await axios.post('/Account/login', formdata,config)
-        console.log(response)  
+        console.log(response)
+        if (response.status === 200) {
+            window.location.replace('/')
+        }
         
     };
 

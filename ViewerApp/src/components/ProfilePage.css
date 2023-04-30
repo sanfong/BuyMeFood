@@ -63,3 +63,14 @@
 .profile-contact-text {
     padding-left: 5px;
 }
+.edit {
+color:white;
+padding-top:5rem;
+text-align:center;
+font-size:30px;
+background-color:darkgray;
+    width: 200px;
+    height: 200px;
+
+
+}

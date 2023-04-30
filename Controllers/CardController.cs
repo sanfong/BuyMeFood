@@ -136,19 +136,19 @@ namespace BuyMeFood.Controllers
         [Authorize]
         [HttpPost]
         [Route("createOrder")]
-        public IActionResult CreateOrder(string storeName,string description,int cardID)
+        public IActionResult CreateOrder(CreateOrderModel order)
         {
-            CardPropertiesModel cardProperties = _context.CardProperties.FirstOrDefault(card => card.CardID == cardID);
-            if (cardProperties == null) { return BadRequest(); }
-            if (cardProperties.OrderCount >= cardProperties.MaxOrder || cardProperties.IsExpired) { return BadRequest(); };
+            CardPropertiesModel cardProperties = _context.CardProperties.FirstOrDefault(card => card.CardID == order.cardID);
+            if (cardProperties == null || order == null) { return BadRequest("Card properties is null"); }
+            if (cardProperties.OrderCount >= cardProperties.MaxOrder || cardProperties.IsExpired) { return BadRequest("Order is max or card is expired"); };
             if (DateTime.Compare(cardProperties.ExpiredTime, DateTime.Now) < 0)
             {
                 cardProperties.IsExpired = true;
                 _context.CardProperties.Update(cardProperties);
                 _context.SaveChanges();
-                return BadRequest();
+                return BadRequest("card is expired");
             }
-            _context.OrderProp.Add(new OrderProperties(cardID, int.Parse(HttpContext.User.Claims.First(c => c.Type == "Id").Value), storeName, description));
+            _context.OrderProp.Add(new OrderProperties(order.cardID, int.Parse(HttpContext.User.Claims.First(c => c.Type == "Id").Value), order.storeName, order.description));
             cardProperties.OrderCount++;
             _context.CardProperties.Update(cardProperties);
             _context.SaveChanges();

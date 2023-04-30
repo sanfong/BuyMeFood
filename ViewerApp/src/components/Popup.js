@@ -1,22 +1,46 @@
 ﻿import { useEffect, useRef, useState } from "react"
 import Modal from "./Modal"
-
+import axios from 'axios'
 const PopUp = (props) => {
     const [displayForm, setDisplayForm] = useState(false)
+    const [detailState, setDetailState] = useState(
+        {
+     
+        storeName: '',
+            description: '',
+            cardID: 1
+    })
     const existNote = props.item.note !== ''
     const [displayStatus, setDisplayStatus] = useState(false)
     const nameRef = useRef()
     const descRef = useRef()
     const closeOrder = () => { }
-    const SubmitForm = () => {
+    const SubmitForm = async() => {
         if (displayForm) {
             if (nameRef.current.value.trim() !== '' && descRef.current.value.trim() !== '') {
                 setDisplayStatus(true)
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+        
+                const formdata = JSON.stringify(detailState)
+                const response = await axios.post('/Card/createOrder', formdata, config)
+                console.log(response)
+
+
             }
             
         }
         else {
-            setDisplayForm(true)
+          
+            if (props.isLogin) {
+                setDisplayForm(true)
+            }
+            else {
+                window.location.replace('/login')
+            }
         }
     }
     useEffect(() => {
@@ -25,16 +49,19 @@ const PopUp = (props) => {
         }}
 
         , [displayStatus])
+    const date = new Date(props.item.expiredTime)
+    const timeString = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
     return (
         <Modal onClose={props.onClose}>
             <div style={{}} >
-                <img style={{ width: '100%', height: '200px', objectFit: 'cover', margin: '0', borderRadius: '40px', borderBottomRightRadius: '0', borderBottomLeftRadius:'0' }} src={props.item.img} />
+                <img style={{ width: '100%', height: '200px', objectFit: 'cover', margin: '0', borderRadius: '40px', borderBottomRightRadius: '0', borderBottomLeftRadius:'0' }} src={props.item.image} />
             </div>
 
             <div className='container' style={{ marginTop:'1rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}  >
                     <h1 className="card-title"> <strong>{props.item.place}</strong></h1>
-                    <h1 style={{ color: props.isFull && 'red' }}>จำนวนที่รับ: {props.item.current_amount}/{props.item.order_amount}</h1>
+                    <h1 style={{ color: props.isFull && 'red' }}>จำนวนที่รับ: {props.item.orderCount}/{props.item.maxOrder}</h1>
                     
 
                 </div>
@@ -45,14 +72,14 @@ const PopUp = (props) => {
                     </div>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <h4 >เวลาปิดรับออเดอร์ : {props.item.period}</h4>
+                    <h4 >เวลาปิดรับออเดอร์ : {timeString}</h4>
                     <button className="btn btn-success col-2 col-md-2 col-lg-2" onClick={closeOrder}>ปิดรับ</button>
                 </div>
                 
-                <h4 >สถานที่รับอาหาร : {props.item.takeplace}</h4>
+                <h4 >สถานที่รับอาหาร : {props.item.loactionPickupName}</h4>
                 <h4>Note : {!existNote && '-' }</h4>
                 {existNote && <div style={{ border: '1px solid gray', height: '100px', padding: '10px', borderRadius: '7px' }} >
-                    <p>{props.item.note}</p>
+                    <p>{props.item.description}</p>
                 </div>}
 
 
@@ -65,11 +92,11 @@ const PopUp = (props) => {
                     <form >
                         <div class="form-group">
                             <label for="exampleFormControlInput1">ร้าน</label>
-                            <input ref={nameRef} type="text" class="form-control" placeholder="ระบุร้านที่ต้องการสั่ง" />
+                            <input onChange={(e) => { setDetailState({ ...detailState, storeName: e.target.value }) }} ref={nameRef} type="text" class="form-control" placeholder="ระบุร้านที่ต้องการสั่ง" />
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">รายละเอียด</label>
-                            <textarea ref={descRef} type="text" class="form-control" placeholder="กรอกเมนู จำนวน และรายละเอียดต่างๆที่ต้องการ" />
+                            <textarea onChange={(e) => { setDetailState({ ...detailState, description: e.target.value }) }} ref={descRef} type="text" class="form-control" placeholder="กรอกเมนู จำนวน และรายละเอียดต่างๆที่ต้องการ" />
                         </div>
                     </form>
                 </div>}

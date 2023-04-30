@@ -190,10 +190,6 @@ const SignUp = () => {
                         />
                         {phoneError && <p className="error">{phoneError}</p>}
                     </div>
-                    <div>
-                        <div>Image</div>
-                        <input type="file" accept="image/*"  onChange={handleFileInputChange} />
-                    </div>
 
 
                     <div className="linker">

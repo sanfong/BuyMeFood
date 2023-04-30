@@ -47,6 +47,10 @@ namespace BuyMeFood.Models
             ExpiredTime = new DateTime(now.Year, now.Month, now.Day, CreateModel.ExprTimeHour, CreateModel.ExprTimeMinute, 0);
             Timestamp = DateTime.Now;
             OrderCount = 0;
+            if(DateTime.Compare(ExpiredTime, DateTime.Now) < 0) 
+            {
+                ExpiredTime.AddDays(1);
+            }
         }
 
         public void testfunction() 

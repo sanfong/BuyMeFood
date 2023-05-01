@@ -1,0 +1,31 @@
+﻿.custom-row {
+    padding: 3rem;
+    border-bottom: 2px solid green;
+    background-image: url("https://img.freepik.com/free-vector/hand-drawn-delicious-food-background_52683-16136.jpg?size=626&ext=jpg&ga=GA1.2.284292450.1670951791&semt=sph");
+    margin: 0;
+}
+
+.custom-row .input-group {
+    margin: 0 auto;
+    max-width: 500px;
+}
+
+.custom-row input[type="text"] {
+    border-radius: 0;
+}
+
+.custom-row button[type="button"] {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+
+.row-custom {
+    margin: 0;
+    width: 100%;
+}
+
+.button-add {
+    position: fixed;
+    bottom: 5rem;
+    right: 3rem;
+}

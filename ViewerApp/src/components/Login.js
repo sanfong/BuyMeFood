@@ -52,7 +52,6 @@ const Login = () => {
     };
 
     return (
-
         <div className="login-container">
           
             <div className="login-card" style={{ height: '50vh' }}>

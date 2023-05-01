@@ -3,9 +3,10 @@ import './Login.css'
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
+import SignupSuccess from './SignupSuccess';
 // npm install axios
 
-const SignUp = () => {
+const SignUp = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -13,6 +14,7 @@ const SignUp = () => {
     const [fullName, setfullName] = useState('')
     const [phone, setPhone] = useState('')
     const [success, setSuccess] = useState(false);
+    const [signup, setSignup] = useState(false)
     const [error, setError] = useState({
         username: '',
         password: '',
@@ -158,12 +160,12 @@ const SignUp = () => {
                 console.log(error.response.data.errors);
                 if (errorResponse.errors) {
                     //const errorMessages = Object.values(errorResponse.errors).flatMap((val) => val);
-                    setUsernameError(errorResponse.errors.username)
-                    setPasswordError(errorResponse.errors.Password)
+                    setUsernameError(errorResponse.errors.Username)
+                    setPasswordError(errorResponse.errors.Password[0])
                     setConfirmPasswordError(errorResponse.errors.ConfirmPassword)
-                    setnameError(errorResponse.errors.name)
-                    setfullNameError(errorResponse.errors.fullName)
-                    setphoneError(errorResponse.errors.phone)
+                    setnameError(errorResponse.errors.Name)
+                    setfullNameError(errorResponse.errors.FullName)
+                    setphoneError(errorResponse.errors.PhoneNumber[0])
                     //setError(errorMessages);
                     console.log(errorResponse.errors.Name);
                 } else {
@@ -207,13 +209,16 @@ const SignUp = () => {
     if (success) {
 
         return (
+            
             window.location.replace('/login')
         )
 
     } else {
         return (
+            
             <div className="login-container">
-                <div className="login-card" style={{ height: '50vh' }}>
+                {signup && <SignupSuccess{...props} onClose={() => { setSignup(false) }} />}
+                <div className="login-card">
                     <h1 className="title">Sign Up</h1>
 
                     <div className="row">
@@ -298,9 +303,9 @@ const SignUp = () => {
                                 </div>
 
 
-                                <div className="btn-container">
-                                    <button className="button" type="submit">Sign Up</button>
-                                </div>
+                        <div className="btn-container">
+                            <button onClick={() => { setSignup(true) }} className="button" type="submit">Sign Up</button>
+                        </div>
 
                             </form>
                         </div>

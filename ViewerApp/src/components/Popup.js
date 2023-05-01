@@ -180,10 +180,10 @@ const PopUp = (props) => {
                 </div>}
                     
                 <div className='d-flex justify-content-around container my-3 '>
-                    {!isOwner ? <button onClick={SubmitForm} disabled={isExpired} className="btn btn-success col-6 col-md-3 col-lg-2">{displayForm ? 'ยืนยัน' : 'ฝากสั่ง'}</button> : <buttton onClick={() => {
+                    {!isOwner ? <button onClick={SubmitForm} disabled={isExpired} className="btn btn-success col-6 col-md-3 col-lg-2">{displayForm ? 'ยืนยัน' : 'ฝากสั่ง'}</button> : !displayOrder ? < buttton onClick={() => {
                         console.log(orderDetail)
                         setDisplayOrder(true)
-                    }} className="btn btn-warning">ดูรายการฝาก</buttton>} 
+                    }} className="btn btn-warning">ดูรายการฝาก</buttton> : <button onClick={() => { window.location.replace('mycard') }} className='btn btn-warning'>ดูรายการรับฝากทั้งหมด</button>} 
                     <button className="btn btn-danger  col-5 col-md-3 col-lg-2" onClick={props.onClose}>ปิด</button>
                 </div>
             </div>

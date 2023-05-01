@@ -213,88 +213,104 @@ const SignUp = () => {
     } else {
         return (
             <div className="login-container">
-                <div className="login-card">
+                <div className="login-card" style={{ height: '50vh' }}>
                     <h1 className="title">Sign Up</h1>
-                    <form onSubmit={handleSubmit} >
-                        <div>
-                            <div>Username</div>
-                            <input className="input"
-                                type="text"
-                                placeholder=""
-                                value={username}
-                                onChange={(e) => { validateUsername(e.target.value) }}
-                            />
-                            {usernameError && <p className="error">{usernameError}</p>}
+
+                    <div className="row">
+                        <div className='col-md-6'>
+                        </div>
+                        <div className='col-md-6 px-5'>
+
+                            <form onSubmit={handleSubmit} >
+                                <div>
+                                    <div>Username</div>
+                                    <input className="input mb-2"
+                                        type="text"
+                                        placeholder=""
+                                        value={username}
+                                        onChange={(e) => { validateUsername(e.target.value) }}
+                                    />
+
+                                    <div className='mt-0 pt-0 mb-2' style={{ position: 'relative' }}>{usernameError && <p className="error pt-0 mt-0 pb-0">{usernameError}</p>}</div>
+                                    
+                                </div>
+
+                                <div>
+                                    <div>Password</div>
+                                    <input
+                                        type="password"
+                                        className="input"
+                                        placeholder=""
+                                        value={password}
+                                        onChange={(e) => { validatePassword(e.target.value) }}
+                                    />
+                                    {PasswordError && <p className="error">{PasswordError}</p>}
+                                </div>
+                                <div>
+                                    <div>Confirm Password</div>
+                                    <input
+                                        type="password"
+                                        className="input"
+                                        placeholder=""
+                                        value={confirmPassword}
+                                        onChange={(e) => { validateConfirmPassword(e.target.value) }}
+                                    />
+                                    {confirmPasswordError && <p className="error">{confirmPasswordError}</p>}
+                                </div>
+                                <div>
+                                    <div>Name</div>
+                                    <input
+                                        type="text"
+                                        className="input"
+                                        value={name}
+                                        onChange={(e) => { validateName(e.target.value) }}
+                                    />
+                                    {nameError && <p className="error">{nameError}</p>}
+                                </div>
+                                <div>
+                                    <div>Full Name</div>
+                                    <input
+                                        type="text"
+                                        className="input"
+                                        placeholder=""
+                                        value={fullName}
+                                        onChange={(e) => { validateFullName(e.target.value) }}
+                                    />
+                                    {fullNameError && <p className="error">{fullNameError}</p>}
+                                </div>
+                                <div>
+                                    <div>Phone Number</div>
+                                    <input
+                                        type="tel"
+                                        className="input"
+                                        value={phone}
+                                        onChange={(e) => { validatePhoneNumber(e.target.value) }}
+                                    />
+                                    {phoneError && <p className="error">{phoneError}</p>}
+                                </div>
+
+
+                                <div className="linker">
+                                    <p>Already have account ? </p>
+
+                                    <NavLink tag={Link} className="text-danger mx-3" to="/login">Log In</NavLink>
+
+                                </div>
+
+
+                                <div className="btn-container">
+                                    <button className="button" type="submit">Sign Up</button>
+                                </div>
+
+                            </form>
                         </div>
 
-                        <div>
-                            <div>Password</div>
-                            <input
-                                type="password"
-                                className="input"
-                                placeholder=""
-                                value={password}
-                                onChange={(e) => { validatePassword(e.target.value) }}
-                            />
-                            {PasswordError && <p className="error">{PasswordError}</p>}
-                        </div>
-                        <div>
-                            <div>Confirm Password</div>
-                            <input
-                                type="password"
-                                className="input"
-                                placeholder=""
-                                value={confirmPassword}
-                                onChange={(e) => { validateConfirmPassword(e.target.value) }}
-                            />
-                            {confirmPasswordError && <p className="error">{confirmPasswordError}</p>}
-                        </div>
-                        <div>
-                            <div>Name</div>
-                            <input
-                                type="text"
-                                className="input"
-                                value={name}
-                                onChange={(e) => { validateName(e.target.value) }}
-                            />
-                            {nameError && <p className="error">{nameError}</p>}
-                        </div>
-                        <div>
-                            <div>Full Name</div>
-                            <input
-                                type="text"
-                                className="input"
-                                placeholder=""
-                                value={fullName}
-                                onChange={(e) => { validateFullName(e.target.value) }}
-                            />
-                            {fullNameError && <p className="error">{fullNameError}</p>}
-                        </div>
-                        <div>
-                            <div>Phone Number</div>
-                            <input
-                                type="tel"
-                                className="input"
-                                value={phone}
-                                onChange={(e) => { validatePhoneNumber(e.target.value) }}
-                            />
-                            {phoneError && <p className="error">{phoneError}</p>}
-                        </div>
 
 
-                        <div className="linker">
-                            <p>Already have account ? </p>
 
-                            <NavLink tag={Link} className="text-dark" to="/login">Log In</NavLink>
+                    </div>
 
-                        </div>
-
-
-                        <div className="btn-container">
-                            <button className="button" type="submit">Sign Up</button>
-                        </div>
-
-                    </form>
+                   
                 </div>
             </div>
         );

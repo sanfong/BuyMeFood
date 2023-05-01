@@ -8,8 +8,14 @@ const PopUp = (props) => {
     const [isOwner, setIsOwner] = useState(false)
     const [displayOrder, setDisplayOrder] = useState(false)
     const [orderDetail, setOrderDetail] = useState({})
-
+    const [ownerName, setOwnerName] = useState('')
     const [isExpired, setIsExpired] = useState(props.item.isExpired)
+    const [tel, setTel] = useState('')
+    const [isErr, setIsErr] = useState(false)
+    const errormsg = {
+        store: 'กรุณาระบุร้านที่ต้องการสั่ง',
+        descp: 'กรุณาระบุรายละเอียด',
+    }
     const [detailState, setDetailState] = useState(
         {
      
@@ -47,12 +53,15 @@ const PopUp = (props) => {
                         'Content-Type': 'application/json'
                     }
                 };
-        
+
                 const formdata = JSON.stringify(detailState)
                 const response = await axios.post('/Card/createOrder', formdata, config)
                 console.log(response)
                 window.location.reload()
 
+
+            } else {
+                setIsErr(true)
 
             }
             
@@ -87,10 +96,23 @@ const PopUp = (props) => {
                 console.error(error)
             }
         }
+        const fetchOwner = async () => {
+            try {
+                const response = await axios.get(`/Account/select?id=${props.cardOwnerId}`)
+                console.log(response.data[0])
+                setOwnerName(response.data[0].name)
+                setTel(response.data[0].phoneNumber)
+
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
 
 
         console.log(props.ownerId, props.cardOwnerId, props.cardId)
         fetchOrderList()
+        fetchOwner()
         if (props.ownerId === props.cardOwnerId) {
             setIsOwner(true)
             
@@ -116,12 +138,15 @@ const PopUp = (props) => {
 
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}  >
-                    <h3 >ผู้รับฝาก : {props.item.buyer}</h3>
-                    <div class={isExpired ? "bg-danger text-white " : "bg-success text-white "} style={{ height:'30px', width: '50px', borderRadius: '7px', textAlign: 'center' }}>
+                    <h3 >ผู้รับฝาก : {ownerName}</h3>
+                  
+                    <div className={isExpired ? "bg-danger text-white " : "bg-success text-white "} style={{ height:'30px', width: '50px', borderRadius: '7px', textAlign: 'center' }}>
                         <p style={{ fontSize: '16px', marginBottom: '0'}}>{isExpired ? 'close' : 'open'}</p>
                     </div>
                 </div>
+                <p >โทร: {tel}</p>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+
                     <h4 >เวลาปิดรับออเดอร์ : {timeString}</h4>
                     {isOwner && !isExpired && < button className="btn btn-success col-2 col-md-2 col-lg-2" onClick={() => {
                         closeOrder(props.cardId)
@@ -139,23 +164,28 @@ const PopUp = (props) => {
                 {displayForm && <div><hr />
                     <div className="d-flex justify-content-between">
                         <h2>กรอกรายการที่ต้องการฝากซื้อ</h2>
-                        <button onClick={() => { setDisplayForm(false) }} className="btn btn-danger" style={{ height:'40px' }}>x</button>
+                        <button onClick={() => {
+                            setDisplayForm(false)
+                            setIsErr(false)
+                        }} className="btn btn-danger" style={{ height: '40px' }}>x</button>
                     </div>
                     
                     <form >
-                        <div class="form-group">
+                        <div className="form-group">
                             <label for="exampleFormControlInput1">ร้าน</label>
-                            <input onChange={(e) => { setDetailState({ ...detailState, storeName: e.target.value }) }} ref={nameRef} type="text" class="form-control" placeholder="ระบุร้านที่ต้องการสั่ง" />
+                            <input onChange={(e) => { setDetailState({ ...detailState, storeName: e.target.value }) }} ref={nameRef} type="text" className="form-control" placeholder="ระบุร้านที่ต้องการสั่ง" />
+                            {detailState.storeName === '' && isErr && <p style={{ width: '250px' }} className='text-danger'>{errormsg.store}</p>}
                         </div>
-                        <div class="form-group">
+                        <div className="form-group">
                             <label for="exampleFormControlInput1">รายละเอียด</label>
-                            <textarea onChange={(e) => { setDetailState({ ...detailState, description: e.target.value }) }} ref={descRef} type="text" class="form-control" placeholder="กรอกเมนู จำนวน และรายละเอียดต่างๆที่ต้องการ" />
+                            <textarea onChange={(e) => { setDetailState({ ...detailState, description: e.target.value }) }} ref={descRef} type="text" className="form-control" placeholder="กรอกเมนู จำนวน และรายละเอียดต่างๆที่ต้องการ" />
+                            {detailState.description === '' && isErr && <p style={{ width: '250px' }} className='text-danger'>{errormsg.descp}</p>}
                         </div>
                     </form>
                 </div>}
                 {displayOrder &&
                 <div>
-                        <table class="table table-hover">
+                        <table className="table table-hover">
                             <thead>
                                 
                                 <tr>
@@ -184,10 +214,10 @@ const PopUp = (props) => {
                 </div>}
                     
                 <div className='d-flex justify-content-around container my-3 '>
-                    {!isOwner ? <button onClick={SubmitForm} disabled={isExpired} className="btn btn-success col-6 col-md-3 col-lg-2">{displayForm ? 'ยืนยัน' : 'ฝากสั่ง'}</button> : !displayOrder ? < buttton onClick={() => {
+                    {!isOwner ? <button onClick={SubmitForm} disabled={isExpired} className="btn btn-success col-6 col-md-3 col-lg-2">{displayForm ? 'ยืนยัน' : 'ฝากสั่ง'}</button> : !displayOrder ? < button onClick={() => {
                         console.log(orderDetail)
                         setDisplayOrder(true)
-                    }} className="btn btn-warning">ดูรายการฝาก</buttton> : <button onClick={() => { window.location.replace('mycard') }} className='btn btn-warning'>ดูรายการรับฝากทั้งหมด</button>} 
+                    }} className="btn btn-warning">ดูรายการฝาก</button> : <button onClick={() => { window.location.replace('mycard') }} className='btn btn-warning'>ดูรายการรับฝากทั้งหมด</button>} 
                     <button className="btn btn-danger  col-5 col-md-3 col-lg-2" onClick={props.onClose}>ปิด</button>
                 </div>
             </div>
@@ -195,7 +225,7 @@ const PopUp = (props) => {
 
 
 
-            {displayStatus && <div class="alert alert-success alert-dismissible fade show fixed-top" role="alert" style={{ position: 'absolute', top: '0' }}>
+            {displayStatus && <div className="alert alert-success alert-dismissible fade show fixed-top" role="alert" style={{ position: 'absolute', top: '0' }}>
                 <strong>ฝากซื้อสำเร็จ !</strong>
 
             </div>}

@@ -53,8 +53,8 @@ const Login = () => {
 
     return (
         <div className="login-container">
-          
-            <div className="login-card" style={{ height: '50vh' }}>
+
+            <div className="login-card" style={{ height: '50vh', width:'100%' }}>
                 <h1 className="title">Login</h1>
 
 

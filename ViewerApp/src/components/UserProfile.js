@@ -15,7 +15,7 @@ const UserProfile = (props) => {
                     <div className="profile-fullname">{props.user.fullName}</div>
                     <div className="profile-contact">
   
-                        <div className="profile-contact-text">{props.user.tel}</div>
+                        <div className="profile-contact-text">{props.tel}</div>
                     </div>
                     <div className="profile-contact">
 

@@ -37,7 +37,7 @@ const Card = (props) => {
 
                 </div>
 
-                <div class={props.item.isExpired ? "bg-danger text-white " : "bg-success text-white "}  style={{ width: '50px', borderRadius: '7px', textAlign: 'center' }}>
+                <div className={props.item.isExpired ? "bg-danger text-white " : "bg-success text-white "}  style={{ width: '50px', borderRadius: '7px', textAlign: 'center' }}>
                     <p style={{ fontSize: '16px' }}>{props.item.isExpired ? 'close' : 'open'}</p>                    
                 </div>
 

@@ -1,4 +1,4 @@
-﻿import React, { useRef, useState } from 'react';
+﻿import React, { useEffect, useRef, useState } from 'react';
 import './Login.css'
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -206,19 +206,25 @@ const SignUp = (props) => {
         };
         img.src = base64img;
     }
-    if (success) {
+    useEffect(() => {
+        if (success === true) {
+            setTimeout(() => {
+                window.location.replace('/login')
 
-        return (
-            
-            window.location.replace('/login')
-        )
+            }, 3000)
 
-    } else {
+        }
+    
+
+    }, [success])
         return (
-            
+                    
             <div className="login-container">
-                {signup && <SignupSuccess{...props} onClose={() => { setSignup(false) }} />}
-                <div className="login-card">
+                {success && <div class="d-flex alert alert-success alert-dismissible fade show " role="alert" style={{ position: 'absolute',top:'100px' }}>
+                    <strong>Sign up success </strong> <p>: redirecting to log In page</p>
+
+                </div>} 
+                <div className="login-card " style={{ width:'100%' }}>
                     <h1 className="title">Sign Up</h1>
 
                     <div className="row">
@@ -320,5 +326,5 @@ const SignUp = (props) => {
             </div>
         );
     }
-};
+
 export default SignUp;

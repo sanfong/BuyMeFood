@@ -15,7 +15,7 @@ const Login = () => {
                     window.location.replace('/')
                 }
             } catch (error) {
-                console.error(error)
+            
             }
         }
 
@@ -62,7 +62,7 @@ const Login = () => {
                     <div className='col-md-6 px-5'>
 
                         <form onSubmit={handleSubmit} style={{marginTop:'12vh'} } >
-                            <div className>
+                            <div >
                                 <div>Username</div>
                                 <input className="input"
                                     type="text"

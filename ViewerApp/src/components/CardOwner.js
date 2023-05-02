@@ -16,10 +16,10 @@ const CardOwner = (props) => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`/Card/GetCardOrder?cardID=${props.order.cardID}`)
-                console.log(response)
+            
                 setDetail(response.data)
             } catch (error) {
-                console.error(error)
+                
             }
         }
         fetchData()
@@ -48,15 +48,15 @@ const CardOwner = (props) => {
     return (
         <div>
             {displayProfile && <UserProfile user={userProps} tel={userProps.tel} onClose={() => { setdisplayProfile(false) }} />}
-            <div class="card mb-3">
-                <img class="card-img-top" src={ props.order.image} alt="Card image cap"/>
-                    <div class="card-body">
-                    <h5 class="card-title">{props.order.loactionStoreName}</h5>
-                    <p class="card-text">{props.order.description}</p>
-                    <p class="card-text"><small class="text-muted">เวลาปิดรับ: {timeString}</small></p>
+            <div className="card mb-3">
+                <img className="card-img-top" src={ props.order.image} alt="Card image cap"/>
+                <div className="card-body">
+                    <h5 className="card-title">{props.order.loactionStoreName}</h5>
+                    <p className="card-text">{props.order.description}</p>
+                    <p className="card-text"><small className="text-muted">เวลาปิดรับ: {timeString}</small></p>
                     {displayDetail &&
                         <div>
-                            <table class="table table-hover">
+                            <table className="table table-hover">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -69,7 +69,7 @@ const CardOwner = (props) => {
                                 <tbody>
                                     {detail.map((order) => {
                                         return (
-                                            <tr onClick={ownerProfile}>
+                                            <tr key={ order.orderID} onClick={ownerProfile}>
                                                 <th scope="row">{order.orderID}</th>
                                                 <td>{order.ownerName}</td>
                                                 <td>{order.storeName}</td>

@@ -3,19 +3,20 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    height: 100vh;
     background-color: #FE9F60;
 }
 
 .signup-card {
     display: flex;
     flex-direction: column;
-    padding: 32px;
-    border-radius: 8px;
+    padding: 40px;
+    border-radius: 14px;
     border: 5px solid #cb7f4c;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
-    width: 100%;
+
+    width: 80%;
 }
 .title {
     text-align:center;
@@ -23,4 +24,14 @@
     font-weight: bold;
     margin-bottom: 16px;
     color: #cb7f4c;
+}
+.img-contianer {
+    text-align: center;
+}
+
+.signup-image {
+
+    border-radius: 4px;
+    padding: 2px;
+    width: 450px;
 }

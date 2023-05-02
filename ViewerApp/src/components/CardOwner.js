@@ -18,10 +18,10 @@ const CardOwner = (props) => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`/Card/GetCardOrder?cardID=${props.order.cardID}`)
-                console.log(response)
+            
                 setDetail(response.data)
             } catch (error) {
-                console.error(error)
+                
             }
         }
         fetchData()
@@ -60,7 +60,7 @@ const CardOwner = (props) => {
                     <p class="card-text cardOwn"><small class="text-muted">เวลาปิดรับ: {timeString}</small></p>
                     {displayDetail &&
                         <div>
-                            <table class="table table-hover">
+                            <table className="table table-hover">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -73,7 +73,7 @@ const CardOwner = (props) => {
                                 <tbody>
                                     {detail.map((order) => {
                                         return (
-                                            <tr onClick={ownerProfile}>
+                                            <tr key={ order.orderID} onClick={ownerProfile}>
                                                 <th scope="row">{order.orderID}</th>
                                                 <td>{order.ownerName}</td>
                                                 <td>{order.storeName}</td>

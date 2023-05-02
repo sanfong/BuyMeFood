@@ -17,16 +17,23 @@ const NavMenu = (props) => {
                 }
             
             } catch (error) {
-                console.log(error)
+               
             }
         }
 
         fetchData()
     }, [])
     const logout = async () => {
-        const response = await axios.get('/Account/logout')
-        console.log(response)
-        window.location.reload()
+        try {
+            const response = await axios.get('/Account/logout')
+            console.log(response)
+            window.location.reload()
+        }
+        catch {
+
+            window.location.reload()
+        }
+
     }
 
     return (
@@ -51,7 +58,7 @@ const NavMenu = (props) => {
                                 <div onClick={logout}><NavLink tag={Link} className="text-dark" to="/"  >Logout</NavLink></div>
                             </NavItem>
                     </Nav>
-                        : <NavLink tag={Link} className="text-dark ms-auto" to="/login">Log In</NavLink>
+                        : <NavLink tag={Link} className="ms-auto button-log mt-0" to="/login">Log In</NavLink>
                     }
                 </Collapse>
             </Navbar>

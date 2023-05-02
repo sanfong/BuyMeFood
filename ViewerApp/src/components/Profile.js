@@ -8,16 +8,26 @@ const Profile = () => {
             try {
                 const response = await axios.get('/Account')
                 if (response.status === 200) {
-                    console.log(response.data)
+                
                     setProfile(response.data)
                 }
             } catch (error) {
-                console.error(error)
+          
                 window.location.replace('/')
             }
         }
+        const fetchDatauser = async () => {
+            try {
+                const response = await axios.get('/Account')
+                fetchData()
 
-        fetchData()
+
+            } catch (error) {
+                window.location.replace('/login')
+            }
+        }
+        fetchDatauser()
+     
     }, [])
     const PROFLIE = {
         img: profile.image,

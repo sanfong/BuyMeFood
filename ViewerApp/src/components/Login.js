@@ -3,6 +3,7 @@ import './Login.css'
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
+import burger from '../Assets/Burger.png'
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -15,7 +16,7 @@ const Login = () => {
                     window.location.replace('/')
                 }
             } catch (error) {
-                console.error(error)
+            
             }
         }
 
@@ -59,9 +60,9 @@ const Login = () => {
                 <div className="row">
                     <div className='col-md-6 px-5'>
 
-                        <form className='login-form' >
-                            <div>
-                                <div className="up">Username</div>
+                        <form onSubmit={handleSubmit} style={{marginTop:'7vh'} } >
+                            <div >
+                                <div>Username</div>
                                 <input className="input"
                                     type="text"
                                     placeholder=""
@@ -86,8 +87,8 @@ const Login = () => {
                         </form>
                     </div>
                     <div className='col-md-6 d-none d-md-block img-contianer'>
-                        <img src="https://img.freepik.com/premium-vector/fast-food-composition-line-art-concept-flat-cartoon-graphic-design-illustration_133260-3168.jpg?w=826" className="login-image" />
-                        <p style={{ color: '#cb7f4c', fontSize:'24px' }}>Welcome back!!</p>
+                        <img src={burger} className="login-image" />
+                        
                     </div>
                 </div>
                 <div className="linker mb-2 pb-0">

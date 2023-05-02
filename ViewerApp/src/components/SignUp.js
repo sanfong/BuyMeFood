@@ -194,20 +194,20 @@ const SignUp = (props) => {
                 <strong>Sign up success </strong> <p>: redirecting to log In page</p>
 
                 </div>} 
-                <div className="signup-card " >
+                <div className="signup-card  " >
                     <h1 className="title mb-2">Sign Up</h1>
-
+<form onSubmit={handleSubmit} >
                     <div className="row">
                     <div className='col-md-6 d-none d-md-block align-middle img-contianer'>
                         <img src={noodle} className="signup-image" />
                         </div>
                         <div className='col-md-6 px-5'>
 
-                            <form onSubmit={handleSubmit} >
+                        
                                 <div>
                                     
-                                        <div>Username</div>
-                                        <input className="input mb-0"
+                                        <div >Username</div>
+                                        <input className="input  mb-0 control"
                                             type="text"
                                             placeholder=""
                                             value={username}
@@ -271,17 +271,21 @@ const SignUp = (props) => {
                                     />
                                     {phoneError && <p className="error mb-0">{phoneError}</p>}
                                 </div>
+                
 
 
 
-
-                        </form>
+                        
                     </div>
 
 
 
 
+                    </div>
+                        <div className="btn-container">
+                    <button className="button" type="submit">Sign Up</button>
                 </div>
+                </form>
                 <div className="linker">
 
                     <p>Already have account ? </p><NavLink tag={Link} className="text-danger mx-3" to="/login">Log In</NavLink>
@@ -290,9 +294,7 @@ const SignUp = (props) => {
                 </div>
 
 
-                <div className="btn-container">
-                    <button className="button" type="submit">Sign Up</button>
-                </div>
+                
 
             </div>
         </div>

@@ -13,7 +13,27 @@ const EditProfile = (props) => {
     const [image, setImage] = useState(props.img);
     const [editImage, setEditImage] = useState(false)
     const [imageBase64, setImageBase64] = useState(props.img)
-    const handleSubmit = async() => {
+    const [isErr,setIsErr]=useState(false)
+    const errMsg = {
+        username: 'ชื่อบัญชีผู้ใช้',
+        name: 'ชื่อ',
+        fullname: 'ชือ นามสกุล',
+        phone: 'หมายเลขโทรศัพท์',
+        phonenum:'หมายเลข 0-9'
+
+    }
+
+    const handleSubmit = async () => {
+
+        if (username.trim() === '' || name.trim() === '' || fullName.trim() === '' ||
+            phone.trim() === '' || !/^[0-9]+$/.test(phone)) {
+            setIsErr(true)
+            return
+
+        }
+
+
+
         const data = {
             username: username,
             name: name,
@@ -107,7 +127,7 @@ const EditProfile = (props) => {
                                 value={username}
                                 onChange={(e) => { setUsername(e.target.value) }}
                             />
-
+                            {isErr && username.trim() === '' && <p className='text-danger'>กรุณาระบุ{errMsg.username}</p>}
                         </div>
 
                         
@@ -120,6 +140,7 @@ const EditProfile = (props) => {
                                 value={name}
                                 onChange={(e) => { setName(e.target.value) }}
                             />
+                            {isErr && name.trim() === '' && <p className='text-danger'>กรุณาระบุ{errMsg.name}</p>}
                         </div>
                         <div>
                             <div>Full Name</div>
@@ -130,6 +151,7 @@ const EditProfile = (props) => {
                                 value={fullName}
                                 onChange={(e) => { setfullName(e.target.value) }}
                             />
+                            {isErr && fullName.trim() === '' && <p className='text-danger'>กรุณาระบุ{errMsg.fullname}</p>}
                         </div>
                         <div>
                             <div>PhoneNumber</div>
@@ -139,6 +161,8 @@ const EditProfile = (props) => {
                                 value={phone}
                                 onChange={(e) => { setPhone(e.target.value) }}
                             />
+                            {isErr && phone.trim() === '' && <p className='text-danger'>กรุณาระบุ{errMsg.phone}</p>}
+                            {isErr && !/^[0-9]+$/.test(phone) && phone.trim() !== '' &&<p className='text-danger'>กรุณาระบุ{errMsg.phonenum}</p>}
                         </div>
 
                         {error && <p className="error">{error}</p>}

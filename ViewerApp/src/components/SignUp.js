@@ -117,8 +117,6 @@ const SignUp = (props) => {
         setPhone(value);
     }
 
-
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = {
@@ -129,7 +127,6 @@ const SignUp = (props) => {
             fullName: fullName,
             phoneNumber: phone,
             image: defaultImage
-
         }
         console.log(data)
         const config = {
@@ -141,161 +138,127 @@ const SignUp = (props) => {
             setConfirmPasswordError('Passwords do not match');
             return;
         }
-        const formdata = JSON.stringify(data)
-        try {
-            const response = await axios.post('/Account/register', formdata, config)
-            console.log(response)
-            //console.log(response.data.errors)
-            if (response.status === 201) {
+
+        axios.post('/Account/register', JSON.stringify(data), config)
+            .then((response) => {
+                console.log(response)
                 setSuccess(true);
-
-            }
-        } catch (error) {
-            if (error.response) {
-
+            })
+            .catch((error) => {
+                if (!error.response) {
+                    setError(['An unexpected error occurred.'])
+                    return
+                }
                 const errorResponse = error.response.data;
                 console.log(error.response.data.errors);
                 if (errorResponse.errors) {
-                    //const errorMessages = Object.values(errorResponse.errors).flatMap((val) => val);
                     setUsernameError(errorResponse.errors.Username)
                     setPasswordError(errorResponse.errors.Password[0])
                     setConfirmPasswordError(errorResponse.errors.ConfirmPassword)
                     setnameError(errorResponse.errors.Name)
                     setfullNameError(errorResponse.errors.FullName)
                     setphoneError(errorResponse.errors.PhoneNumber[0])
-                    //setError(errorMessages);
                     console.log(errorResponse.errors.Name);
                 } else {
                     setError([errorResponse.message]);
                 }
-            } else {
-                setError(['An unexpected error occurred.']);
-            }
-        }
+            })
+    }
 
-
-    };
- 
     useEffect(() => {
-        if (success === true) {
+        if (success) {
             setTimeout(() => {
                 window.location.replace('/login')
-
             }, 3000)
-
         }
-
-
     }, [success])
-    return (
 
+    return (
         <div className="signup-container">
             {success && <div className="d-flex alert alert-success alert-dismissible fade show " role="alert" style={{ position: 'absolute', top: '100px' }}>
                 <strong>Sign up success </strong> <p>: redirecting to log In page</p>
-
-                </div>} 
-                <div className="signup-card  " >
-                    <h1 className="title mb-2">Sign Up</h1>
-<form onSubmit={handleSubmit} >
+            </div>}
+            <div className="signup-card  " >
+                <h1 className="title mb-2">Sign Up</h1>
+                <form onSubmit={handleSubmit} >
                     <div className="row">
-                    <div className='col-md-6 d-none d-md-block align-middle img-contianer'>
-                        <img src={noodle} className="signup-image" />
+                        <div className='col-md-6 d-none d-md-block align-middle img-contianer'>
+                            <img src={noodle} className="signup-image" />
                         </div>
                         <div className='col-md-6 px-5'>
+                            <div>
+                                <div >Username</div>
+                                <input className="input  mb-0 control"
+                                    type="text"
+                                    placeholder=""
+                                    value={username}
+                                    onChange={(e) => { validateUsername(e.target.value) }}
+                                />
+                                <div className='mt-0 pt-0 mb-0' style={{ position: 'relative' }}>{usernameError && <p className="error pt-0 mt-0 pb-0 mb-0">{usernameError}</p>}</div>
+                            </div>
 
-                        
-                                <div>
-                                    
-                                        <div >Username</div>
-                                        <input className="input  mb-0 control"
-                                            type="text"
-                                            placeholder=""
-                                            value={username}
-                                            onChange={(e) => { validateUsername(e.target.value) }}
-                                    />
-                                    
-                                    <div className='mt-0 pt-0 mb-0' style={{ position: 'relative' }}>{usernameError && <p className="error pt-0 mt-0 pb-0 mb-0">{usernameError}</p>}</div>
-                                </div>
-
-                                <div>
-                                    
-                                    <div >Password</div>
-                                    <input
-                                        type="password"
-                                        className="input mb-0"
-                                        placeholder=""
-                                        value={password}
-                                        onChange={(e) => { validatePassword(e.target.value) }}
-                                    />
-                                    {PasswordError && <p className="error mb-0">{PasswordError}</p>}
-                                </div>
-                                <div>
-                                    <div>Confirm Password</div>
-                                    <input
-                                        type="password"
-                                        className="input mb-0"
-                                        placeholder=""
-                                        value={confirmPassword}
-                                        onChange={(e) => { validateConfirmPassword(e.target.value) }}
-                                    />
-                                    {confirmPasswordError && <p className="error mb-0">{confirmPasswordError}</p>}
-                                </div>
-                                <div>
-                                    <div>Name</div>
-                                    <input
-                                        type="text"
-                                        className="input mb-0"
-                                        value={name}
-                                        onChange={(e) => { validateName(e.target.value) }}
-                                    />
-                                    {nameError && <p className="error mb-0">{nameError}</p>}
-                                </div>
-                                <div>
-                                    <div>Full Name</div>
-                                    <input
-                                        type="text"
-                                        className="input mb-0"
-                                        placeholder=""
-                                        value={fullName}
-                                        onChange={(e) => { validateFullName(e.target.value) }}
-                                    />
-                                    {fullNameError && <p className="error mb-0">{fullNameError}</p>}
-                                </div>
-                                <div>
-                                    <div>Phone Number</div>
-                                    <input
-                                        type="tel"
-                                        className="input mb-0"
-                                        value={phone}
-                                        onChange={(e) => { validatePhoneNumber(e.target.value) }}
-                                    />
-                                    {phoneError && <p className="error mb-0">{phoneError}</p>}
-                                </div>
-                
-
-
-
-                        
+                            <div>
+                                <div >Password</div>
+                                <input
+                                    type="password"
+                                    className="input mb-0"
+                                    placeholder=""
+                                    value={password}
+                                    onChange={(e) => { validatePassword(e.target.value) }}
+                                />
+                                {PasswordError && <p className="error mb-0">{PasswordError}</p>}
+                            </div>
+                            <div>
+                                <div>Confirm Password</div>
+                                <input
+                                    type="password"
+                                    className="input mb-0"
+                                    placeholder=""
+                                    value={confirmPassword}
+                                    onChange={(e) => { validateConfirmPassword(e.target.value) }}
+                                />
+                                {confirmPasswordError && <p className="error mb-0">{confirmPasswordError}</p>}
+                            </div>
+                            <div>
+                                <div>Name</div>
+                                <input
+                                    type="text"
+                                    className="input mb-0"
+                                    value={name}
+                                    onChange={(e) => { validateName(e.target.value) }}
+                                />
+                                {nameError && <p className="error mb-0">{nameError}</p>}
+                            </div>
+                            <div>
+                                <div>Full Name</div>
+                                <input
+                                    type="text"
+                                    className="input mb-0"
+                                    placeholder=""
+                                    value={fullName}
+                                    onChange={(e) => { validateFullName(e.target.value) }}
+                                />
+                                {fullNameError && <p className="error mb-0">{fullNameError}</p>}
+                            </div>
+                            <div>
+                                <div>Phone Number</div>
+                                <input
+                                    type="tel"
+                                    className="input mb-0"
+                                    value={phone}
+                                    onChange={(e) => { validatePhoneNumber(e.target.value) }}
+                                />
+                                {phoneError && <p className="error mb-0">{phoneError}</p>}
+                            </div>
+                        </div>
                     </div>
-
-
-
-
+                    <div className="btn-container">
+                        <button className="button" type="submit">Sign Up</button>
                     </div>
-                        <div className="btn-container">
-                    <button className="button" type="submit">Sign Up</button>
-                </div>
                 </form>
                 <div className="linker">
-
                     <p>Already have account ? </p><NavLink tag={Link} className="text-danger mx-3" to="/login">Log In</NavLink>
-
-
                 </div>
-
-
-                
-
             </div>
         </div>
     );

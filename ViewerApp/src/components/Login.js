@@ -1,4 +1,4 @@
-﻿import React, { useRef, useState,useEffect } from 'react';
+﻿import React, { useRef, useState,useEffect, useLayoutEffect } from 'react';
 import './Login.css'
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -9,18 +9,8 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('/Account')
-                if (response.status === 200) {
-                    window.location.replace('/')
-                }
-            } catch (error) {
-            
-            }
-        }
-
-        fetchData()
+        // fetchData
+        axios.get('/Account').then(() => { window.location.replace('/') }).catch(() => { })
     }, [])
 
     const handleSubmit = async (event) => {
@@ -34,22 +24,10 @@ const Login = () => {
             username: username,
             password: password
         }
-        const formdata = JSON.stringify(data)
 
-        try {
-            const response = await axios.post('/Account/login', formdata, config)
-            console.log(response)
-            if (response.status === 200) {
-                window.location.replace('/')
-            }
-        } catch (error) {
-            setError("Invalid username or password")
-        }
-        const alert = <div class="alert alert-success col-6" role="alert">
-            <h3>Success!</h3>
-            Your account has been created.
-        </div>
-        
+        axios.post('/Account/login', JSON.stringify(data), config)
+            .then(() => { window.location.replace('/') })
+            .catch(() => { setError("Invalid username or password") })
     };
 
     return (

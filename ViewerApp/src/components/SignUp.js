@@ -222,11 +222,11 @@ const SignUp = (props) => {
 
                 </div>} 
                 <div className="signup-card " style={{ width:'100%' }}>
-                    <h1 className="title mb-0">Sign Up</h1>
+                    <h1 className="title mb-2">Sign Up</h1>
 
                     <div className="row">
-                        <div className='col-md-6'>
-                        pic
+                        <div className='col-md-6 d-none d-md-block align-middle img-contianer'>
+                            <img src="https://img.freepik.com/premium-vector/green-supermarket-shopping-basket-full-fruits-modern-flat-cute-illustration_652800-2.jpg" className="signup-image" />
                         </div>
                         <div className='col-md-6 px-5'>
 
@@ -300,10 +300,10 @@ const SignUp = (props) => {
                                 </div>
 
 
-                            <div className="linker">
-                                <p>Already have account ? </p>
+                                <div className="linker">
 
-                                <NavLink tag={Link} className="text-danger mx-3" to="/login">Log In</NavLink>
+                                    <p>Already have account ? <NavLink tag={Link} className="text-danger mx-3" to="/login">Log In</NavLink></p>
+                                
 
                             </div>
 

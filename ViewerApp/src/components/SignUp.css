@@ -24,3 +24,13 @@
     margin-bottom: 16px;
     color: #cb7f4c;
 }
+.img-contianer {
+    text-align: center;
+}
+
+.signup-image {
+
+    border-radius: 4px;
+    padding: 2px;
+    width: 300px;
+}

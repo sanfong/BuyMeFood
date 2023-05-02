@@ -18,8 +18,7 @@ const Card = (props) => {
             }} item={props.item} isFull={isFull} />}
             <div className="card-body " onClick={() => {
                 setDisplayPopUp(true)
-                console.log(props.isLogin)
-                console.log(props.item)
+
             }}>
                 <img src={props.item.image} style={{ width: '14rem', borderRadius:'10px' }} />
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}  >

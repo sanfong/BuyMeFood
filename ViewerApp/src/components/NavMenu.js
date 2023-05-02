@@ -17,16 +17,23 @@ const NavMenu = (props) => {
                 }
             
             } catch (error) {
-                console.log(error)
+               
             }
         }
 
         fetchData()
     }, [])
     const logout = async () => {
-        const response = await axios.get('/Account/logout')
-        console.log(response)
-        window.location.reload()
+        try {
+            const response = await axios.get('/Account/logout')
+            console.log(response)
+            window.location.reload()
+        }
+        catch {
+
+            window.location.reload()
+        }
+
     }
 
     return (

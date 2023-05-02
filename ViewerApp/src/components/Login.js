@@ -15,7 +15,7 @@ const Login = () => {
                     window.location.replace('/')
                 }
             } catch (error) {
-                console.error(error)
+            
             }
         }
 
@@ -59,9 +59,9 @@ const Login = () => {
                 <div className="row">
                     <div className='col-md-6 px-5'>
 
-                        <form className='login-form' >
-                            <div>
-                                <div className="up">Username</div>
+                        <form onSubmit={handleSubmit} style={{marginTop:'12vh'} } >
+                            <div >
+                                <div>Username</div>
                                 <input className="input"
                                     type="text"
                                     placeholder=""

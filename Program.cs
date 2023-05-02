@@ -1,5 +1,8 @@
+
+using BuyMeFood.Middleware;
 using BuyMeFood.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);  
@@ -21,6 +24,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddAuthorization();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<IAuthorizationMiddlewareResultHandler, AuthorizationHandling>();
 
 var app = builder.Build();
 

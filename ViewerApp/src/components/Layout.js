@@ -7,9 +7,9 @@ export class Layout extends Component {
 
     render() {
         return (
-            <div >
+            <div style={{ backgroundColor: '#FE9F60', height:'100%' }}>
                 <NavMenu />
-                <Container tag="main">
+                <Container tag="main"  >
                     {this.props.children}
                 </Container>
             </div>

@@ -10,6 +10,7 @@ const ProfilePage = (props) => {
     const { img, name,username, fullname, tel, bcredit, ccredit } = props;
     const [editProfile, setEditProfile] = useState(false)
     const [changePassword, setChangePassword] = useState(false)
+
     return (
         <div className="profile-container">
             {editProfile && <EditProfile{...props} onClose={() => {

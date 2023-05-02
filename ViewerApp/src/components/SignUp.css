@@ -1,0 +1,26 @@
+﻿.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: #FE9F60;
+}
+
+.signup-card {
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    border-radius: 8px;
+    border: 5px solid #cb7f4c;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    width: 100%;
+}
+.title {
+    text-align:center;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #cb7f4c;
+}

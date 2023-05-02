@@ -1,6 +1,8 @@
 ﻿import { useState } from "react"
 import Modal from "./Modal"
 import axios from 'axios'
+import './ChangePass.css'
+
 const ChangePass = (props) => {
     const [Pass, setPass] = useState({
         oldPassword: '',
@@ -54,15 +56,15 @@ const ChangePass = (props) => {
 
     return (
         <Modal onClose={props.onClose}>
-            <div className="container" >
+            <div className="container-change-password or-color" >
                 <h1>Change Password</h1>
                 <div>
 
 
                     <form  >
                         <div>
-                            <div>Previous Password</div>
-                            <input className="input"
+                            <div className="edit-text">Previous Password</div>
+                            <input className="input edit-input"
                                 type="password"
                                 placeholder=""
                                 value={Pass.oldPassword}
@@ -75,10 +77,10 @@ const ChangePass = (props) => {
 
 
                         <div>
-                            <div>New Password</div>
+                            <div className="edit-text">New Password</div>
                             <input
                                 type="password"
-                                className="input"
+                                className="input edit-input"
                                 placeholder=""
                                 value={Pass.newPassword}
                                 onChange={(e) => { setPass({ ...Pass, newPassword: e.target.value }) }}
@@ -88,10 +90,10 @@ const ChangePass = (props) => {
                             {Pass.newPassword.trim() !== '' && Pass.newPassword.trim().length < 6 && isErr && <p className="text-danger">{errMsg.newwrong}</p>}
                         </div>
                         <div>
-                            <div>Confirm Password</div>
+                            <div className="edit-text">Confirm Password</div>
                             <input
                                 type="password"
-                                className="input"
+                                className="input edit-input"
                                 placeholder=""
                                 value={confirm}
                                 onChange={(e) => { setConfirm(e.target.value) }}
@@ -104,7 +106,7 @@ const ChangePass = (props) => {
 
 
                     </form>
-                    <div className="btn-container">
+                    <div className="button-container">
                         <button onClick={handleSubmit} className="button" type="submit">Save</button>
                         <button onClick={props.onClose} className='btn btn-danger mx-4' >Close</button>
                     </div>

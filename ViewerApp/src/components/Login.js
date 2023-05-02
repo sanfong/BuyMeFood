@@ -54,10 +54,8 @@ const Login = () => {
     return (
         <div className="login-container">
 
-            <div className="login-card" style={{ height: '50vh', width:'100%' }}>
+            <div className="login-card shadow-lg">
                 <h1 className="title">Login</h1>
-
-
                 <div className="row">
                     <div className='col-md-6 px-5'>
 
@@ -74,7 +72,7 @@ const Login = () => {
                             </div>
 
                             <div>
-                                <div>Password</div>
+                                <div className="up">Password</div>
                                 <input
                                     type="password"
                                     className="input"
@@ -84,25 +82,21 @@ const Login = () => {
                                 />
                                 
                             </div>
-                            <div style={{ position: 'absolute' }}>{error && <p className="error">{error}</p>}</div>
-                            <div style={{ marginTop: '13vh' }} className="linker mb-2 pb-0">
-                                <p className=" mb-0 pb-0">New to this site ? </p>
-
-                                <NavLink tag={Link} className="text-danger mx-2" to="/signup"> Sign Up</NavLink>
-
-                            </div>
-
-                            <div className="btn-container" >
-                                <button className="button mt-0" type="submit">Login</button>
-
-                            </div>
-
+                            <div style={{ position: 'absolute' }}>{error && <p className="error">{error}</p>}</div>       
                         </form>
                     </div>
-                    <div className='col-md-6'>
+                    <div className='col-md-6 d-none d-md-block img-contianer'>
+                        <img src="https://img.freepik.com/premium-vector/fast-food-composition-line-art-concept-flat-cartoon-graphic-design-illustration_133260-3168.jpg?w=826" className="login-image" />
+                        <p style={{ color: '#cb7f4c', fontSize:'24px' }}>Welcome back!!</p>
                     </div>
                 </div>
-
+                <div className="linker mb-2 pb-0">
+                    <p className=" mb-0 pb-0">New to this site ? </p>
+                    <NavLink tag={Link} className="text-danger mx-2" to="/signup"> Sign Up</NavLink>
+                </div>
+                <div className="btn-container" >
+                    <button onClick={handleSubmit} className="button mt-0">Login</button>
+                </div>
             </div>
         </div>
     );

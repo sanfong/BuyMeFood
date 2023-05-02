@@ -1,10 +1,12 @@
 ﻿import React, { Component,useEffect,useState } from 'react';
-import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Nav } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 import './NavMenu.css';
 
 const NavMenu = (props) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const toggle = () => setIsOpen(!isOpen);
     const [isLogin, setIsLogin] = useState(false)
     useEffect(() => {
         const fetchData = async () => {
@@ -26,19 +28,16 @@ const NavMenu = (props) => {
         console.log(response)
         window.location.reload()
     }
+
     return (
         <header >
-            <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mx-0 px-5" light>
-                <NavbarBrand className='p-0'>Buymefood
-                </NavbarBrand> 
-
-                <ul className="navbar-nav flex-grow">
-                    <NavItem>
-                        <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
-                    </NavItem>
-                    {isLogin ?
-                        <div className="d-flex">                 
-        
+            <Navbar style={{ width: '100%' }} className="navbar-expand-sm navbar-toggleable-lg bg-white border-bottom box-shadow mx-0 px-5 position-fixed" light>
+                <NavbarBrand className='p-0' href="/">Buymefood</NavbarBrand>
+                <NavbarToggler onClick={toggle} className="me-2" />
+                <Collapse isOpen={isOpen} navbar>
+                {isLogin ?
+                    
+                        <Nav className="navbar-nav flex-grow ms-auto" navbar>
                             <NavItem>
                                 <div ><NavLink tag={Link} className="text-dark" to="/myorder"  >My Order</NavLink></div>
                             </NavItem>
@@ -51,16 +50,11 @@ const NavMenu = (props) => {
                             <NavItem>
                                 <div onClick={logout}><NavLink tag={Link} className="text-dark" to="/"  >Logout</NavLink></div>
                             </NavItem>
-                        </div>
-                        : <NavLink tag={Link} className="text-dark" to="/login">Log In</NavLink>
-                            
-                            
-
+                    </Nav>
+                        : <NavLink tag={Link} className="text-dark ms-auto" to="/login">Log In</NavLink>
                     }
-
-
-                </ul>
-       </Navbar>
+                </Collapse>
+            </Navbar>
         </header>
     );
 }

@@ -1,5 +1,5 @@
 ﻿import React, { useEffect, useRef, useState } from 'react';
-import './Login.css'
+import './SignUp.css'
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
@@ -219,85 +219,87 @@ const defaultImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAMA
     }, [success])
         return (
                     
-            <div className="login-container">
+            <div className="signup-container">
                 {success && <div class="d-flex alert alert-success alert-dismissible fade show " role="alert" style={{ position: 'absolute',top:'100px' }}>
                     <strong>Sign up success </strong> <p>: redirecting to log In page</p>
 
                 </div>} 
-                <div className="login-card " style={{ width:'100%' }}>
-                    <h1 className="title">Sign Up</h1>
+                <div className="signup-card " style={{ width:'100%' }}>
+                    <h1 className="title mb-0">Sign Up</h1>
 
                     <div className="row">
                         <div className='col-md-6'>
+                        pic
                         </div>
                         <div className='col-md-6 px-5'>
 
                             <form onSubmit={handleSubmit} >
                                 <div>
-                                    <div>Username</div>
-                                    <input className="input mb-2"
-                                        type="text"
-                                        placeholder=""
-                                        value={username}
-                                        onChange={(e) => { validateUsername(e.target.value) }}
-                                    />
-
-                                    <div className='mt-0 pt-0 mb-2' style={{ position: 'relative' }}>{usernameError && <p className="error pt-0 mt-0 pb-0">{usernameError}</p>}</div>
                                     
+                                        <div>Username</div>
+                                        <input className="input mb-0"
+                                            type="text"
+                                            placeholder=""
+                                            value={username}
+                                            onChange={(e) => { validateUsername(e.target.value) }}
+                                    />
+                                    
+                                    <div className='mt-0 pt-0 mb-0' style={{ position: 'relative' }}>{usernameError && <p className="error pt-0 mt-0 pb-0 mb-0">{usernameError}</p>}</div>
                                 </div>
 
                                 <div>
-                                    <div>Password</div>
+                                    
+                                    <div >Password</div>
                                     <input
                                         type="password"
-                                        className="input"
+                                        className="input mb-0"
                                         placeholder=""
                                         value={password}
                                         onChange={(e) => { validatePassword(e.target.value) }}
                                     />
-                                    {PasswordError && <p className="error">{PasswordError}</p>}
+                                    {PasswordError && <p className="error mb-0">{PasswordError}</p>}
                                 </div>
                                 <div>
                                     <div>Confirm Password</div>
                                     <input
                                         type="password"
-                                        className="input"
+                                        className="input mb-0"
                                         placeholder=""
                                         value={confirmPassword}
                                         onChange={(e) => { validateConfirmPassword(e.target.value) }}
                                     />
-                                    {confirmPasswordError && <p className="error">{confirmPasswordError}</p>}
+                                    {confirmPasswordError && <p className="error mb-0">{confirmPasswordError}</p>}
                                 </div>
                                 <div>
                                     <div>Name</div>
                                     <input
                                         type="text"
-                                        className="input"
+                                        className="input mb-0"
                                         value={name}
                                         onChange={(e) => { validateName(e.target.value) }}
                                     />
-                                    {nameError && <p className="error">{nameError}</p>}
+                                    {nameError && <p className="error mb-0">{nameError}</p>}
                                 </div>
                                 <div>
                                     <div>Full Name</div>
                                     <input
                                         type="text"
-                                        className="input"
+                                        className="input mb-0"
                                         placeholder=""
                                         value={fullName}
                                         onChange={(e) => { validateFullName(e.target.value) }}
                                     />
-                                    {fullNameError && <p className="error">{fullNameError}</p>}
+                                    {fullNameError && <p className="error mb-0">{fullNameError}</p>}
                                 </div>
                                 <div>
                                     <div>Phone Number</div>
                                     <input
                                         type="tel"
-                                        className="input"
+                                        className="input mb-0"
                                         value={phone}
                                         onChange={(e) => { validatePhoneNumber(e.target.value) }}
                                     />
-                                    {phoneError && <p className="error">{phoneError}</p>}
+                                    {phoneError && <p className="error mb-0">{phoneError}</p>}
                                 </div>
 
 

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using BuyMeFood.Models;
 
-namespace BuyMeFood.Models
+namespace BuyMeFood.Middleware
 {
     public class UniqueUsernameAttribute : ValidationAttribute
     {

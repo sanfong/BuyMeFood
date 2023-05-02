@@ -58,7 +58,7 @@ const NavMenu = (props) => {
                                 <div onClick={logout}><NavLink tag={Link} className="text-dark" to="/"  >Logout</NavLink></div>
                             </NavItem>
                     </Nav>
-                        : <NavLink tag={Link} className="text-dark ms-auto" to="/login">Log In</NavLink>
+                        : <NavLink tag={Link} className="ms-auto button-log mt-0" to="/login">Log In</NavLink>
                     }
                 </Collapse>
             </Navbar>

@@ -142,7 +142,9 @@ const Home = (props) => {
     const [displayAdd, setDisplayAdd] = useState(false)
     const [isLogin, setIsLogin] = useState(false)
     const [ownerId,setOwnerId]=useState(0)
-    const [initData,setInitData]=useState([])
+    const [initData, setInitData] = useState([])
+    const [fitered, setFiltered] = useState([])
+    const [search,setSearch]= useState('')
     useEffect(() => {
         const fetchDatauser = async () => {
             try {
@@ -152,16 +154,17 @@ const Home = (props) => {
                     setOwnerId(response.data.id)
                 }
             } catch (error) {
-                console.error(error)
+        
             }
         }
         const fetchData = async () => {
             try {
                 const response = await axios.get('/Card/GetNotExpired')
                 setInitData(response.data)
-                console.log(response.data)
+                setFiltered(response.data)
+           
             } catch (error) {
-                console.error(error)
+
             }
         }
 
@@ -169,15 +172,38 @@ const Home = (props) => {
         fetchDatauser()
         fetchData()
     }, [])
+    const handleSearch = () => {
+        if (search !== '') {
+            console.log(search)
+            const filter = initData.filter(order => order.loactionStoreName === search);
+            setFiltered(filter)
+            console.log(filter)
+      
+        }
+        else {
+     
+            setFiltered(initData)
+
+        }
+       
+
+
+
+    }
+
     return (
         <div>
             {displayAdd && <AddCard isLogin={false} onClose={() => { setDisplayAdd(false) }} />}
             <div style={{ padding: '3rem', borderBottom:'2px solid green', backgroundImage: 'url("https://img.freepik.com/free-vector/hand-drawn-delicious-food-background_52683-16136.jpg?size=626&ext=jpg&ga=GA1.2.284292450.1670951791&semt=sph")', margin: '0' }} className="row">
-                <div class="col-md-6 mx-auto">
+                <div className="col-md-6 mx-auto">
                     <div className="input-group mb-6" >
-                        <input type="text" className="form-control" placeholder="Search Your Location" aria-label="Recipient's username" aria-describedby="button-addon2" />
+                        <input style={{ width: '100px' }}
+                            onChange={(e) => { setSearch(e.target.value) }}
+                            type="text" className="form-control"
+                            placeholder="Search Your Location"
+                            />
                         <div className="input-group-append">
-                            <button className="btn btn-danger" type="button" id="button-addon2" style={{ borderBottomLeftRadius: '0', borderTopLeftRadius: '0' }}>Search</button>
+                            <button onClick={ handleSearch} className="btn btn-danger" type="button" id="button-addon2" style={{ borderBottomLeftRadius: '0', borderTopLeftRadius: '0' }}>Search</button>
                         </div>
                     </div>
                 </div>
@@ -186,11 +212,18 @@ const Home = (props) => {
             
             <h1>There's something for everyone!</h1>
                 <div className="row justify-content-center" style={{ margin: '0', width: '100%' }}>
-                    {initData.map(order => {
+                    {   
+                        fitered.map(order => {
                         return (
-                            <Card ownerId={ownerId} isLogin={isLogin} item={order} />
+                            <Card key={ order.cardID} ownerId={ownerId} isLogin={isLogin} item={order} />
                     )
-                })}
+                        })}
+                    <div className='d-flex justify-content-center mt-5'>
+                    {fitered.length===0 && <div >Sory, it's seem your location didn't found at this time </div>}
+
+
+                    </div>
+
             </div>
             </div>
             {isLogin && < button onClick={() => { setDisplayAdd(true) }} className='btn btn-success' style={{ position: 'fixed', bottom: '5rem', right: '3rem' }} >+ เพิ่มรายการฝาก</button>}

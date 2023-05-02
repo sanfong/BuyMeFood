@@ -7,8 +7,23 @@ const ChangePass = (props) => {
         newPassword:''
     })
     const [confirm, setConfirm] = useState('')
+    const [isErr, setIsErr] = useState(false)
+    const [isWronPass,setIsWrongPass]=useState(false)
+    const errMsg = {
+        prevblank: 'กรุณาระบุรหัสผ่านเดิม',
+        prevwrong: 'รหัสผ่่านไม่ถูกต้อง',
+        newblank: 'กรุณาระบุรหัสผ่านใหม่',
+        newwrong: 'รหัสผ่านต้องมีความยาวมากกว่า 6 ตัวอักษร',
+        confirm:'รหัสผ่านไม่ตรงกัน'
+    }
+    const handleSubmit = async () => {
+        if (Pass.newPassword.length<6 || Pass.oldPassword.trim === '' || Pass.newPassword.trim() === '' || Pass.newPassword !== confirm) {
+            setIsErr(true)
+            return
 
-    const handleSubmit = async() => {
+        }
+
+
         if (Pass.newPassword === confirm) {
             console.log('confim')
             const config = {
@@ -17,9 +32,16 @@ const ChangePass = (props) => {
                 }
             };
             const formdata = JSON.stringify(Pass)
-            const response = await axios.put('/Account/edit/password', formdata, config)
-            window.location.reload()
-            console.log(response)
+            try {
+                const response = await axios.put('/Account/edit/password', formdata, config)
+                window.location.reload()
+                console.log(response.status)
+            } catch {
+
+                setIsErr(true)
+                setIsWrongPass(true)
+            }
+
 
         }
 
@@ -42,9 +64,10 @@ const ChangePass = (props) => {
                                 placeholder=""
                                 value={Pass.oldPassword}
                                 onChange={(e) => { setPass({ ...Pass, oldPassword: e.target.value }) }}
-
+                    
                             />
-
+                            {Pass.oldPassword.trim() === '' && isErr && <p className="text-danger">{errMsg.prevblank}</p>}
+                            {Pass.oldPassword.trim() !== '' && isErr && isWronPass && <p className="text-danger">{errMsg.prevwrong}</p>}
                         </div>
 
 
@@ -58,6 +81,8 @@ const ChangePass = (props) => {
                                 onChange={(e) => { setPass({ ...Pass, newPassword: e.target.value }) }}
 
                             />
+                            {Pass.newPassword.trim() === '' && isErr && <p className="text-danger">{errMsg.newblank}</p>}
+                            {Pass.newPassword.trim() !== '' &&Pass.newPassword.trim().length <6 && isErr && <p className="text-danger">{errMsg.newwrong}</p>}
                         </div>
                         <div>
                             <div>Confirm Password</div>
@@ -69,6 +94,7 @@ const ChangePass = (props) => {
                                 onChange={(e) => { setConfirm(e.target.value) }}
 
                             />
+                            {Pass.newPassword !== confirm && isErr && <p className="text-danger">{errMsg.confirm}</p>}
                         </div>
 
 

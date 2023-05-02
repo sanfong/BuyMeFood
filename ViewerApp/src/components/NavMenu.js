@@ -13,8 +13,9 @@ const NavMenu = (props) => {
                 if (response.status === 200) {
                     setIsLogin(true)
                 }
+            
             } catch (error) {
-                console.error(error)
+                console.log(error)
             }
         }
 
@@ -27,8 +28,8 @@ const NavMenu = (props) => {
     }
     return (
         <header >
-            <Navbar  className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-0" container light>
-                <NavbarBrand>Buymefood
+            <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mx-0 px-5" light>
+                <NavbarBrand className='p-0'>Buymefood
                 </NavbarBrand> 
 
                 <ul className="navbar-nav flex-grow">

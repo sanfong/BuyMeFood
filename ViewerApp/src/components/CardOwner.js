@@ -47,7 +47,7 @@ const CardOwner = (props) => {
     }
     return (
         <div>
-            {displayProfile && <UserProfile user={userProps} onClose={() => { setdisplayProfile(false) }} />}
+            {displayProfile && <UserProfile user={userProps} tel={userProps.tel} onClose={() => { setdisplayProfile(false) }} />}
             <div class="card mb-3">
                 <img class="card-img-top" src={ props.order.image} alt="Card image cap"/>
                     <div class="card-body">

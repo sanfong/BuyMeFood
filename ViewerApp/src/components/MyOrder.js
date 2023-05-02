@@ -1,5 +1,6 @@
 ﻿import { useEffect,useState } from "react"
 import axios from 'axios'
+import MyOrderCard from "./MyOrderCard"
 const MyOrder = () => {
     const [myOrder, setMyOrder] = useState([])
     const [filter,setFilter]=useState(false)
@@ -16,52 +17,15 @@ const MyOrder = () => {
 
         fetchMyOrder()
     }, [])
-    const submitOrder = async(id) => {
-        try {
-            const response = await axios.post(`/Card/submitOrder?orderID=${id}`)
-            console.log(response.data)
-            window.location.reload()
-
-        } catch (error) {
-            console.error(error)
-        }
-
-    }
-
     const orderElement = myOrder.map(order => {
         return (
-            <div class="card my-5">
-                <div class="card-header">
-                    Featured
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{order.storeName }</h5>
-                    <p class="card-text">{order.description}</p>
-                    {order.isComplete ? <h4 className="text-success">ได้รับสินค้าแล้ว</h4> : <button onClick={() => { submitOrder(order.orderID) }} class="btn btn-success">ยืนยัน</button> }
-                   
-                </div>
-            </div>
+            <MyOrderCard order={ order} />
             )
     })
 
     const filterOrderElement = myOrder.map(order => {
         if (!order.isComplete) {
-            return (
-                <div class="card my-5">
-                    <div class="card-header">
-                        Featured
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">{order.storeName}</h5>
-                        <p class="card-text">{order.description}</p>
-                        {order.isComplete ? <h4 className="text-success">ได้รับสินค้าแล้ว</h4> : <button onClick={() => {
-                            submitOrder(order.orderID)
-                          
-                        }} class="btn btn-success">ยืนยัน</button>}
 
-                    </div>
-                </div>
-            )
         }
 
     })

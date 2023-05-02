@@ -4,7 +4,7 @@
 
 .container-edit-profile.or-color {
     border-radius: 37px;
-    border: 6px solid #FE9F60;
+    border: 6px solid #cb7f4c;
     background: #f9ece0;
     box-shadow: 0px 0px 0.2rem rgba(0, 0, 0, 1);
 }
@@ -41,7 +41,7 @@ input.input.tel-font {
 }
 
 .button:hover {
-    background-color: #0061c1; /* สีพื้นหลังเมื่อเมาส์ชี้ไปที่ปุ่ม */
+    background-color: ##c77c4a; /* สีพื้นหลังเมื่อเมาส์ชี้ไปที่ปุ่ม */
     color: white; /* สีตัวอักษรเมื่อเมาส์ชี้ไปที่ปุ่ม */
 }
 

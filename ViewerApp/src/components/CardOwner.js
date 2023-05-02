@@ -1,6 +1,8 @@
 ﻿import { useEffect, useState } from "react";
 import axios from 'axios'
 import UserProfile from "./UserProfile";
+import './CardOwner.css'
+
 const CardOwner = (props) => {
     const date = new Date(props.order.expiredTime)
     const timeString = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -48,12 +50,14 @@ const CardOwner = (props) => {
     return (
         <div>
             {displayProfile && <UserProfile user={userProps} tel={userProps.tel} onClose={() => { setdisplayProfile(false) }} />}
-            <div class="card mb-3">
-                <img class="card-img-top" src={ props.order.image} alt="Card image cap"/>
-                    <div class="card-body">
-                    <h5 class="card-title">{props.order.loactionStoreName}</h5>
-                    <p class="card-text">{props.order.description}</p>
-                    <p class="card-text"><small class="text-muted">เวลาปิดรับ: {timeString}</small></p>
+            <div class="card mb-3 cardOwn">
+                <div className="card-image-wrapper cardOwn">
+                    <img class="card-img-top cardOwn" src={props.order.image} alt="Card image cap" />
+                </div>
+                <div class="card-body cardOwn">
+                    <h5 class="card-title cardOwn">{props.order.loactionStoreName}</h5>
+                    <p class="card-text cardOwn">{props.order.description}</p>
+                    <p class="card-text cardOwn"><small class="text-muted">เวลาปิดรับ: {timeString}</small></p>
                     {displayDetail &&
                         <div>
                             <table class="table table-hover">
@@ -81,18 +85,35 @@ const CardOwner = (props) => {
                             </table>
 
                         </div>}
-                    <div >
+                    <div className="card-btn-container">
                         
-                        {!displayDetail ? <button className="btn btn-warning mx-3" onClick={() => { setDisplayDetail(true) }}>ดูรายการฝาก</button> :
-                            <button className='btn btn-danger' onClick={() => { setDisplayDetail(false) }}>ปิด</button>
-                        }
-                        {!props.order.isExpired && <button onClick={() => {
-                            closeOrder(
-                                props.order.cardID
-                            )
-                            window.location.reload()
-                        }} className="btn btn-success">ปิดรับ</button>}
-                    </div>
+                        {!displayDetail ? (
+                            <button
+                                className="btn btn-warning mx-3"
+                                onClick={() => {
+                                    setDisplayDetail(true);
+                                }}
+                            >
+                                ดูรายการฝาก
+                            </button>
+                        ) : (
+                            <button
+                                onClick={() => {
+                                    setDisplayDetail(false);
+                                }}
+                                className="btn btn-danger move-left"
+                            >
+                                ปิด
+                            </button>
+                        )}
+
+                            {!props.order.isExpired && <button onClick={() => {
+                                closeOrder(
+                                    props.order.cardID
+                                )
+                                window.location.reload()
+                            }} className="btn btn-success">ปิดรับ</button>}
+                        </div>
                 </div>
                
             </div>

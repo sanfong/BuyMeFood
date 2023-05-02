@@ -1,6 +1,8 @@
 ﻿import { useEffect,useState } from "react"
 import axios from 'axios'
 import CardOwner from "./CardOwner"
+import './CardOwner.css'
+
 const MyCard = () => {
     const [myCard, setMyCard] = useState([])
     const [filter,setFilter]=useState(false)

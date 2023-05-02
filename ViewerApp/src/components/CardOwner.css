@@ -1,7 +1,10 @@
-﻿.card {
-    border-radius: 10px;
+﻿.card.mb-3.cardOwn {
+    border: 6px solid #cb7f4c;
+    background-color: #f9ece0;
+    border-radius: 40px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     overflow: hidden;
+    margin-top: 1.5rem;
 }
 
 .card .card-img-top {
@@ -61,9 +64,35 @@
     margin: 30px 0px 10px 0px;
 }
 
-button.btn.btn-success {
+button.btn.btn-success.cardOwn {
     margin-bottom: 0px;
     color: #fff;
     background: #dc3545;
     border: 0px;
+}
+
+button.btn.btn-danger.move-left {
+    background: #ffca2c;
+    border: 0px;
+    color: #000;
+}
+
+
+
+@media only screen and (max-width: 480px){
+    .d-flex.justify-content-center.form-check.form-switch.mt-4 {
+        padding-top: 69px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .d-flex.justify-content-center.form-check.form-switch.mt-4 {
+        padding-top: 10px;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+    .d-flex.justify-content-center.form-check.form-switch.mt-4 {
+        padding-top: 69px;
+    }
 }

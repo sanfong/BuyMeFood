@@ -45,17 +45,14 @@ input.input.tel-font {
     color: white; /* สีตัวอักษรเมื่อเมาส์ชี้ไปที่ปุ่ม */
 }
 
-
 .btn-danger {
+    height: 40px;
+    position: absolute;
+    right: 0.7rem;
     order: 2;
+    padding: 8px 16px;
 }
 /* จัดลำดับปุ่ม Close ให้อยู่ด้านขวา */
-
-
-@media only screen and (min-width: 481px) and (max-width: 767px) {
-
-    
-}
 
 
 @media only screen and (max-width: 480px) {
@@ -94,6 +91,10 @@ input.input.tel-font {
         display: flex;
         justify-content: space-between;
         margin-top: 1rem;
+    }
+
+    .btn-danger {
+        right: 1rem;
     }
 
 }

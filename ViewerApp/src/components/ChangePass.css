@@ -39,7 +39,11 @@ button:hover {
 
 
 .btn-danger {
+    height: 40px;
+    position: absolute;
+    right: 0.7rem;
     order: 2;
+    padding: 8px 16px;
 }
 
 
@@ -72,5 +76,9 @@ button:hover {
         display: flex;
         justify-content: space-between;
         margin-top: 1rem;
+    }
+
+    .btn-danger {
+        right: 1rem;
     }
 }

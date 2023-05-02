@@ -2,8 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 90vh;
-    background: #f9ece0;
+    height: 86vh;
+    padding: 100px;
 }
 
 .profile-card {
@@ -11,13 +11,18 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 80%;
-    max-width: 600px;
-    padding: 24px;
-    border-radius: 20px;
-    border: 6px solid #74c393;
-    background: #ffffff;
+    width: 100%;
+    max-width: 800px;
+    padding: 50px;
+    border-radius: 60px;
+    border: 6px solid #FE9F60;
+    background: #f9ece0;
+    box-shadow: 0px 0px 0.2rem rgba(0, 0, 0, 1);
 }
+.profile-card {
+    padding: 60px;
+}
+
 
 .profile-image-wrapper {
     width: 200px;
@@ -32,45 +37,86 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    background: #f5f5f5;
 }
 
 .profile-details {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /*align-items: center;*/
     justify-content: center;
     text-align: center;
 }
 
 .profile-name {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
-    margin-bottom: 8px;
+    margin-bottom: 15px;
 }
 
 .profile-fullname {
     font-size: 18px;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
 }
 
 .profile-contact {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
 }
 
 .profile-contact-text {
     padding-left: 5px;
 }
+
+button.btn.btn-success {
+    margin-bottom: 16px;
+}
+
 .edit {
-color:white;
-padding-top:5rem;
-text-align:center;
-font-size:30px;
-background-color:darkgray;
+    color:white;
+    padding-top:5rem;
+    text-align:center;
+    font-size:30px;
+    background-color:darkgray;
     width: 200px;
     height: 200px;
+}
+
+.profile-padding {
+    background-color: #f2f2f2;
+}
+
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+
+    .container {
+        padding: 0rem;
+    }
+
+    .profile-container {
+        height: 90vh;
+        padding: 0px;
+    }
+
+    .profile-card {
+        padding: 60px;
+    }
+}
 
 
+@media only screen and (max-width: 480px) {
+
+    .container {
+        padding: 0rem;
+    }
+
+    .profile-container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .profile-card {
+        padding: 24px;
+    }
 }

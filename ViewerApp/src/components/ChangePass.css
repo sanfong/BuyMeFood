@@ -1,17 +1,16 @@
-﻿.container-edit-profile {
+﻿.container-change-password {
     padding: 30px;
 }
 
-.container-edit-profile.or-color {
+.container-change-password.or-color {
     border-radius: 37px;
     border: 6px solid #FE9F60;
     background: #f9ece0;
     box-shadow: 0px 0px 0.2rem rgba(0, 0, 0, 1);
 }
 
-.img-container {
-    display: flex;
-    justify-content: center;
+h1 {
+    margin-bottom: 2.5rem;
 }
 
 .edit-text {
@@ -24,13 +23,6 @@ input.edit-input {
     border-radius: 10px;
 }
 
-/*ขนาดตัวเลขมันดูใหญ่กว่าเลยลดขนาด*/
-input.input.tel-font {
-    font-size: 16px;
-    margin-bottom: 30px;
-    border-radius: 10px;
-}
-
 .button-container {
     display: flex;
     justify-content: space-between; /* จัดให้ปุ่มอยู่ 2 ด้าน */
@@ -40,7 +32,7 @@ input.input.tel-font {
     order: 1; /* จัดลำดับปุ่ม Save ให้อยู่ด้านซ้าย */
 }
 
-.button:hover {
+button:hover {
     background-color: #0061c1; /* สีพื้นหลังเมื่อเมาส์ชี้ไปที่ปุ่ม */
     color: white; /* สีตัวอักษรเมื่อเมาส์ชี้ไปที่ปุ่ม */
 }
@@ -48,13 +40,6 @@ input.input.tel-font {
 
 .btn-danger {
     order: 2;
-}
-/* จัดลำดับปุ่ม Close ให้อยู่ด้านขวา */
-
-
-@media only screen and (min-width: 481px) and (max-width: 767px) {
-
-    
 }
 
 
@@ -78,13 +63,6 @@ input.input.tel-font {
         margin-bottom: 5px;
     }
 
-    input.input.tel-font {
-        font-size: 14px;
-        padding: 6px 16px;
-        border-radius: 10px;
-        margin-bottom: 0px;
-    }
-
     p {
         margin-top: 0;
         margin-bottom: 0rem;
@@ -95,6 +73,4 @@ input.input.tel-font {
         justify-content: space-between;
         margin-top: 1rem;
     }
-
 }
-

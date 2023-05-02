@@ -2,6 +2,7 @@
 import Modal from "./Modal"
 import './EditProfile.css'
 import axios from 'axios'
+
 const EditProfile = (props) => {
     const [username, setUsername] = useState(props.username);
     const [password, setPassword] = useState('');
@@ -97,7 +98,7 @@ const EditProfile = (props) => {
     }
     return (
         <Modal onClose={props.onClose}>
-            <div className="container" >
+            <div className="container-edit-profile or-color" >
                 <h1>Edit Profile</h1>
                 <div>
                     <div className="img-container">
@@ -120,8 +121,8 @@ const EditProfile = (props) => {
                 
                     <form  >
                         <div>
-                            <div>Username</div>
-                            <input className="input"
+                            <div className="edit-text">Username</div>
+                            <input className="input edit-input"
                                 type="text"
                                 placeholder=""
                                 value={username}
@@ -132,10 +133,10 @@ const EditProfile = (props) => {
 
                         
                         <div>
-                            <div>Name</div>
+                            <div className="edit-text">Name</div>
                             <input
                                 type="text"
-                                className="input"
+                                className="input edit-input"
                                 placeholder=""
                                 value={name}
                                 onChange={(e) => { setName(e.target.value) }}
@@ -143,10 +144,10 @@ const EditProfile = (props) => {
                             {isErr && name.trim() === '' && <p className='text-danger'>กรุณาระบุ{errMsg.name}</p>}
                         </div>
                         <div>
-                            <div>Full Name</div>
+                            <div className="edit-text">Full Name</div>
                             <input
                                 type="text"
-                                className="input"
+                                className="input edit-input"
                                 placeholder=""
                                 value={fullName}
                                 onChange={(e) => { setfullName(e.target.value) }}
@@ -154,10 +155,10 @@ const EditProfile = (props) => {
                             {isErr && fullName.trim() === '' && <p className='text-danger'>กรุณาระบุ{errMsg.fullname}</p>}
                         </div>
                         <div>
-                            <div>PhoneNumber</div>
+                            <div className="edit-text">PhoneNumber</div>
                             <input
                                 type="tel"
-                                className="input"
+                                className="input tel-font"
                                 value={phone}
                                 onChange={(e) => { setPhone(e.target.value) }}
                             />
@@ -169,7 +170,7 @@ const EditProfile = (props) => {
 
 
                     </form>
-                    <div className="btn-container">
+                    <div className="button-container">
                         <button onClick={handleSubmit} className="button" type="submit">Save</button>
                         <button onClick={props.onClose } className='btn btn-danger mx-4' >Close</button>
                     </div>

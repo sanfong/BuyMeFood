@@ -1,6 +1,8 @@
 ﻿import axios from 'axios'
 import { useEffect,useState } from 'react'
 import UserProfile from './UserProfile'
+import './MyOrderCard.css'
+
 const MyOrderCard = (props) => {
     const [ownerName, setOwnerName] = useState('')
     const [displayProfile, setdisplayProfile] = useState(false)
@@ -35,17 +37,17 @@ const MyOrderCard = (props) => {
         , [])
 
     return (
-        <div className="card my-5">
+        <div className="card my-5 card-order">
             {displayProfile && <UserProfile user={ownerName} tel={ownerName.phoneNumber} onClose={() => { setdisplayProfile(false) }} />}
-            <div className="card-header">
+            <div className="card-header card-order">
                 {props.order.storeName}
             </div>
-            <div className="card-body">
-                <h5 className="card-title">{props.order.description}</h5>
-                <p className="card-text">ผู้รับฝาก : <strong onClick={() => { setdisplayProfile(true) }}> {ownerName.name}</strong></p>
-                {props.order.isComplete ? <h4 className="text-success">ได้รับสินค้าแล้ว</h4> :
+            <div className="card-body card-order">
+                <h5 className="card-title card-order">{props.order.description}</h5>
+                <p className="card-text card-order">ผู้รับฝาก : <strong onClick={() => { setdisplayProfile(true) }}> {ownerName.name}</strong></p>
+                {props.order.isComplete ? <h4 className="text-success card-order">ได้รับสินค้าแล้ว</h4> :
                     <button onClick={() => { submitOrder(props.order.orderID) }}
-                        className="btn btn-success">ยืนยัน</button>}
+                        className="btn btn-success card-order">ยืนยัน</button>}
 
             </div>
         </div>

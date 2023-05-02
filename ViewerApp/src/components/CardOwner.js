@@ -112,7 +112,7 @@ const CardOwner = (props) => {
                                     props.order.cardID
                                 )
                                 window.location.reload()
-                            }} className="btn btn-success">ปิดรับ</button>}
+                        }} className="btn btn-success cardOwn">ปิดรับ</button>}
                         </div>
                 </div>
                

@@ -1,56 +1,18 @@
-﻿.card-image-wrapper.cardOwn {
-    width: 200px;
-    height: 200px;
-    border-radius: 100%;
-    overflow: hidden;
-    margin-bottom: 16px;
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
-}
-
-.card.cardOwn {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
+﻿.card.my-5.card-order {
+    border: 6px solid #cb7f4c;
+    background-color: #f9ece0;
+    border-radius: 40px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
 }
 
-.card-image.cardOwn {
-    flex-basis: 25%;
-    max-width: 25%;
-    margin-right: 20px;
+.card-header.card-order {
+    border-bottom: 6px solid #cb7f4c;
+    padding: 10px 25px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
-.card-info.cardOwn {
-    flex-basis: 50%;
-    max-width: 50%;
-}
-
-.card-buttons.cardOwn {
-    flex-basis: 25%;
-    max-width: 25%;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.card-body.cardOwn {
-    margin-left: 20px;
-}
-
-.card-btn-container.cardOwn {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-button.btn.btn-success {
+button.btn.btn-success.card-order {
     margin-bottom: 0px;
-}
-
-button.btn.btn-danger.move-left {
-    margin-right: 104px;
 }

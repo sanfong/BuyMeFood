@@ -177,7 +177,7 @@ const SignUp = (props) => {
     };
  
     useEffect(() => {
-        if (success === true) {
+        if (success) {
             setTimeout(() => {
                 window.location.replace('/login')
 

@@ -1,11 +1,27 @@
-.container {
-    padding: 3rem;
+.container-addcard {
+    padding: 30px;
+    border-radius: 37px;
+    border: 6px solid #cb7f4c;
+    background: #f9ece0;
+    box-shadow: 0px 0px 0.2rem rgba(0, 0, 0, 1);
+}
+
+.form-input {
+    display: block;
+    width: 100%;
+    font-size: 1rem;
+    line-height: 1;
+    border-radius: 10px;
+    background-color: #fff;
 }
 
 .btn-danger {
     height: 40px;
     position: absolute;
     right: 2rem;
+}
+.close-btn{
+    margin-right:10px;
 }
 
 .form-group {

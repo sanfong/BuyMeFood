@@ -64,23 +64,23 @@ const AddCard = (props) => {
     }
     return (
         <Modal onClose={props.onClose}>
-            <div className="container" id="modal-container">
-                <button onClick={props.onClose} className="btn btn-danger" id="close-btn">x</button>
+            <div className="container-addcard" id="modal-container">
+                <button onClick={props.onClose} className="btn btn-danger close-btn" id="close-btn">X</button>
                 <h1>เพิ่มรายการฝาก</h1>
                 <div className="form-group">
                     <label className="d-flex" htmlFor="inputAddress">สถานที่<p className='text-danger'>*</p></label>
-                    <input type="text" className="form-control" id="inputAddress" placeholder="ระบุร้าน, " onChange={(e) => { setDetailState({ ...detailState, loactionStoreName: e.target.value }) }} />
+                    <input type="text" className="input form-input" id="inputAddress" placeholder="ระบุร้าน, " onChange={(e) => { setDetailState({ ...detailState, loactionStoreName: e.target.value }) }} />
                     {detailState.loactionStoreName === '' && isErr && <p className='text-danger'>{errormsg.store}</p>}
                 </div>
                 <div className="form-group">
                     <label className="d-flex" htmlFor="inputAddress">สถานที่รับของ<p className='text-danger'>*</p> </label>
-                    <input type="text" className="form-control" id="inputAddress" placeholder="ระบุสถานที่ที่ต้องการให้ผู้ฝากมารับของ" onChange={(e) => { setDetailState({ ...detailState, locationPickupName: e.target.value }) }} />
+                    <input type="text" className="input form-input" id="inputAddress" placeholder="ระบุสถานที่ที่ต้องการให้ผู้ฝากมารับของ" onChange={(e) => { setDetailState({ ...detailState, locationPickupName: e.target.value }) }} />
                     {detailState.locationPickupName === '' && isErr && <p className='text-danger'>{errormsg.pickup}</p>}
                 </div>
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <label className="d-flex" htmlFor="inputCity">เวลาปิดรับออเดอร์<p className='text-danger'>*</p></label>
-                        <input type="time" className="form-control" id="inputCity" onChange={(e) => {
+                        <input type="time" className="input form-input" id="inputCity" onChange={(e) => {
                             setDetailState({
                                 ...detailState, exprTimeHour: e.target.value.slice(0, 2), exprTimeMinute: e.target.value.slice(-2)
                             })
@@ -89,7 +89,7 @@ const AddCard = (props) => {
                     </div>
                     <label className="d-flex" htmlFor="inputZip">จำนวนออเดอร์ที่รับฝาก<p className='text-danger'>*</p></label>
                     <div className="form-group col-md-2">
-                        <input type="number" className="form-control" id="inputZip" onChange={(e) => {
+                        <input type="number" className="input form-input" id="inputZip" onChange={(e) => {
                             setDetailState({
                                 ...detailState, maxOrder: e.target.value
                             })
@@ -100,14 +100,14 @@ const AddCard = (props) => {
                 </div>
                 <div className="form-group">
                     <div><label htmlFor="exampleFormControlFile1">รูปภาพประกอบ</label></div>
-                    <input type="file" className="form-control-file" id="exampleFormControlFile1"
+                    <input type="file" className="input form-input" id="exampleFormControlFile1"
                         onChange={(e) => {
                             convertImageToBase64(e.target.files[0], (base) => setDetailState({ ...detailState, image: base }))
                         }} />
                 </div>
                 <div className="form-group">
                     <div><label htmlFor="exampleFormControlFile1">Note เพิ่มเติม</label></div>
-                    <textarea onChange={(e) => { setDetailState({ ...detailState, description: e.target.value }) }} className="form-control-file" id="note" />
+                    <textarea onChange={(e) => { setDetailState({ ...detailState, description: e.target.value }) }} className="input form-input" id="note" />
                 </div>
                 <div className="d-flex justify-content-center">
                     <button onClick={handleSubmit} className="btn btn-success mt-3 col-md-5">เพิ่มรายการ</button>

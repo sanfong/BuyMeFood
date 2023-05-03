@@ -204,7 +204,10 @@ const Home = (props) => {
                                 )
                             })}
                         <div className='d-flex justify-content-center mt-5'>
-                            {fitered.length === 0 && <div >Sorry, it's seem your location didn't found at this time </div>}
+                            {fitered.length === 0 && <div style={{ textAlign:'center' }}><div >Sorry, it's seem your location didn't found at this time </div>
+                                {isLogin && < button onClick={() => { setDisplayAdd(true) }} className='def-btn'  >+ เพิ่มรายการฝาก</button>}
+                            </div>
+                                }
 
 
                         </div>

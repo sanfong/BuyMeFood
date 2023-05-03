@@ -1,20 +1,17 @@
 ﻿.card.mb-3.cardOwn {
     border: 6px solid #cb7f4c;
     background-color: #f9ece0;
-    border-radius: 40px;
+    border-radius: 50px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     overflow: hidden;
-    margin-top: 1.5rem;
-}
-
-.background.cardOwn {
-    background: #FE9F60;
+    top: 100px;
 }
 
 .card .card-img-top {
     object-fit: cover;
     height: 200px;
     transition: transform 0.5s;
+    border-bottom: 6px solid #cb7f4c;
 }
 
 .card:hover .card-img-top {
@@ -24,6 +21,7 @@
 .card .card-body {
     padding: 20px;
     margin: 3px;
+    
 }
 
 .card .card-title {
@@ -83,31 +81,63 @@ button.btn.btn-danger.move-left {
 }
 
 .background.cardOwn {
-    background: #FE9F60;
     padding: 1px 10px 6px 10px;
-    margin: auto 300px;
 }
 
 
 
 @media only screen and (max-width: 480px) {
     .d-flex.justify-content-center.form-check.form-switch.mt-4 {
-        padding-top: 69px;
+        padding-top: 60px;
     }
 
-}
-
-@media only screen and (min-width: 768px) {
-    .d-flex.justify-content-center.form-check.form-switch.mt-4 {
-        padding-top: 80px;
-    }
     .background.cardOwn {
-        padding: 1px 40px 6px 40px;
+        padding: 1px 10px 6px 10px;
+    }
+
+    .card.mb-3.cardOwn {
+        margin: 0px 0px;
+        top: 145px;
     }
 }
 
 @media only screen and (min-width: 481px) and (max-width: 767px) {
     .d-flex.justify-content-center.form-check.form-switch.mt-4 {
-        padding-top: 69px;
+        padding-top: 60px;
+    }
+
+    .card.mb-3.cardOwn {
+        margin: 0px 0px;
+        top: 145px;
     }
 }
+
+@media only screen and (min-width: 768px) and (max-width: 1279px) {
+    .d-flex.justify-content-center.form-check.form-switch.mt-4 {
+        padding-top: 67px;
+        padding-right: 25px;
+    }
+
+    .background.cardOwn {
+        padding: 1px 40px 6px 40px;
+    }
+
+    .card.mb-3.cardOwn {
+        margin: auto 60px;
+        top: 145px;
+    }
+}
+
+@media only screen and (min-width: 1280px) {
+
+
+    .background.cardOwn {
+        padding: 1px 40px 6px 40px;
+    }
+
+    .card.mb-3.cardOwn {
+        margin: auto 10rem;
+        top: 145px;
+    }
+}
+

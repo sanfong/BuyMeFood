@@ -114,7 +114,7 @@ button.btn.btn-danger.move-left {
 
 @media only screen and (min-width: 768px) and (max-width: 1279px) {
     .d-flex.justify-content-center.form-check.form-switch.mt-4 {
-        padding-top: 67px;
+        padding-top: 60px;
         padding-right: 25px;
     }
 
@@ -129,7 +129,10 @@ button.btn.btn-danger.move-left {
 }
 
 @media only screen and (min-width: 1280px) {
-
+    .d-flex.justify-content-center.form-check.form-switch.mt-4 {
+        padding-top: 60px;
+        padding-right: 25px;
+    }
 
     .background.cardOwn {
         padding: 1px 40px 6px 40px;

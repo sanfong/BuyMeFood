@@ -169,7 +169,7 @@ const SignUp = (props) => {
         if (success) {
             setTimeout(() => {
                 window.location.replace('/login')
-            }, 3000)
+            }, 1000)
         }
     }, [success])
 

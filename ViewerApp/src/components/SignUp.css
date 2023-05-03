@@ -1,4 +1,7 @@
-﻿.signup-container {
+﻿html {
+    background-color: #FE9F60;
+}
+.signup-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,8 +18,7 @@
     border: 5px solid #cb7f4c;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
-
-    width: 80%;
+    width: 50rem;
 }
 .title {
     text-align:center;
@@ -33,13 +35,13 @@
 
     border-radius: 4px;
     padding: 2px;
-    width: 450px;
+    width: 400px;
 }
 .input:focus {
     border-color: #cb7f4c;
 
 }
 .input {
-    padding-top: 0;
-    margin-top: 0;
+    padding-top:0;
+    margin-top:0;
 }

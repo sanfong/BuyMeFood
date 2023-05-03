@@ -18,8 +18,15 @@
     background-color: #cb7f4c;
     border-radius: 8px;
     border-color: transparent;
+    min-height:40px;
     color: white;
 }
+
+    .def-btn:hover {
+        background-color: #b87142;
+        border-radius: 8px;
+        color: white;
+    }
 
 .btn-danger {
     height: 40px;

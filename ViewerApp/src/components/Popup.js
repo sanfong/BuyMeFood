@@ -161,8 +161,8 @@ const PopUp = (props) => {
 
             <div className='sub-container'>
                 <div className="order-head"  >
-                        <h1 className="card-title"> สถานที่: <strong>{props.item.loactionStoreName}</strong></h1>
-                        <h1 style={{ color: props.isFull && 'red' }}>จำนวนที่รับ: <strong>{props.item.orderCount}/{props.item.maxOrder}</strong></h1>
+                        <h3 className="card-title"> สถานที่: <strong>{props.item.loactionStoreName}</strong></h3>
+                        <h3 style={{ color: props.isFull && 'red' }}>จำนวนที่รับ: <strong>{props.item.orderCount}/{props.item.maxOrder}</strong></h3>
                     
 
                     </div>
@@ -171,16 +171,16 @@ const PopUp = (props) => {
                         <div className="col-6">
                             <div className="order"  >
                                 <div className='d-flex'> 
-                                    <h4 className='label'>ผู้รับฝาก</h4>
-                                    <h4 style={{ marginTop: '10px' }}> {ownerName}</h4>
+                                    <h5 className='label'>ผู้รับฝาก</h5>
+                                    <h5 style={{ marginTop: '10px' }}> {ownerName}</h5>
                                 </div>
 
 
 
                             </div>
                             <div className='d-flex'>
-                                <h4 className='label'>โทร</h4>
-                                <h4 style={{ marginTop: '10px' }}> {tel}</h4>
+                                <h5 className='label'>โทร</h5>
+                                <h5 style={{ marginTop: '10px' }}> {tel}</h5>
                             </div>
                         </div>
                         <div className="col-6">
@@ -189,23 +189,23 @@ const PopUp = (props) => {
 
                          
                                 <div className='d-flex'>
-                                    <h4 className='label'>เวลาปิดรับออเดอร์ </h4>
-                                    <h4 style={{ marginTop: '10px' }}>  {timeString}</h4>
+                                    <h5 className='label'>เวลาปิดรับ</h5>
+                                    <h5 style={{ marginTop: '10px' }}>  {timeString}</h5>
                                 </div>
 
                             </div>
 
                  
                             <div className='d-flex'>
-                                <h4 className='label'>สถานที่รับ </h4>
-                                <h4 style={{ marginTop: '10px' }}>  {props.item.loactionPickupName}</h4>
+                                <h5 className='label'>สถานที่รับ </h5>
+                                <h5 style={{ marginTop: '10px', fontSize: 'clamp(12px, 2.5vw, 24px)' }}>  {props.item.loactionPickupName}</h5>
                             </div>
 
                         </div>
                         
                         <div className='d-flex'>
-                            <h4 className='label'>Note</h4>
-                            <h4 style={{ marginTop: '10px' }}>  {!existNote && '-'}</h4>
+                            <h5 className='label'>Note</h5>
+                            <h5 style={{ marginTop: '10px' }}>  {!existNote && '-'}</h5>
 
                         </div>
 
@@ -230,13 +230,13 @@ const PopUp = (props) => {
 
                         <form className='form-body'>
                             <div className="form-group">
-                                <label style={{ color: '#cb7f4c', fontSize:'x-large' }}>ร้าน</label>
-                            <input onChange={(e) => { setDetailState({ ...detailState, storeName: e.target.value }) }} ref={nameRef} type="text" className="form-input-order" placeholder="ระบุร้านที่ต้องการสั่ง" />
+                                <label style={{ color: '#cb7f4c', fontSize: 'clamp(18px, 2.5vw, 24px)' }}>ร้าน</label>
+                            <input onChange={(e) => { setDetailState({ ...detailState, storeName: e.target.value }) }} ref={nameRef} type="text" className="input form-input pt-2" placeholder="ระบุร้านที่ต้องการสั่ง" />
                             {detailState.storeName === '' && isErr && <p style={{ width: '250px' }} className='text-danger'>{errormsg.store}</p>}
                         </div>
                         <div className="form-group">
-                                <label style={{ color: '#cb7f4c', fontSize: 'x-large' }}>รายละเอียด</label>
-                                <textarea onChange={(e) => { setDetailState({ ...detailState, description: e.target.value }) }} ref={descRef} type="text" className="form-input-order " placeholder="กรอกเมนู จำนวน และรายละเอียดต่างๆที่ต้องการ" />
+                                <label style={{ color: '#cb7f4c', fontSize: 'clamp(16px, 2.5vw, 24px)' }}>รายละเอียด</label>
+                                <textarea onChange={(e) => { setDetailState({ ...detailState, description: e.target.value }) }} ref={descRef} type="text" className="input form-input pt-2" placeholder="กรอกเมนู จำนวน และรายละเอียดต่างๆที่ต้องการ" />
                             {detailState.description === '' && isErr && <p style={{ width: '250px' }} className='text-danger'>{errormsg.descp}</p>}
                         </div>
                     </form>

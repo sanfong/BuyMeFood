@@ -69,18 +69,26 @@
 }
 .label {
     background-color: #cb7f4c;
-    padding:10px;
-    margin-right:10px;
-    border-radius:14px;
-    
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 14px;
+    font-size: clamp(12px, 2.5vw, 24px);
+}
+.form-input {
+    display: block;
+    width: 100%;
+    font-size: clamp(16px, 2.5vw, 24px);
+    height: fit-content;
+    border-radius: 10px;
 }
 .form-order {
     background-color: #cb7f4c;
     padding: 10px;
     margin-right: 10px;
     border-radius: 14px;
-    color:white;
-    margin-left:20px
+    color: white;
+    margin-left: 20px;
+    font-size:clamp(16px, 2.5vw, 24px);
 }
 .form-body {
 margin:auto 40px;
@@ -99,10 +107,22 @@ margin:20px 100px;
     border-radius: 8px;
     border-color: transparent;
     color: white;
+    margin-right:10px;
 }
+    .def-btn:hover {
+        background-color: #b87142;
+        border-radius: 8px;
+        color: white;
+    }
 .clc-btn {
     background-color: ghostwhite;
     border-radius: 8px;
-    border:3px solid #cb7f4c;
+    border: 3px solid #cb7f4c;
     color: #cb7f4c;
+    margin-left: 10px;
 }
+    .clc-btn:hover {
+        background-color: #f5f3f2;
+        border-radius: 8px;
+        color: #cb7f4c;
+    }

@@ -173,10 +173,10 @@ const Home = (props) => {
     }
 
     return (
-        <div style={{ backgroundColor: '#fff', height:'100vh' }}>
+        <div style={{ backgroundColor: '#fff', height: '100vh', marginTop: '0', paddingTop:'60px' }}>
             <div>
                 {displayAdd && <AddCard isLogin={false} onClose={() => { setDisplayAdd(false) }} />}
-                <div style={{ padding: '3rem', borderBottom: '2px solid green', backgroundImage: 'url("https://img.freepik.com/free-vector/hand-drawn-delicious-food-background_52683-16136.jpg?size=626&ext=jpg&ga=GA1.2.284292450.1670951791&semt=sph")', margin: '0' }} className="row">
+                <div style={{ padding: '3rem', margin: '0' }} className="row">
                     <div className="col-md-6 mx-auto">
                         <div className="input-group mb-6" >
                             <input style={{ width: '100px' }}
@@ -185,14 +185,17 @@ const Home = (props) => {
                                 placeholder="Search Your Location"
                             />
                             <div className="input-group-append">
-                                <button onClick={handleSearch} className="btn btn-danger" type="button" id="button-addon2" style={{ borderBottomLeftRadius: '0', borderTopLeftRadius: '0' }}>Search</button>
+                                <button onClick={handleSearch} className="def-btn" type="button" id="button-addon2" style={{ borderBottomLeftRadius: '0', borderTopLeftRadius: '0' }}>
+                                    <svg style={{ width:'20px' }} xmlns="http://www.w3.org/2000/svg" fill='currentcolor' viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" /></svg></button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="container mt-4" >
-
-                    <h1>There's something for everyone!</h1>
+                    <div className='d-flex justify-content-center' style={{ color: '#FE9F60' }}>
+                        <h1><strong>There's something for everyone!</strong></h1>
+                    </div>
+              
                     <div className="row justify-content-center" style={{ margin: '0', width: '100%' }}>
                         {
                             fitered.map(order => {
@@ -208,7 +211,7 @@ const Home = (props) => {
 
                     </div>
                 </div>
-                {isLogin && < button onClick={() => { setDisplayAdd(true) }} className='btn btn-success' style={{ position: 'fixed', bottom: '5rem', right: '3rem' }} >+ เพิ่มรายการฝาก</button>}
+                {isLogin && < button onClick={() => { setDisplayAdd(true) }} className='def-btn' style={{ position: 'fixed', bottom: '5rem', right: '3rem' }} >+ เพิ่มรายการฝาก</button>}
             </div>
         </div>
 

@@ -41,7 +41,7 @@ const CardOwner = (props) => {
         setUserProps({
             image:data.image,
             fullName: data.fullName,
-            name: data.name,
+            name: data.username,
             tel: data.phoneNumber,
         })
         setdisplayProfile(true)

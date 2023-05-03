@@ -16,6 +16,7 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     width: 80vw;
+    max-width:850px;
 }
 .login-form {
     margin-top: 8vh;

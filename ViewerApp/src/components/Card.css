@@ -1,1 +1,34 @@
-﻿
+﻿.card-display {
+    border: 6px solid #cb7f4c;
+    background-color: #f9ece0;
+    border-radius: 40px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    margin: 1rem;
+    width: fit-content;
+    height: fit-content;
+}.card-body{
+     margin:0 0 0 0;
+ }
+.lo-order {
+    display: flex;
+    justify-content: space-between;
+}
+.clock {
+    margin: 5px 10px auto 0px;
+}
+.pick {
+    margin: 0px 10px 20px 5px;
+}
+.clk-pck {
+    display: flex;
+    margin-top: 5px;
+    margin-bottom:0;
+}
+.bgc{
+    width: 50px;
+    border-radius: 7px;
+    text-align: center;
+}
+
+

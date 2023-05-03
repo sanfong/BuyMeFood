@@ -1,6 +1,7 @@
 ﻿import { useEffect, useRef, useState } from "react"
 import Modal from "./Modal"
 import axios from 'axios'
+import './Popup.css'
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link,useHistory } from 'react-router-dom';
 const PopUp = (props) => {
@@ -125,27 +126,28 @@ const PopUp = (props) => {
     const timeString = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     return (
-        <Modal onClose={props.onClose}>
+        <Modal onClose={props.onClose} >
+            <div className="pop-container">
             <div style={{}} >
-                <img style={{ width: '100%', height: '200px', objectFit: 'cover', margin: '0', borderRadius: '40px', borderBottomRightRadius: '0', borderBottomLeftRadius:'0' }} src={props.item.image} />
+                <img class="pop-img" src={props.item.image} />
             </div>
 
-            <div className='container' style={{ marginTop:'1rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}  >
+            <div className='container'>
+                <div className="order" style={{ display: 'flex', justifyContent: 'space-between' }}  >
                     <h1 className="card-title"> <strong>{props.item.place}</strong></h1>
                     <h1 style={{ color: props.isFull && 'red' }}>จำนวนที่รับ: {props.item.orderCount}/{props.item.maxOrder}</h1>
                     
 
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}  >
+                <div className="order"  >
                     <h3 >ผู้รับฝาก : {ownerName}</h3>
                   
-                    <div className={isExpired ? "bg-danger text-white " : "bg-success text-white "} style={{ height:'30px', width: '50px', borderRadius: '7px', textAlign: 'center' }}>
+                    <div className={isExpired ? "bg bg-danger text-white " : "bg bg-success text-white "}>
                         <p style={{ fontSize: '16px', marginBottom: '0'}}>{isExpired ? 'close' : 'open'}</p>
                     </div>
                 </div>
                 <p >โทร: {tel}</p>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div className="order">
 
                     <h4 >เวลาปิดรับออเดอร์ : {timeString}</h4>
                     {isOwner && !isExpired && < button className="btn btn-success col-2 col-md-2 col-lg-2" onClick={() => {
@@ -156,7 +158,7 @@ const PopUp = (props) => {
                 
                 <h4 >สถานที่รับอาหาร : {props.item.loactionPickupName}</h4>
                 <h4>Note : {!existNote && '-' }</h4>
-                {existNote && <div style={{ border: '1px solid gray', height: '100px', padding: '10px', borderRadius: '7px' }} >
+                {existNote && <div className="ex-note" >
                     <p>{props.item.description}</p>
                 </div>}
 
@@ -173,12 +175,12 @@ const PopUp = (props) => {
                     <form >
                         <div className="form-group">
                             <label >ร้าน</label>
-                            <input onChange={(e) => { setDetailState({ ...detailState, storeName: e.target.value }) }} ref={nameRef} type="text" className="form-control" placeholder="ระบุร้านที่ต้องการสั่ง" />
+                            <input onChange={(e) => { setDetailState({ ...detailState, storeName: e.target.value }) }} ref={nameRef} type="text" className="input form-input" placeholder="ระบุร้านที่ต้องการสั่ง" />
                             {detailState.storeName === '' && isErr && <p style={{ width: '250px' }} className='text-danger'>{errormsg.store}</p>}
                         </div>
                         <div className="form-group">
                             <label >รายละเอียด</label>
-                            <textarea onChange={(e) => { setDetailState({ ...detailState, description: e.target.value }) }} ref={descRef} type="text" className="form-control" placeholder="กรอกเมนู จำนวน และรายละเอียดต่างๆที่ต้องการ" />
+                            <textarea onChange={(e) => { setDetailState({ ...detailState, description: e.target.value }) }} ref={descRef} type="text" className="input form-input" placeholder="กรอกเมนู จำนวน และรายละเอียดต่างๆที่ต้องการ" />
                             {detailState.description === '' && isErr && <p style={{ width: '250px' }} className='text-danger'>{errormsg.descp}</p>}
                         </div>
                     </form>
@@ -219,6 +221,7 @@ const PopUp = (props) => {
                         setDisplayOrder(true)
                     }} className="btn btn-warning">ดูรายการฝาก</button> : <button onClick={() => { window.location.replace('mycard') }} className='btn btn-warning'>ดูรายการรับฝากทั้งหมด</button>} 
                     <button className="btn btn-danger  col-5 col-md-3 col-lg-2" onClick={props.onClose}>ปิด</button>
+                </div>
                 </div>
             </div>
 

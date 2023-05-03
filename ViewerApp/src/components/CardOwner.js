@@ -35,7 +35,7 @@ const CardOwner = (props) => {
         };
 
 
-        const response = await axios.get('/Account/select?id=1', config)
+        const response = await axios.get(`/Account/select?id=${id}`, config)
         console.log(response.data[0])
         const data=response.data[0]
         setUserProps({

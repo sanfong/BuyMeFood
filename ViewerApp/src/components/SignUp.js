@@ -185,7 +185,7 @@ const SignUp = (props) => {
                         <div className='col-md-6 d-none d-md-block align-middle img-contianer'>
                             <img src={noodle} className="signup-image" />
                         </div>
-                        <div className='col-md-6 px-5'>
+                        <div className='col-md-6 px-5 mt-5'>
                             <div>
                                 <div >Username</div>
                                 <input className="input  mb-2 control"
@@ -252,13 +252,14 @@ const SignUp = (props) => {
                             </div>
                         </div>
                     </div>
+                    <div className="linker">
+                        <p>Already have account ? </p><NavLink tag={Link} className="text-danger mx-3" to="/login">Log In</NavLink>
+                    </div>
                     <div className="btn-container">
                         <button className="button" type="submit">Sign Up</button>
                     </div>
                 </form>
-                <div className="linker">
-                    <p>Already have account ? </p><NavLink tag={Link} className="text-danger mx-3" to="/login">Log In</NavLink>
-                </div>
+
             </div>
         </div>
     );

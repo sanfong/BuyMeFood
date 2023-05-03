@@ -39,17 +39,19 @@ const NavMenu = (props) => {
     return (
         <header style={{ zIndex: '1' }}>
             <Navbar style={{ zIndex: '1' ,width: '100%', backgroundColor: '#FE9F60'}} className="navbar-expand-sm navbar-toggleable-lg border-bottom box-shadow mx-0 px-5 position-fixed "  light>
-                <NavbarBrand className='p-0 text-light' href="/">Buymefood</NavbarBrand>
+                <NavbarBrand className='p-0 text-light ' href="/">BuyMeFood</NavbarBrand>
                 <NavbarToggler onClick={toggle} className="me-2" />
-                <Collapse isOpen={isOpen} navbar>
+                
                 {isLogin ?
                     
+                    
+                    <Collapse isOpen={isOpen} navbar>
                         <Nav className="navItem navbar-nav flex-grow ms-auto" navbar>
                             <NavItem>
                                 <div ><NavLink tag={Link} className="navtext" to="/myorder"  >My Order</NavLink></div>
                             </NavItem>
                             <NavItem>
-                                <NavLink tag={Link} className="navtext" to="/mycard">MyCard</NavLink>
+                                <NavLink tag={Link} className="navtext" to="/mycard">My Post</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink tag={Link} className="navtext" to="/profile">Profile</NavLink>
@@ -57,10 +59,11 @@ const NavMenu = (props) => {
                             <NavItem>
                                 <div onClick={logout}><NavLink tag={Link} className="navtext" to="/"  >Logout</NavLink></div>
                             </NavItem>
-                    </Nav>
+                        </Nav>
+                    </Collapse>
                         : <NavLink tag={Link} className=" ms-auto button-log mt-0" to="/login">Log In</NavLink>
                     }
-                </Collapse>
+                
             </Navbar>
         </header>
     );

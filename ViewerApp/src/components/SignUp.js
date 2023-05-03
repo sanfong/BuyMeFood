@@ -178,7 +178,7 @@ const SignUp = (props) => {
             {success && <div className="d-flex alert alert-success alert-dismissible fade show " role="alert" style={{ position: 'absolute', top: '100px' }}>
                 <strong>Sign up success </strong> <p>: redirecting to log In page</p>
             </div>}
-            <div className="signup-card  " >
+            <div className="signup-card" >
                 <h1 className="title mb-2">Sign Up</h1>
                 <form onSubmit={handleSubmit} >
                     <div className="row">

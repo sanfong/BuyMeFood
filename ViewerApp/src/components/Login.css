@@ -15,8 +15,7 @@
     border: 5px solid #cb7f4c;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
-
-    width: 50rem;
+    width: 80vw;
 }
 .login-form {
     margin-top: 8vh;
@@ -65,7 +64,8 @@
 .btn-container {
     display: flex;
     justify-content:center;
-    margin-bottom:10px;
+    margin:10px;
+
 }
 .login-card h1{
     text-align:center;

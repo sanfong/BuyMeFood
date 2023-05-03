@@ -172,7 +172,7 @@ const PopUp = (props) => {
                             <div className="order"  >
                                 <div className='d-flex'> 
                                     <h5 className='label'>ผู้รับฝาก</h5>
-                                    <h5 style={{ marginTop: '10px' }}> {ownerName}</h5>
+                                    <h5 style={{ marginTop: '10px', fontSize: 'clamp(12px, 2.5vw, 24px)' }}> {ownerName}</h5>
                                 </div>
 
 
@@ -180,7 +180,7 @@ const PopUp = (props) => {
                             </div>
                             <div className='d-flex'>
                                 <h5 className='label'>โทร</h5>
-                                <h5 style={{ marginTop: '10px' }}> {tel}</h5>
+                                <h5 style={{ marginTop: '10px', fontSize: 'clamp(12px, 2.5vw, 24px)' }}> {tel}</h5>
                             </div>
                         </div>
                         <div className="col-6">
@@ -190,7 +190,7 @@ const PopUp = (props) => {
                          
                                 <div className='d-flex'>
                                     <h5 className='label'>เวลาปิดรับ</h5>
-                                    <h5 style={{ marginTop: '10px' }}>  {timeString}</h5>
+                                    <h5 style={{ marginTop: '10px', fontSize: 'clamp(12px, 2.5vw, 24px)' }}>  {timeString}</h5>
                                 </div>
 
                             </div>

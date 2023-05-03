@@ -16,3 +16,62 @@
 button.btn.btn-success.card-order {
     margin-bottom: 0px;
 }
+
+
+@media only screen and (max-width: 480px) {
+    .d-flex.justify-content-center.form-check.form-switch.mt-4 {
+        padding-top: 60px;
+    }
+
+    .background.card-order {
+        padding: 0px 10px 0px 10px;
+    }
+
+    .card.my-5.card-order {
+        margin: 0px 0px;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+    .d-flex.justify-content-center.form-check.form-switch.mt-4 {
+        padding-top: 60px;
+    }
+
+    .background.card-order {
+        padding: 0px 10px 0px 10px;
+    }
+
+    .card.my-5.card-order {
+        margin: 0px 0px;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1279px) {
+    .d-flex.justify-content-center.form-check.form-switch.mt-4 {
+        padding-top: 60px;
+        padding-right: 25px;
+    }
+
+    .background.card-order {
+        padding: 0px 40px 0px 40px;
+    }
+
+    .card.my-5.card-order {
+        margin: auto 60px;
+    }
+}
+
+@media only screen and (min-width: 1280px) {
+    .d-flex.justify-content-center.form-check.form-switch.mt-4 {
+        padding-top: 60px;
+        padding-right: 25px;
+    }
+
+    .background.card-order {
+        padding: 0px 40px 0px 40px;
+    }
+
+    .card.my-5.card-order {
+        margin: auto 10rem;
+    }
+}

@@ -38,6 +38,7 @@ html {
 }
 Navbar {
 background-color: #FE9F60;
+z-index:1;
 }
 .navtext {
 color:white;

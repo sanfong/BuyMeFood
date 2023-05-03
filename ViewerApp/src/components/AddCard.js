@@ -66,7 +66,7 @@ const AddCard = (props) => {
         <Modal onClose={props.onClose}>
             <div className="container-addcard" id="modal-container">
                 <button onClick={props.onClose} className="btn btn-danger close-btn" id="close-btn">X</button>
-                <h1>เพิ่มรายการฝาก</h1>
+                <h1 style={{ fontWeight: 'bold' }}>เพิ่มรายการฝาก</h1>
                 <div className="form-group">
                     <label className="d-flex" htmlFor="inputAddress">สถานที่<p className='text-danger'>*</p></label>
                     <input type="text" className="input form-input" id="inputAddress" placeholder="ระบุสถานที่,โรงอาหาร " onChange={(e) => { setDetailState({ ...detailState, loactionStoreName: e.target.value }) }} />
@@ -89,12 +89,12 @@ const AddCard = (props) => {
                     </div>
                     <label className="d-flex" htmlFor="inputZip">จำนวนออเดอร์ที่รับฝาก<p className='text-danger'>*</p></label>
                     <div className="form-group col-md-2">
-                        <input type="number" min={ 1} className="input form-input" id="inputZip" onChange={(e) => {
+                        <input min={1} type="number" className="input form-input" id="inputZip" onChange={(e) => {
                             setDetailState({
                                 ...detailState, maxOrder: e.target.value
                             })
                         }} />
-                        {detailState.maxOrder === 0 && isErr && <p style={{ width:'250px' }} className='text-danger'>{errormsg.max}</p>}
+                        {detailState.maxOrder <= 1 && isErr && <p style={{ width:'250px' }} className='text-danger'>{errormsg.max}</p>}
                     </div>
                    
                 </div>

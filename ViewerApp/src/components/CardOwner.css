@@ -7,6 +7,10 @@
     margin-top: 1.5rem;
 }
 
+.background.cardOwn {
+    background: #FE9F60;
+}
+
 .card .card-img-top {
     object-fit: cover;
     height: 200px;
@@ -19,6 +23,7 @@
 
 .card .card-body {
     padding: 20px;
+    margin: 3px;
 }
 
 .card .card-title {
@@ -77,17 +82,27 @@ button.btn.btn-danger.move-left {
     color: #000;
 }
 
+.background.cardOwn {
+    background: #FE9F60;
+    padding: 1px 10px 6px 10px;
+    margin: auto 300px;
+}
 
 
-@media only screen and (max-width: 480px){
+
+@media only screen and (max-width: 480px) {
     .d-flex.justify-content-center.form-check.form-switch.mt-4 {
         padding-top: 69px;
     }
+
 }
 
 @media only screen and (min-width: 768px) {
     .d-flex.justify-content-center.form-check.form-switch.mt-4 {
-        padding-top: 10px;
+        padding-top: 80px;
+    }
+    .background.cardOwn {
+        padding: 1px 40px 6px 40px;
     }
 }
 

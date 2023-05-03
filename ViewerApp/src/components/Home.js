@@ -204,7 +204,7 @@ const Home = (props) => {
                                 )
                             })}
                         <div className='d-flex justify-content-center mt-5'>
-                            {fitered.length === 0 && <div >Sory, it's seem your location didn't found at this time </div>}
+                            {fitered.length === 0 && <div >Sorry, it's seem your location didn't found at this time </div>}
 
 
                         </div>

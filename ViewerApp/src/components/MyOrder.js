@@ -4,13 +4,16 @@ import MyOrderCard from "./MyOrderCard"
 const MyOrder = () => {
     const [myOrder, setMyOrder] = useState([])
     const [filter, setFilter] = useState(false)
+    const [filterele,setFilterEle]=useState([])
     const [isLogin, setIsLogin] = useState(false)
     useEffect(() => {
         const fetchMyOrder = async () => {
             try {
                 const response = await axios.get(`/Card/GetOwnerOrder`)
-             
                 setMyOrder(response.data)
+                const filter = response.data.filter(order => !order.isComplete)
+                setFilterEle(filter)
+
             } catch (error) {
                 
             }
@@ -30,16 +33,16 @@ const MyOrder = () => {
     }, [])
     const orderElement = myOrder.map(order => {
         return (
-            <MyOrderCard key={order.cardID} order={ order} />
+            <MyOrderCard key={order.orderID} order={ order} />
             )
     })
-
-    const filterOrderElement = myOrder.map(order => {
-        if (!order.isComplete) {
-
-        }
-
+    const FilterorderElement = filterele.map(order => {
+        return (
+            <MyOrderCard key={order.orderID} order={order} />
+        )
     })
+
+
     return (
 
                 <div>
@@ -55,7 +58,7 @@ const MyOrder = () => {
 
             </div>
 
-            <div style={{ paddingTop:'100px' }}>{!filter ? orderElement : filterOrderElement}</div>
+            <div style={{ paddingTop: '100px' }}>{!filter ? orderElement : FilterorderElement}</div>
 
 
         </div>

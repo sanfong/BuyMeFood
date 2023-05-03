@@ -74,7 +74,7 @@ const CardOwner = (props) => {
                                     <tbody>
                                         {detail.map((order) => {
                                             return (
-                                                <tr key={order.orderID} onClick={ownerProfile}>
+                                                <tr key={order.orderID} onClick={() => { ownerProfile(order.ownerID) }}>
                                                     <th scope="row">{order.orderID}</th>
                                                     <td>{order.ownerName}</td>
                                                     <td>{order.storeName}</td>

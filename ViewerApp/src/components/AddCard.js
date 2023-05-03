@@ -69,7 +69,7 @@ const AddCard = (props) => {
                 <h1>เพิ่มรายการฝาก</h1>
                 <div className="form-group">
                     <label className="d-flex" htmlFor="inputAddress">สถานที่<p className='text-danger'>*</p></label>
-                    <input type="text" className="input form-input" id="inputAddress" placeholder="ระบุร้าน, " onChange={(e) => { setDetailState({ ...detailState, loactionStoreName: e.target.value }) }} />
+                    <input type="text" className="input form-input" id="inputAddress" placeholder="ระบุสถานที่,โรงอาหาร " onChange={(e) => { setDetailState({ ...detailState, loactionStoreName: e.target.value }) }} />
                     {detailState.loactionStoreName === '' && isErr && <p className='text-danger'>{errormsg.store}</p>}
                 </div>
                 <div className="form-group">
@@ -89,7 +89,7 @@ const AddCard = (props) => {
                     </div>
                     <label className="d-flex" htmlFor="inputZip">จำนวนออเดอร์ที่รับฝาก<p className='text-danger'>*</p></label>
                     <div className="form-group col-md-2">
-                        <input type="number" className="input form-input" id="inputZip" onChange={(e) => {
+                        <input type="number" min={ 1} className="input form-input" id="inputZip" onChange={(e) => {
                             setDetailState({
                                 ...detailState, maxOrder: e.target.value
                             })
@@ -110,7 +110,7 @@ const AddCard = (props) => {
                     <textarea onChange={(e) => { setDetailState({ ...detailState, description: e.target.value }) }} className="input form-input" id="note" />
                 </div>
                 <div className="d-flex justify-content-center">
-                    <button onClick={handleSubmit} className="btn btn-success mt-3 col-md-5">เพิ่มรายการ</button>
+                    <button onClick={handleSubmit} className="def-btn btn mt-3 col-md-5">เพิ่มรายการ</button>
                 </div>
             </div>
         </Modal>

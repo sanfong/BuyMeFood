@@ -38,27 +38,27 @@ const NavMenu = (props) => {
 
     return (
         <header >
-            <Navbar style={{ width: '100%' }} className="navbar-expand-sm navbar-toggleable-lg bg-white border-bottom box-shadow mx-0 px-5 position-fixed" light>
-                <NavbarBrand className='p-0' href="/">Buymefood</NavbarBrand>
+            <Navbar style={{ width: '100%', backgroundColor: '#FE9F60' }} className="navbar-expand-sm navbar-toggleable-lg border-bottom box-shadow mx-0 px-5 position-fixed" light>
+                <NavbarBrand className='p-0 text-light' href="/">Buymefood</NavbarBrand>
                 <NavbarToggler onClick={toggle} className="me-2" />
                 <Collapse isOpen={isOpen} navbar>
                 {isLogin ?
                     
-                        <Nav className="navbar-nav flex-grow ms-auto" navbar>
+                        <Nav className="navItem navbar-nav flex-grow ms-auto" navbar>
                             <NavItem>
-                                <div ><NavLink tag={Link} className="text-dark" to="/myorder"  >My Order</NavLink></div>
+                                <div ><NavLink tag={Link} className="navtext" to="/myorder"  >My Order</NavLink></div>
                             </NavItem>
                             <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/mycard">MyCard</NavLink>
+                                <NavLink tag={Link} className="navtext" to="/mycard">MyCard</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/profile">Profile</NavLink>
+                                <NavLink tag={Link} className="navtext" to="/profile">Profile</NavLink>
                             </NavItem>
                             <NavItem>
-                                <div onClick={logout}><NavLink tag={Link} className="text-dark" to="/"  >Logout</NavLink></div>
+                                <div onClick={logout}><NavLink tag={Link} className="navtext" to="/"  >Logout</NavLink></div>
                             </NavItem>
                     </Nav>
-                        : <NavLink tag={Link} className="ms-auto button-log mt-0" to="/login">Log In</NavLink>
+                        : <NavLink tag={Link} className=" ms-auto button-log mt-0" to="/login">Log In</NavLink>
                     }
                 </Collapse>
             </Navbar>

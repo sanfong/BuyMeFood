@@ -2,6 +2,7 @@
   white-space: normal;
   text-align: center;
   word-break: break-all;
+
 }
 
 html {
@@ -20,16 +21,29 @@ html {
 .nav-contianer{
     position:fixed;
     width:100%;
+
 }
 .button-log {
-  
     border: none;
-    padding: 8px 16px;
+    padding: 5px 10px;
     font-size: 16px;
     border-radius: 4px;
-    background-color: #FE9F60;
-    color: #fff;
+    background-color: white;
+    color: #FE9F60;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-    font-weight:400
+    font-weight: 400;
+
+}
+Navbar {
+background-color: #FE9F60;
+}
+.navtext {
+color:white;
+}
+    .navtext:hover {
+        color: #cb7f4c
+    }
+.active {
+         color:green;
 }

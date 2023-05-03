@@ -173,7 +173,7 @@ const Home = (props) => {
     }
 
     return (
-        <div style={{ backgroundColor: '#fff' }}>
+        <div style={{ backgroundColor: '#fff', height:'100vh' }}>
             <div>
                 {displayAdd && <AddCard isLogin={false} onClose={() => { setDisplayAdd(false) }} />}
                 <div style={{ padding: '3rem', borderBottom: '2px solid green', backgroundImage: 'url("https://img.freepik.com/free-vector/hand-drawn-delicious-food-background_52683-16136.jpg?size=626&ext=jpg&ga=GA1.2.284292450.1670951791&semt=sph")', margin: '0' }} className="row">

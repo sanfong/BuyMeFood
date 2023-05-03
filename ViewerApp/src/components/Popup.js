@@ -23,8 +23,8 @@ const PopUp = (props) => {
             storeName: '',
             description: '',
             cardID: props.cardID
-    })
-    const existNote = props.item.note !== ''
+        })
+    const existNote = props.item.description !== ''
     const [displayStatus, setDisplayStatus] = useState(false)
     const nameRef = useRef()
     const descRef = useRef()
@@ -45,6 +45,33 @@ const PopUp = (props) => {
         
 
     }
+
+    const onSubmitOrder = async () => {
+        if (nameRef.current.value.trim() !== '' && descRef.current.value.trim() !== '') {
+            setDisplayStatus(true)
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            const formdata = JSON.stringify(detailState)
+            const response = await axios.post('/Card/createOrder', formdata, config)
+
+            window.location.reload()
+
+
+        } else {
+            setIsErr(true)
+
+        }
+
+    }
+
+
+
+
+
     const SubmitForm = async() => {
         if (displayForm) {
             if (nameRef.current.value.trim() !== '' && descRef.current.value.trim() !== '') {
@@ -91,7 +118,7 @@ const PopUp = (props) => {
         const fetchOrderList = async () => {
             try {
                 const response = await axios.get(`/Card/GetCardOrder?cardID=${props.cardId}`)
-              
+                console.log(response)
                 setOrderDetail(response.data)
             } catch (error) {
              
@@ -100,7 +127,7 @@ const PopUp = (props) => {
         const fetchOwner = async () => {
             try {
                 const response = await axios.get(`/Account/select?id=${props.cardOwnerId}`)
-            
+                
                 setOwnerName(response.data[0].name)
                 setTel(response.data[0].phoneNumber)
 
@@ -132,55 +159,84 @@ const PopUp = (props) => {
                 <img class="pop-img" src={props.item.image} />
             </div>
 
-            <div className='container'>
-                <div className="order" style={{ display: 'flex', justifyContent: 'space-between' }}  >
-                    <h1 className="card-title"> <strong>{props.item.place}</strong></h1>
-                    <h1 style={{ color: props.isFull && 'red' }}>จำนวนที่รับ: {props.item.orderCount}/{props.item.maxOrder}</h1>
+            <div className='sub-container'>
+                <div className="order-head"  >
+                        <h1 className="card-title"> สถานที่: <strong>{props.item.loactionStoreName}</strong></h1>
+                        <h1 style={{ color: props.isFull && 'red' }}>จำนวนที่รับ: <strong>{props.item.orderCount}/{props.item.maxOrder}</strong></h1>
                     
 
-                </div>
-                <div className="order"  >
-                    <h3 >ผู้รับฝาก : {ownerName}</h3>
-                  
-                    <div className={isExpired ? "bg bg-danger text-white " : "bg bg-success text-white "}>
-                        <p style={{ fontSize: '16px', marginBottom: '0'}}>{isExpired ? 'close' : 'open'}</p>
                     </div>
-                </div>
-                <p >โทร: {tel}</p>
-                <div className="order">
 
-                    <h4 >เวลาปิดรับออเดอร์ : {timeString}</h4>
-                    {isOwner && !isExpired && < button className="btn btn-success col-2 col-md-2 col-lg-2" onClick={() => {
-                        closeOrder(props.cardId)
-                        setIsExpired(true)
-                    }}>ปิดรับ</button>}
-                </div>
-                
-                <h4 >สถานที่รับอาหาร : {props.item.loactionPickupName}</h4>
-                <h4>Note : {!existNote && '-' }</h4>
-                {existNote && <div className="ex-note" >
-                    <p>{props.item.description}</p>
-                </div>}
+                    <div className='suborder row'>
+                        <div className="col-6">
+                            <div className="order"  >
+                                <div className='d-flex'> 
+                                    <h4 className='label'>ผู้รับฝาก</h4>
+                                    <h4 style={{ marginTop: '10px' }}> {ownerName}</h4>
+                                </div>
 
 
-                {displayForm && <div><hr />
-                    <div className="d-flex justify-content-between">
-                        <h2>กรอกรายการที่ต้องการฝากซื้อ</h2>
+
+                            </div>
+                            <div className='d-flex'>
+                                <h4 className='label'>โทร</h4>
+                                <h4 style={{ marginTop: '10px' }}> {tel}</h4>
+                            </div>
+                        </div>
+                        <div className="col-6">
+
+                            <div className="order">
+
+                         
+                                <div className='d-flex'>
+                                    <h4 className='label'>เวลาปิดรับออเดอร์ </h4>
+                                    <h4 style={{ marginTop: '10px' }}>  {timeString}</h4>
+                                </div>
+
+                            </div>
+
+                 
+                            <div className='d-flex'>
+                                <h4 className='label'>สถานที่รับ </h4>
+                                <h4 style={{ marginTop: '10px' }}>  {props.item.loactionPickupName}</h4>
+                            </div>
+
+                        </div>
+                        
+                        <div className='d-flex'>
+                            <h4 className='label'>Note</h4>
+                            <h4 style={{ marginTop: '10px' }}>  {!existNote && '-'}</h4>
+
+                        </div>
+
+
+                        {existNote && <div className="ex-note" >
+                            <p>{props.item.description}</p>
+                        </div>}
+                    </div>
+
+
+
+
+                {displayForm && <div>
+                    <div className="d-flex justify-content-between mx-3">
+
+                            <h2 className='form-order'>กรอกรายการที่ต้องการฝากซื้อ</h2>
                         <button onClick={() => {
                             setDisplayForm(false)
-                            setIsErr(false)
-                        }} className="btn btn-danger" style={{ height: '40px' }}>x</button>
+                                setIsErr(false)
+                            }} className="btn btn-secondary" style={{ height: '40px', marginLeft:'20px' }}>x</button>
                     </div>
-                    
-                    <form >
-                        <div className="form-group">
-                            <label >ร้าน</label>
-                            <input onChange={(e) => { setDetailState({ ...detailState, storeName: e.target.value }) }} ref={nameRef} type="text" className="input form-input" placeholder="ระบุร้านที่ต้องการสั่ง" />
+
+                        <form className='form-body'>
+                            <div className="form-group">
+                                <label style={{ color: '#cb7f4c', fontSize:'x-large' }}>ร้าน</label>
+                            <input onChange={(e) => { setDetailState({ ...detailState, storeName: e.target.value }) }} ref={nameRef} type="text" className="form-input-order" placeholder="ระบุร้านที่ต้องการสั่ง" />
                             {detailState.storeName === '' && isErr && <p style={{ width: '250px' }} className='text-danger'>{errormsg.store}</p>}
                         </div>
                         <div className="form-group">
-                            <label >รายละเอียด</label>
-                            <textarea onChange={(e) => { setDetailState({ ...detailState, description: e.target.value }) }} ref={descRef} type="text" className="input form-input" placeholder="กรอกเมนู จำนวน และรายละเอียดต่างๆที่ต้องการ" />
+                                <label style={{ color: '#cb7f4c', fontSize: 'x-large' }}>รายละเอียด</label>
+                                <textarea onChange={(e) => { setDetailState({ ...detailState, description: e.target.value }) }} ref={descRef} type="text" className="form-input-order " placeholder="กรอกเมนู จำนวน และรายละเอียดต่างๆที่ต้องการ" />
                             {detailState.description === '' && isErr && <p style={{ width: '250px' }} className='text-danger'>{errormsg.descp}</p>}
                         </div>
                     </form>
@@ -199,29 +255,36 @@ const PopUp = (props) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {orderDetail.map((order) => {
+                               {orderDetail.map((order) => {
                                     return (
 
-                                        <tr key={ order.orderID} onClick={() => { ownerProfile(order.ownerID) }}>
-                                            <th scope="row">{order.orderID}</th>
-                                            <td>{order.ownerName}</td>
-                                            <td>{order.storeName}</td>
-                                            <td>{order.description}</td>
-                                            <td>{order.isComplete ? <span className="text-success">ส่งแล้ว</span> : <span className="text-danger">ยังไม่ส่ง</span> }</td>
+                                       <tr key={ order.orderID} onClick={() => { ownerProfile(order.ownerID) }}>
+                                           <th scope="row">{order.orderID}</th>
+                                           <td>{order.ownerName}</td>
+                                           <td>{order.storeName}</td>
+                                        <td>{order.description}</td>
+                                           <td>{order.isComplete ? <span className="text-success">ส่งแล้ว</span> : <span className="text-danger">ยังไม่ส่ง</span> }</td>
                                     </tr>)
-                                })}
-                            </tbody>
+                               })}
+                           </tbody>
                         </table>
 
                 </div>}
-                    
-                <div className='d-flex justify-content-around container my-3 '>
-                    {!isOwner ? <button onClick={SubmitForm} disabled={isExpired} className="btn btn-success col-6 col-md-3 col-lg-2">{displayForm ? 'ยืนยัน' : 'ฝากสั่ง'}</button> : !displayOrder ? < button onClick={() => {
-                    
-                        setDisplayOrder(true)
-                    }} className="btn btn-warning">ดูรายการฝาก</button> : <button onClick={() => { window.location.replace('mycard') }} className='btn btn-warning'>ดูรายการรับฝากทั้งหมด</button>} 
-                    <button className="btn btn-danger  col-5 col-md-3 col-lg-2" onClick={props.onClose}>ปิด</button>
-                </div>
+
+                    <div className='d-flex justify-content-between btn-order'>
+                        {isOwner ? displayOrder ? < button className='def-btn' onClick={() => { window.location.replace('mycard') }}>ดูรายการรับฝากทั้งหมด</button> :
+                            < button className='def-btn'  onClick={() => { setDisplayOrder(true) }}>ดูรายการฝาก</button> :
+                            displayForm ? <button className='def-btn' onClick={onSubmitOrder}>ยืนยัน</button> :
+                                <button className='def-btn' onClick={() => { setDisplayForm(true) }} >ฝากสั่ง</button>}
+                        <button className='clc-btn' onClick={props.onClose}>ปิด</button>
+                    </div>
+
+
+
+
+
+
+
                 </div>
             </div>
 

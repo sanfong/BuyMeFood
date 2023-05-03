@@ -188,7 +188,7 @@ const SignUp = (props) => {
                         <div className='col-md-6 px-5'>
                             <div>
                                 <div >Username</div>
-                                <input className="input  mb-0 control"
+                                <input className="input  mb-2 control"
                                     type="text"
                                     placeholder=""
                                     value={username}
@@ -212,7 +212,7 @@ const SignUp = (props) => {
                                 <div>Confirm Password</div>
                                 <input
                                     type="password"
-                                    className="input mb-0"
+                                    className="input mb-2"
                                     placeholder=""
                                     value={confirmPassword}
                                     onChange={(e) => { validateConfirmPassword(e.target.value) }}
@@ -223,7 +223,7 @@ const SignUp = (props) => {
                                 <div>Name</div>
                                 <input
                                     type="text"
-                                    className="input mb-0"
+                                    className="input mb-2"
                                     value={name}
                                     onChange={(e) => { validateName(e.target.value) }}
                                 />
@@ -233,7 +233,7 @@ const SignUp = (props) => {
                                 <div>Full Name</div>
                                 <input
                                     type="text"
-                                    className="input mb-0"
+                                    className="input mb-2"
                                     placeholder=""
                                     value={fullName}
                                     onChange={(e) => { validateFullName(e.target.value) }}
@@ -244,7 +244,7 @@ const SignUp = (props) => {
                                 <div>Phone Number</div>
                                 <input
                                     type="tel"
-                                    className="input mb-0"
+                                    className="input mb-2"
                                     value={phone}
                                     onChange={(e) => { validatePhoneNumber(e.target.value) }}
                                 />

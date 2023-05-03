@@ -41,23 +41,24 @@ const MyOrder = () => {
 
     })
     return (
-        <div>
-            
-            <div className="d-flex justify-content-center form-check form-switch mt-4" >
-                <h6 style={{ marginTop: '10px', marginRight:'50px' }}>
-                    filter incomplete order
+
+                <div>
+
+            <div className="d-flex justify-content-center form-check position-fixed form-switch mt-4" style={{ right:'20px' }} >
+                <h6 style={{ marginTop: '10px', marginRight: '50px' }}>
+                     filter incomplete order
                 </h6>
                 <input style={{ marginRight: '20px' }}
                     onChange={
                         (e) => { setFilter(e.target.checked) }
                     } className="form-check-input" type="checkbox" style={{ width: '50px', height: '30px' }} />
-                   
+
             </div>
-            {!filter ? orderElement : filterOrderElement}
+
+            <div style={{ paddingTop:'100px' }}>{!filter ? orderElement : filterOrderElement}</div>
 
 
         </div>
-
         )
 }
 

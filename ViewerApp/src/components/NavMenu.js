@@ -37,8 +37,8 @@ const NavMenu = (props) => {
     }
 
     return (
-        <header >
-            <Navbar style={{ width: '100%', backgroundColor: '#FE9F60' }} className="navbar-expand-sm navbar-toggleable-lg border-bottom box-shadow mx-0 px-5 position-fixed" light>
+        <header style={{ zIndex: '1' }}>
+            <Navbar style={{ zIndex: '1' ,width: '100%', backgroundColor: '#FE9F60'}} className="navbar-expand-sm navbar-toggleable-lg border-bottom box-shadow mx-0 px-5 position-fixed "  light>
                 <NavbarBrand className='p-0 text-light' href="/">Buymefood</NavbarBrand>
                 <NavbarToggler onClick={toggle} className="me-2" />
                 <Collapse isOpen={isOpen} navbar>

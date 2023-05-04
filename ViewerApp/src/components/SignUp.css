@@ -12,13 +12,13 @@
     display: flex;
     flex-direction: column;
     padding: 40px;
-    margin-top:150px;
+    margin-top: 150px;
     border-radius: 14px;
     border: 5px solid #cb7f4c;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     width: 80vw;
-    height:100vh;
+    max-width: 850px;
 }
 .title {
     text-align:center;

@@ -87,6 +87,12 @@ const CardOwner = (props) => {
 
                             </div>}
                         <div className="card-btn-container">
+                            {!props.order.isExpired && <button onClick={() => {
+                                closeOrder(
+                                    props.order.cardID
+                                )
+                                window.location.reload()
+                            }} className="btn btn-success cardOwn move-right">ปิดรับ</button>}
 
                             {!displayDetail ? (
                                 <button
@@ -108,12 +114,7 @@ const CardOwner = (props) => {
                                 </button>
                             )}
 
-                            {!props.order.isExpired && <button onClick={() => {
-                                closeOrder(
-                                    props.order.cardID
-                                )
-                                window.location.reload()
-                            }} className="btn btn-success cardOwn">ปิดรับ</button>}
+                            
                         </div>
                     </div>
                 </div>

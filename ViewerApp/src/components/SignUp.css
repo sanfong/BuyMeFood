@@ -18,7 +18,10 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     width: 80vw;
-    height:100vh;
+    max-width:850px;
+   
+
+    
 }
 .title {
     text-align:center;

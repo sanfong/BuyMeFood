@@ -20,12 +20,12 @@ const Card = (props) => {
                 window.location.reload()
             }} item={props.item} isFull={isFull} />}
             <img src={props.item.image} class="card-img-top" style={{ height: '100px', width: '100%' }} />
-            <div className="card-body" style={{ padding:'0' }} >
+            <div className="card-body" style={{ padding: '0px', margin:'0px' }} >
                 <div className="lo-order">
                     
                     <p className=""><svg className='loc' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill='currentColor' ><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" /></svg> <strong>{props.item.loactionStoreName}</strong></p>
                     <p className="num" style={{ color: isFull && 'red' }}>{props.item.orderCount}/{props.item.maxOrder}</p>
-                    </div>
+                </div>
 
                 <div className="clk-pck">
 

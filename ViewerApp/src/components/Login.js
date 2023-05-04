@@ -53,6 +53,7 @@ const Login = () => {
                             <div>
                                 <div className="up">Password</div>
                                 <input
+                                    style={{ marginBottom:'0px' }}
                                     type="password"
                                     className="input"
                                     placeholder=""

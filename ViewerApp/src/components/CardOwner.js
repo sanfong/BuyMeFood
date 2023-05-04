@@ -110,7 +110,7 @@ const CardOwner = (props) => {
                                     }}
                                     className="btn btn-danger move-left"
                                 >
-                                    ปิด
+                                    ย่อรายการฝาก
                                 </button>
                             )}
 

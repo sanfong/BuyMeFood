@@ -250,20 +250,20 @@ const PopUp = (props) => {
                              
                                     <th scope="col">ผู้ฝาก</th>
                                     <th scope="col">ร้าน</th>
-                                    <th scope="col" style={{ width:'300px' }}>รายละเอียด</th>
+                                    <th scope="col" style={{ width:'100px' }} >รายละเอียด</th>
                                     <th scope="col">สถานะ</th>
                                 </tr>
                             </thead>
                             <tbody>
                                {orderDetail.map((order) => {
-                                    return (
+                                   return (
 
-                                       <tr key={ order.orderID} onClick={() => { ownerProfile(order.ownerID) }}>
+                                       <tr  key={order.orderID} onClick={() => { ownerProfile(order.ownerID) }}>
                                    
-                                           <td>{order.ownerName}</td>
-                                           <td>{order.storeName}</td>
-                                        <td>{order.description}</td>
-                                           <td>{order.isComplete ? <span className="text-success">ส่งแล้ว</span> : <span className="text-danger">ยังไม่ส่ง</span> }</td>
+                                           <td style={{ width: '10%', wordBreak: 'break-word' }}>{order.ownerName}</td>
+                                            <td style={{ width: '15%', wordBreak: 'break-word' }}>{order.storeName}</td>
+                                           <td style={{ width: '60%', wordBreak: 'break-word' }} >{order.description}</td>
+                                           <td style={{ width: '15%', wordBreak: 'break-word' }}>{order.isComplete ? <span className="text-success">ส่งแล้ว</span> : <span className="text-danger">ยังไม่ส่ง</span> }</td>
                                     </tr>)
                                })}
                            </tbody>

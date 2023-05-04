@@ -64,7 +64,7 @@ const CardOwner = (props) => {
                                 <table className="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th scope="col">#</th>
+                                          
                                             <th scope="col">ผู้ฝาก</th>
                                             <th scope="col">ร้าน</th>
                                             <th scope="col" style={{ width: '300px' }}>รายละเอียด</th>
@@ -75,7 +75,7 @@ const CardOwner = (props) => {
                                         {detail.map((order) => {
                                             return (
                                                 <tr key={order.orderID} onClick={() => { ownerProfile(order.ownerID) }}>
-                                                    <th scope="row">{order.orderID}</th>
+                                                   
                                                     <td>{order.ownerName}</td>
                                                     <td>{order.storeName}</td>
                                                     <td>{order.description}</td>

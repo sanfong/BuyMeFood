@@ -9,7 +9,7 @@ const MyOrderCard = (props) => {
     const submitOrder = async (id) => {
         try {
             const response = await axios.post(`/Card/submitOrder?orderID=${id}`)
-
+         
             window.location.reload()
 
         } catch (error) {
@@ -21,10 +21,20 @@ const MyOrderCard = (props) => {
     useEffect(() => {
         const fetchOwner = async () => {
             try {
-             
-                const response = await axios.get(`/Account/select?id=${props.order.ownerID}`)
-             
-                setOwnerName(response.data[0])
+
+
+
+                const response = await axios.get(`/Card/select?id=${props.order.cardID}`)
+                const ownerCardID = response.data[0].ownerID
+                const ownerCardName = await axios.get(`/Account/select?id=${ownerCardID}`)
+                console.log(ownerCardName.data[0].name)
+
+
+
+
+
+          
+                setOwnerName(ownerCardName.data[0])
 
 
             } catch (error) {

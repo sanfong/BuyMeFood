@@ -62,7 +62,7 @@ const Login = () => {
                                 />
                                 
                             </div>
-                            <div style={{ position: 'absolute' }}>{error && <p className="error">{error}</p>}</div>       
+                            <div>{error && <p className="error">{error}</p>}</div>       
                         </form>
                     </div>
                     <div className='col-md-6 d-none d-md-block img-contianer'>
